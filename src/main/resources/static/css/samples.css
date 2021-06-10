@@ -1,0 +1,126 @@
+html {
+	position: relative;
+	min-height: 100%;
+}
+
+/* ã‚³ãƒ¼ãƒ‰ */
+pre.highlightjs code {
+	text-align: left;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	border: 1px solid #e1e1e8;
+	border-radius: 0.25rem;
+}
+
+/* ãƒ—ãƒ¬ãƒ¼ã‚¹ãƒ›ãƒ«ãƒ€ç”»åƒ */
+.bd-placeholder-img {
+	font-size: 1.125rem;
+	text-anchor: middle;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+@media (min-width:768px) {
+	.bd-placeholder-img-lg {
+		font-size: 3.5rem;
+	}
+}
+
+/* ã‚°ãƒªãƒƒãƒ‰ */
+.row .grid {
+	border: 1px solid rgba(86, 61, 124, 0.2);
+}
+.row .column {
+	background-color: rgba(86, 61, 124, 0.15);
+	border: 1px solid rgba(86, 61, 124, 0.2);
+	padding-bottom: 0.75rem;
+	padding-top: 0.75rem;}
+
+/* ã‚³ãƒ³ãƒ†ãƒŠ */
+.bd-example-container {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 25rem;
+	min-width: 16rem;
+}
+.bd-example-container-header {
+	background-color: #daeeff;
+	border-radius: 0.25rem;
+	height: 3rem;
+	margin-bottom: 0.5rem;
+}
+.bd-example-container-sidebar {
+	background-color: #fae3c4;
+	border-radius: 0.25rem;
+	float: right;
+	height: 8rem;
+	width: 6rem;
+}
+.bd-example-container-body {
+	background-color: #957bbe;
+	border-radius: 0.25rem;
+	height: 8rem;
+	margin-right: 6.5rem;
+}
+.bd-example-container-fluid {
+	max-width: none;
+}
+
+/* ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã‚¹ãƒ‘ã‚¤ */
+.scrollspy-example {
+	height: 200px;
+	overflow: auto;
+	position: relative;
+}
+
+/* Flexbox grid system */
+.row .flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+.row .flex::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.row .flex + .row {
+    margin-top: 1rem;
+}
+.row .flex > [class^="col-"] {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    background-color: rgba(86, 61, 124, 0.15);
+    border: 1px solid rgba(86, 61, 124, 0.2);
+}
+.bd-example-row-flex-cols .row {
+    background-color: rgba(255, 0, 0, 0.1);
+    min-height: 10rem;
+}
+
+/* ãƒ¢ãƒ¼ãƒ€ãƒ« */
+.modal-content {
+	font-size: 1rem;
+	font-weight: 400;
+	text-align: left;
+	text-shadow:none;
+}
+.modal-content h1,
+.modal-content h2,
+.modal-content h3,
+.modal-content h4,
+.modal-content h5,
+.modal-content h6 {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+}
+.modal-footer .btn-secondary {
+	color: #fff;
+	background-color: #6c757d;
+	border-color: #6c757d;
+}
+.modal-footer .btn-secondary:hover {
+	color: #fff;
+	background-color: #5a6268;
+	border-color: #545b62;
+}
