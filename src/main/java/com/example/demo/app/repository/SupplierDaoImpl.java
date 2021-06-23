@@ -22,7 +22,7 @@ public class SupplierDaoImpl implements SupplierDao{
 	@Override
 	public List<Supplier> findAll() {
 		
-		String sql = "SELECT SUPPLIER.id,type_id,name," 
+		String sql = "SELECT SUPPLIER.id,type_id,comment," 
 				+" type FROM SUPPLIER"
 				+" INNER JOIN SUPPLIER_TYPE ON SUPPLIER.type_id = SUPPLIER_TYPE.id";
 				
@@ -35,10 +35,10 @@ public class SupplierDaoImpl implements SupplierDao{
 			
 			Supplier supplier = new Supplier();
 			supplier.setId((int)result.get("id"));
-			supplier.setName((String)result.get("name"));
+			supplier.setComment((String)result.get("comment"));
 			
 			SupplierType supplierType  = new SupplierType();
-			supplierType.setId((int)result.get("id"));
+			supplierType.setId((int)result.get("type_id"));
 			supplierType.setType((String)result.get("type"));
 			
 			supplier.setSupplierType(supplierType);
@@ -51,20 +51,20 @@ public class SupplierDaoImpl implements SupplierDao{
 	@Override
 	public Optional<Supplier> findById(int id) {
 		
-		String sql = "SELECT SUPPLIER.id, type_id, name," 
+		String sql = "SELECT SUPPLIER.id, type_id, comment," 
 				+ "type FROM SUPPLIER"
-				+ "INNER JOIN SUPPLIER_TYPE ON SUPPLIER.type_id = SUPPLIER_TYPE.id"
-				+ "WHERE SUPPLIER.id = ?";
+				+" INNER JOIN SUPPLIER_TYPE ON SUPPLIER.type_id = SUPPLIER_TYPE.id"
+				+" WHERE SUPPLIER.id = ?";
 		
 		Map<String,Object> result = jdbcTemplate.queryForMap(sql,id);
 	
 		Supplier supplier  = new Supplier();
 		supplier.setId((int)result.get("id"));
 	    supplier.setTypeId((int)result.get("type_id"));
-	    supplier.setName((String)result.get("name"));
+	    supplier.setComment((String)result.get("comment"));
 	    
 	    SupplierType supplierType = new SupplierType();
-	    supplierType.setId((int)result.get("id"));
+	    supplierType.setId((int)result.get("type_id"));
 	    supplierType.setType((String)result.get("type"));
 	    
 	    supplier.setSupplierType(supplierType);
@@ -76,21 +76,20 @@ public class SupplierDaoImpl implements SupplierDao{
 
 	@Override
 	public void insert(Supplier supplier) {
-		jdbcTemplate.update("INSERT INTO SUPPLIER(type_id,name)VALUES(?,?)",
-							supplier.getTypeId(),supplier.getName());
+		jdbcTemplate.update("INSERT INTO SUPPLIER( type_id, comment) VALUES(?,?)",
+							supplier.getTypeId(),supplier.getComment());
 	}
 
 	@Override
 	public int update(Supplier supplier) {
-		
-		return jdbcTemplate.update("UPDATE SUPPLIER SET type_id = ?,name = ? WHERE id = ?",
-									supplier.getTypeId(),supplier.getName());
+		return jdbcTemplate.update("UPDATE SUPPLIER SET type_id = ?,comment = ? WHERE id = ?",
+									supplier.getTypeId(),supplier.getComment(),supplier.getId());
 	}
 
 	@Override
 	public int deleteById(int id) {
 		
-		return jdbcTemplate.update("DELETE FROM SUPPLIER WHERE id = ?");
+		return jdbcTemplate.update("DELETE FROM SUPPLIER WHERE id = ?",id);
 	}
 
 }

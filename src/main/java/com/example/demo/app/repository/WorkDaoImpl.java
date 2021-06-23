@@ -38,7 +38,7 @@ public class WorkDaoImpl implements WorkDao{
 			work.setTypeId((int)result.get("type_id"));
 			
 			WorkType workType = new WorkType();
-			workType.setId((int)result.get("id"));
+			workType.setId((int)result.get("type_id"));
 			workType.setType((String)result.get("type"));
 			
 			work.setWorkType(workType);
@@ -51,10 +51,10 @@ public class WorkDaoImpl implements WorkDao{
 	@Override
 	public Optional<Work> findById(int id) {
 		
-		String sql ="SELECT WORK.id,type_id,comment,"
-				   +"type FROM WORK"
-				   +"INNER JOIN WORK_TYPE ON WORK.type_id = WORK_TYPE.id"
-				   +"WHERE id = ?";
+		String sql ="SELECT WORK.id, type_id, comment,"
+				   +" type FROM WORK"
+				   +" INNER JOIN WORK_TYPE ON WORK.type_id = WORK_TYPE.id"
+				   +" WHERE WORK.id = ?";
 		
 		Map<String,Object> result = jdbcTemplate.queryForMap(sql,id);
 		
@@ -64,7 +64,7 @@ public class WorkDaoImpl implements WorkDao{
 		work.setComment((String)result.get("comment"));
 		
 		WorkType workType = new WorkType();
-		workType.setId((int)result.get("id"));
+		workType.setId((int)result.get("type_id"));
 		workType.setType((String)result.get("type"));
 	
 		
@@ -76,14 +76,15 @@ public class WorkDaoImpl implements WorkDao{
 	@Override
 	public void insert(Work work) {
 		jdbcTemplate.update("INSERT INTO WORK(type_id,comment)VALUES(?,?)",
-				work.getId(),work.getTypeId());
+				            work.getTypeId(),work.getComment());
 	}
+	
+	
 
 	@Override
 	public int update(Work work) {
-		
-		return jdbcTemplate.update("UPDATE WORK SET type_id = ? comment = ? WHERE id = ?",
-				work.getId(),work.getTypeId());
+		return jdbcTemplate.update("UPDATE WORK SET type_id = ?, comment = ? WHERE id =?",
+				                    work.getTypeId(),work.getComment(),work.getId());
 	}
 
 	@Override

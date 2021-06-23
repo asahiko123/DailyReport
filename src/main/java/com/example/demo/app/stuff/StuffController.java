@@ -37,7 +37,7 @@ public class StuffController {
 		List<Stuff> list = stuffService.findAll();
 		
 		model.addAttribute("title","スタッフマスタ");
-		model.addAttribute("name","名前");
+		model.addAttribute("name","氏名");
 		model.addAttribute("list",list);
 		
 		return"StuffForm";
@@ -56,10 +56,11 @@ public class StuffController {
 			stuffForm = stuffFormOpt.get();
 		}
 		model.addAttribute("stuffForm",stuffForm);
-		model.addAttribute("title","スタッフマスタ更新ページ");
+		model.addAttribute("title","スタッフマスタ更新フォーム");
 		List<Stuff> list = stuffService.findAll();
 		model.addAttribute("list",list);
 		model.addAttribute("stuffId",id);
+		model.addAttribute("name","氏名");
 		
 		
 		return "StuffForm";
@@ -99,10 +100,10 @@ public class StuffController {
 			RedirectAttributes redirectAttributes) {
 		
 		if(!result.hasErrors()) {
-			Stuff stuff = makeStuff(stuffForm,0);
+			Stuff stuff = makeStuff(stuffForm,stuffId);
 			stuffService.update(stuff);
 			redirectAttributes.addFlashAttribute("complete","変更が完了しました");
-			return "redirect:/main/stuff"+stuffId;
+			return "redirect:/main/stuff/"+ stuffId;
 		}else {
 			model.addAttribute("stuffForm",stuffForm);
 			model.addAttribute("title","スタッフマスタ");
@@ -112,10 +113,9 @@ public class StuffController {
 	
 	@PostMapping("/stuff/delete")
 	public String delete(
-			@RequestParam(
-					"stuffId") int id,
-					Model model
-					) {
+			@RequestParam("stuffId") int id,
+			Model model) 
+	{
 		stuffService.deleteById(id);
 		return"redirect:/main/stuff";
 		
@@ -130,6 +130,7 @@ public class StuffController {
 			stuff.setId(stuffId);
 		}
 		stuff.setName(stuffForm.getName());
+		stuff.setDetail(stuffForm.getDetail());
 		stuff.setTypeId(stuffForm.getTypeId());
 		
 		return stuff;
@@ -141,6 +142,7 @@ public class StuffController {
 		
 		stuffForm.setId(stuff.getId());
 		stuffForm.setName(stuff.getName());
+		stuffForm.setDetail(stuff.getDetail());
 		stuffForm.setNewStuff(false);
 		stuffForm.setTypeId(stuffForm.getId());
 		

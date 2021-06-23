@@ -2,6 +2,8 @@ package com.example.demo.app.work;
 
 import javax.validation.constraints.NotNull;
 
+import com.example.demo.app.entity.WorkType;
+
 public class WorkForm {
 	
 	private int id;
@@ -15,11 +17,13 @@ public class WorkForm {
 	}
 	
 	
-	public WorkForm(int id,String comment,boolean newWork,int typeId) {
+	public WorkForm(int id,int typeId,String comment,boolean newWork) {
 		this.id = id;
+		this.typeId  = typeId;
 		this.comment = comment;
 		this.newWork = newWork;
-		this.typeId  = typeId;
+		
+		
 	}
 
 

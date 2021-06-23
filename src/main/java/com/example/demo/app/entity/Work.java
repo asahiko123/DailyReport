@@ -10,12 +10,14 @@ public class Work {
 	public Work() {
 		
 	}
+	
 	public Work(int id,String comment, int typeId, WorkType workType) {
 		this.id = id;
 		this.typeId = typeId;
 		this.workType = workType;
 		this.comment = comment;
 	}
+	
 	public int getTypeId() {
 		return typeId;
 	}

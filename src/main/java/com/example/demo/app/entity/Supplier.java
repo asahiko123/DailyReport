@@ -1,21 +1,24 @@
 package com.example.demo.app.entity;
 
+import javax.validation.constraints.NotNull;
+
 public class Supplier {
 	
 	private int id;
 	private int typeId;
-	private String name;
+	@NotNull(message ="内容を入力してください")
+	private String comment;
 	private SupplierType supplierType;
 	
 	public Supplier() {
 		
 	}
 
-	public Supplier(int id,String name, int typeId, SupplierType supplierType) {
+	public Supplier(int id,String comment, int typeId, SupplierType supplierType) {
 		super();
 		this.id = id;
 		this.typeId = typeId;
-		this.name = name;
+		this.comment = comment;
 		this.supplierType = supplierType;
 	}
 
@@ -43,11 +46,11 @@ public class Supplier {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getComment() {
+		return comment;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 }

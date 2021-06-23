@@ -1,21 +1,37 @@
 package com.example.demo.app.supplier;
 
+import javax.validation.constraints.NotNull;
+
+import com.example.demo.app.entity.SupplierType;
+
 public class SupplierForm {
 	
 	private int id;
 	private int typeId;
-	private String name;
+	private SupplierType supplierType;
+	@NotNull(message ="内容を入力してください")
+	private String comment;
 	private boolean newSupplier;
+	
 	
 	public SupplierForm() {
 		
 	}
 	
-	public SupplierForm(int id, int typeId, String name, boolean newSupplier) {
+	public SupplierForm(int id, int typeId, SupplierType supplierType,String comment, boolean newSupplier) {
 		this.id = id;
 		this.typeId = typeId;
-		this.name  = name;
+		this.supplierType = supplierType;
+		this.comment  = comment;
 		this.newSupplier = newSupplier;
+	}
+
+	public SupplierType getSupplierType() {
+		return supplierType;
+	}
+
+	public void setSupplierType(SupplierType supplierType) {
+		this.supplierType = supplierType;
 	}
 
 	public boolean isNewSupplier() {
@@ -42,12 +58,12 @@ public class SupplierForm {
 		this.typeId = supplierId;
 	}
 
-	public String getName() {
-		return name;
+	public String getComment() {
+		return comment;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 	
 	

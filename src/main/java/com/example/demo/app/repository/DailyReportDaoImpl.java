@@ -1,7 +1,6 @@
 package com.example.demo.app.repository;
 
-import java.sql.Time;
-import java.sql.Timestamp;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +11,8 @@ import org.springframework.stereotype.Repository;
 
 import com.example.demo.app.entity.DailyReport;
 import com.example.demo.app.entity.DailyReportType;
+import com.example.demo.app.entity.Stuff;
+
 
 @Repository
 public class DailyReportDaoImpl implements DailyReportDao{
@@ -25,12 +26,14 @@ public class DailyReportDaoImpl implements DailyReportDao{
 	@Override
 	public List<DailyReport> findAll() {
 		
-		String sql = "SELECT DAILYREPORT.id, created, startTime, endTime, detail, stuff_id,"
+		String sql = "SELECT DAILYREPORT.id,type_id, created, startTime, endTime, detail, name,"
 				+ " progress FROM DAILYREPORT "
 				+ " INNER JOIN DAILYREPORT_TYPE ON DAILYREPORT_TYPE.id = DAILYREPORT.type_id";
-		
+				//+ " INNER JOIN STUFF ON DAILYREPORT.type_id = STUFF.id";
+		     
 		
 		List<Map<String,Object>> resultList = jdbcTemplate.queryForList(sql);
+		System.out.println(resultList);
 		
 		List<DailyReport> list  = new ArrayList<DailyReport>();
 		
@@ -40,14 +43,19 @@ public class DailyReportDaoImpl implements DailyReportDao{
 			DailyReport dailyReport = new DailyReport();
 			dailyReport.setId((int)result.get("id"));
 			dailyReport.setTypeId((int)result.get("type_id"));
-			dailyReport.setCreated(((Timestamp)result.get("created")).toLocalDateTime());
-			dailyReport.setStartTime((Time)result.get("startTime"));
-			dailyReport.setEndTime((Time)result.get("endTime"));
-			dailyReport.setStuffId((int)result.get("stuff_id"));
+           	dailyReport.setCreated(((String)result.get("created")));		
+			dailyReport.setStartTime((String)result.get("startTime"));
+			dailyReport.setEndTime((String)result.get("endTime"));
+			dailyReport.setDetail((String)result.get("detail"));
+			dailyReport.setName((String)result.get("name"));
+			//dailyReport.setStuffName((String)result.get("STUFF.name"));
 			
 			DailyReportType dailyReportType = new DailyReportType();
-			dailyReportType.setId((int)result.get("id"));
+			dailyReportType.setId((int)result.get("type_id"));
 			dailyReportType.setProgress((String)result.get("progress"));
+			
+		
+			
 			
 			dailyReport.setDailyReportType(dailyReportType);
 			list.add(dailyReport);
@@ -60,8 +68,8 @@ public class DailyReportDaoImpl implements DailyReportDao{
 	@Override
 	public Optional<DailyReport> getDailyReport(int id) {
 		
-		String sql = "SELECT DAILYREPORT.id,created,startTime,endTime,detail,stuff_id,"
-				+" progress FROM DAILYREPORT"
+		String sql = "SELECT DAILYREPORT.id,type_id, created, startTime, endTime, detail, name,"
+				+" progress  FROM DAILYREPORT"
 				+" INNER JOIN DAILYREPORT_TYPE ON DAILYREPORT_TYPE.id = DAILYREPORT.type_id"
 				+" WHERE DAILYREPORT.id = ?";
 		
@@ -71,13 +79,14 @@ public class DailyReportDaoImpl implements DailyReportDao{
 		
 		dailyReport.setId((int)result.get("id"));
 		dailyReport.setTypeId((int)result.get("type_id"));
-		dailyReport.setCreated(((Timestamp)result.get("created")).toLocalDateTime());
-		dailyReport.setStartTime((Time)result.get("startTime"));
-		dailyReport.setEndTime((Time)result.get("endTime"));
-		dailyReport.setStuffId((int)result.get("stuff_id"));
+        dailyReport.setCreated(((String)result.get("created")));
+		dailyReport.setStartTime((String)result.get("startTime"));
+		dailyReport.setEndTime((String)result.get("endTime"));
+		dailyReport.setDetail((String)result.get("detail"));
+		dailyReport.setName((String)result.get("name"));
 		
 		DailyReportType dailyReportType = new DailyReportType();
-		dailyReportType.setId((int)result.get("id"));
+		dailyReportType.setId((int)result.get("type_id"));
 		dailyReportType.setProgress((String)result.get("progress"));
 		
 	    Optional<DailyReport> reportOpt = Optional.ofNullable(dailyReport);
@@ -89,15 +98,15 @@ public class DailyReportDaoImpl implements DailyReportDao{
 
 	@Override
 	public void insert(DailyReport dailyReport) {
-		jdbcTemplate.update("INSERT INTO DAILYREPORT(type_id,created,startTime,endTime,detail,stuff_id)VALUES(?,?,?,?,?,?)",
-							dailyReport.getTypeId(),dailyReport.getCreated(),dailyReport.getStartTime(),dailyReport.getEndTime(),dailyReport.getDetail(),dailyReport.getStuffId());
+		jdbcTemplate.update("INSERT INTO DAILYREPORT(type_id,created,startTime,endTime,detail,name)VALUES(?,?,?,?,?,?)",
+							dailyReport.getTypeId(),dailyReport.getCreated(),dailyReport.getStartTime(),dailyReport.getEndTime(),dailyReport.getDetail(),dailyReport.getName());
 		
 	}
 
 	@Override
 	public int update(DailyReport dailyReport) {
-		return jdbcTemplate.update("UPDATE DAILYREPORT SET type_id = ? , created = ?, startTime = ? ,endTime = ? ,detail = ? ,stuff_id = ?,WHERE id= ?",
-							dailyReport.getTypeId(),dailyReport.getCreated(),dailyReport.getStartTime(),dailyReport.getEndTime(),dailyReport.getDetail(),dailyReport.getStuffId(),dailyReport.getId());
+		return jdbcTemplate.update("UPDATE DAILYREPORT SET type_id = ? , created = ?, startTime = ? ,endTime = ? ,detail = ? ,name = ? WHERE id= ?",
+							dailyReport.getTypeId(),dailyReport.getCreated(),dailyReport.getStartTime(),dailyReport.getEndTime(),dailyReport.getDetail(),dailyReport.getName(),dailyReport.getId());
 		
 	}
 

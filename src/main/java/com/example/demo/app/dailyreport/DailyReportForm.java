@@ -1,34 +1,33 @@
 package com.example.demo.app.dailyreport;
 
-import java.sql.Time;
-import java.time.LocalDateTime;
-
-import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-import org.springframework.format.annotation.DateTimeFormat;
+
 
 public class DailyReportForm {
 
 	private int id;
 	
 	private int typeId;
-
+	
 	@NotNull(message ="内容を入力してください")
-	@Future(message = "過去に設定されています")
-	@DateTimeFormat(pattern ="yyyy-MM-dd'T'HH:mm\"")
-	private LocalDateTime created;
+	private String created;
 	
 	@NotNull(message="内容を入力してください")
-	private Time startTime;
+	
+	private String startTime;
 	
 	@NotNull(message ="内容を入力してください")
-	private Time endTime;
+	private String endTime;
 	
 	@NotNull(message ="内容を入力してください")
+	@Size(max =20,min = 1)
 	private String detail;
 	
-	private int stuffId;
+	private String name;
+	
+	private String stuffName;
 	
 	private boolean newReport;
 	
@@ -39,11 +38,12 @@ public class DailyReportForm {
 	
 	public DailyReportForm(
 			int id,
-			LocalDateTime created,
-			Time startTime,
-			Time endTime,
+     		@NotNull(message = "内容を入力してください") String created,
+			@NotNull(message = "内容を入力してください") String startTime,
+			@NotNull(message = "内容を入力してください") String endTime,
+			String stuffName,
 			String detail,
-			int stuffId,
+			String name,
 			boolean newReport) {
 		
 		this.id= id;
@@ -51,7 +51,8 @@ public class DailyReportForm {
 		this.endTime = endTime;
 		this.startTime = startTime;
 		this.detail = detail;
-		this.stuffId  = stuffId;
+		this.stuffName = stuffName;
+		this.name = name;
 		this.newReport = newReport;
 	}
 
@@ -71,27 +72,40 @@ public class DailyReportForm {
 		this.id = id;
 	}
 
-	public LocalDateTime getCreated() {
+	
+
+	
+
+	public String getStuffName() {
+		return stuffName;
+	}
+
+	public void setStuffName(String stuffName) {
+		this.stuffName = stuffName;
+	}
+
+	public String getCreated() {
 		return created;
 	}
 
-	public void setCreated(LocalDateTime created) {
+	public void setCreated(String created) {
 		this.created = created;
 	}
 
-	public Time getStartTime() {
+	public String getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(Time startTime) {
+	
+	public void setStartTime(String startTime) {
 		this.startTime = startTime;
 	}
 
-	public Time getEndTime() {
+	public String getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(Time endTime) {
+	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
 
@@ -103,14 +117,16 @@ public class DailyReportForm {
 		this.detail = detail;
 	}
 
-	public int getStuffId() {
-		return stuffId;
+
+	
+	public String getName() {
+		return name;
 	}
 
-	public void setStuffId(int stuffId) {
-		this.stuffId = stuffId;
+	public void setName(String name) {
+		this.name = name;
 	}
-	
+
 	public int getTypeId() {
 		return typeId;
 	}

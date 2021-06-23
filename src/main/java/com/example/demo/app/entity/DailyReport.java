@@ -1,18 +1,20 @@
 package com.example.demo.app.entity;
 
-import java.sql.Time;
-import java.time.LocalDateTime;
+
+
 
 public class DailyReport {
 	
 	private int id;
 	private DailyReportType dailyReportType;
-	private LocalDateTime created;
-	private Time startTime;
-	private Time endTime;
+	private String created;
+	private String startTime;
+	private String endTime;
 	private String detail;
-	private int stuffId;
+	private String name;
+	private String stuffName;
 	private int typeId;
+
 	
 	
 	
@@ -23,26 +25,43 @@ public class DailyReport {
 	public DailyReport(
 			int id,
 			int typeId,
+			int stuffId,
 			DailyReportType dailyReportType,
-			LocalDateTime date,
-			Time startTime,
-			Time endTime,
+			String created,
+			String startTime,
+			String endTime,
 			String detail,
-			int stuffId
+			String name,
+			String stuffName
 			) {
 		
 		  super();
 		  this.id = id;
 		  this.typeId = typeId;
+		  this.stuffName = stuffName;
 		  this.dailyReportType = dailyReportType;
-		  this.created = date;
+          this.created = created;
 		  this.startTime = startTime;
 		  this.endTime = endTime;
 		  this.detail = detail;
-		  this.stuffId = stuffId;
+		  this.name = name;
 		
 		
 		
+	}
+
+	
+
+	public String getStuffName() {
+		return stuffName;
+	}
+
+	public void setStuffName(String stuffName) {
+		this.stuffName = stuffName;
+	}
+
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
 	}
 
 	public int getTypeId() {
@@ -61,29 +80,30 @@ public class DailyReport {
 		this.id = id;
 	}
 
-	public LocalDateTime getCreated() {
+
+	public String getCreated() {
 		return created;
 	}
 
-	public void setCreated(LocalDateTime created) {
+	public void setCreated(String created) {
 		this.created = created;
 	}
 
-	public Time getStartTime() {
+	public String getStartTime() {
 		return startTime;
 	}
 
-	public void setStartTime(Time startTime) {
+
+
+	public void setStartTime(String startTime) {
 		this.startTime = startTime;
 	}
 
-	public Time getEndTime() {
+	public String getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(Time endTime) {
-		this.endTime = endTime;
-	}
+
 
 
 	public String getDetail() {
@@ -94,14 +114,16 @@ public class DailyReport {
 		this.detail = detail;
 	}
 
-	public int getStuffId() {
-		return stuffId;
+	
+	
+	public String getName() {
+		return name;
 	}
 
-	public void setStuffId(int stuffId) {
-		this.stuffId = stuffId;
+	public void setName(String name) {
+		this.name = name;
 	}
-	
+
 	public DailyReportType getDailyReportType() {
 		return dailyReportType;
 	}

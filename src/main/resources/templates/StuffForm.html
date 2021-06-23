@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.79.0">
-    <title>Starter Template for Bootstrap · Bootstrap v5.0</title>
+    <title>Starter Template for Bootstrap ﾂｷ Bootstrap v5.0</title>
 
     <link rel="canonical" href="https://getbootstrap.jp/docs/5.0/examples/starter-template/">
 
@@ -49,7 +49,7 @@
     
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">ナビゲーションバー</a>
+    <a class="navbar-brand" href="#"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -57,20 +57,19 @@
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
       <ul class="navbar-nav me-auto mb-2 mb-md-0">
         <li class="nav-item active">
-          <a class="nav-link" aria-current="page" href="#">ホーム</a>
+          <a class="navbar-brand" aria-current="page" href="https://example.com" th:href ="@{/main}">トップページ</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">リンク</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">無効</a>
-        </li>
+        
+        <!-- <li class="nav-item">
+          <a class="nav-link" href="#">スタッフマスタ</a>
+        </li> 
+        -->
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">ドロップダウン</a>
-          <ul class="dropdown-menu" aria-labelledby="dropdown01">
-            <li><a class="dropdown-item" href="#">アクション</a></li>
-            <li><a class="dropdown-item" href="#">その他のアクション</a></li>
-            <li><a class="dropdown-item" href="#">その他</a></li>
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" data-bs-toggle="dropdown"role ="button" aria-expanded="false">他ページに移る</a>
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+            <li><a class="dropdown-item" href="#">日報入力</a></li>
+            <li><a class="dropdown-item" href="#">スタッフマスタ</a></li>
+            <li><a class="dropdown-item" href="#">作業区分マスタ</a></li>
           </ul>
         </li>
       </ul>
@@ -86,8 +85,8 @@
   
  <div class="starter-template text-center py-5 px-3">
 	  <form method ="POST"th:action ="${stuffForm.newStuff}? @{/main/stuff/insert} : @{/main/stuff/update}"  th:object="${stuffForm}" >
-        <p th:if ="${complete}" th:text ="${complete}" class ="alart alart-primary" role ="alert"></p>
-	    <h1 th:text="${title}">Bootstrap スターターテンプレート</h1>
+		    <p th:if="${complete}" th:text="${complete}" class ="alert alert-primary" role ="alert"></p>
+	       <h1 th:text="${title}">Bootstrap</h1>
 	   			 <div class="form-group">
 				    <label for="exampleFormControlSelect1">部署名</label>
 				    <select class="form-control" id="exampleFormControlSelect1" name="typeId">
@@ -98,7 +97,7 @@
 				  </div>
 				  
 				   <div class="form-group">
-				    <label for="exampleFormControlSelect1" th:text="${name}"></label>
+				    <label for="exampleFormControlSelect1" th:text="${name}">名前</label>
 				    <select class="form-control" id="exampleFormControlSelect1" name="name">
 				      <option value ="ヤマダ太郎">ヤマダ太郎</option>
 				      <option value ="ヤマダ花子">ヤマダ花子</option>
@@ -111,35 +110,36 @@
 				       <div th:if="${#fields.hasErrors('detail')}"th:errors="*{detail}"class="alert alert-danger" role="alert"></div>
 				    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="detail" th:value ="${detail}"></textarea>
 				  </div>
+				  
+				  <br>
+				  </br>
+				  
 				  <div class="d-grid gap-2">
 					  <input th:if = "${stuffId}" type = "hidden" name = "stuffId" th:value="${stuffId}">
 					  <button type ="submit" class ="btn btn-primary">登録</button>
-				  </div>
-				  
-				 
-	  
+				  </div>  
       </form>
   
 	  <div th:if ="${stuffForm.newStuff}" style ="margin :10px">
-	  　　<table class ="table table-striped">
-	  		<tr th:each ="obj : ${list}">
+	  　<table class ="table table-striped">
+	  		<tr th:each ="obj:${list}">
 	  		  <td th:text="${obj.id}"></td>
 	  		  <td th:text="${obj.stuffType.department}"></td>
 	  		  <td th:text="${obj.name}"></td>
-	  		  <td th:text="${obj.detail}"></td>
-	  		 
-	  		  
+	  		  <td th:text="${obj.detail}"></td>  		  
 	  		  <td><a type="button" th:href="@{/main/stuff/{id}(id=${obj.id})}">編集</a></td>
-						<td>
-							<form method="POST" th:action="@{/main/stuff/delete}">
-								<input type="hidden" name="stuffId" th:value="${obj.id}">
-								<input type="submit" value="削除">
-							</form>
-							<!-- 1-4　複製ボタンを作成する -->
-						</td>
+			　 <td>
+			     <form method="POST" th:action="@{/main/stuff/delete}">
+					<input type="hidden" name="stuffId" th:value="${obj.id}">
+					<input type="submit" value="削除">
+				 </form>						
+			 　</td>
 	  		</tr>
-	  　　</table>      
+	  　</table>      
 	  </div>
+	  <br>
+	  </br>
+	  <p th:unless ="${stuffForm.newStuff}"><a href="#" th:href ="@{/main/stuff}">戻る</a></p>
  </div>
 
 </main><!-- /.container -->

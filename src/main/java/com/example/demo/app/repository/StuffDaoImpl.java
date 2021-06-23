@@ -39,7 +39,7 @@ public class StuffDaoImpl implements StuffDao{
 			stuff.setDetail((String)result.get("detail"));
 			
 			StuffType stuffType = new StuffType();
-			stuffType.setId((int)result.get("id"));
+			stuffType.setId((int)result.get("type_id"));
 			stuffType.setDepartment((String)result.get("department"));
 			
 			stuff.setStuffType(stuffType);
@@ -52,8 +52,8 @@ public class StuffDaoImpl implements StuffDao{
 	@Override
 	public Optional<Stuff> findById(int id) {
 		
-		String sql ="SELECT STUFF.id, type_id, name, detail,"+
-				" department FROM STUFF"
+		String sql ="SELECT STUFF.id, type_id, name, detail,"
+				+" department FROM STUFF"
 				+" INNER JOIN STUFF_TYPE ON STUFF.type_id = STUFF_TYPE.id"
 				+" WHERE STUFF.id = ?";
 		
