@@ -22,7 +22,7 @@ public class WorkDaoImpl implements WorkDao{
 	@Override
 	public List<Work> findAll() {
 		
-		String sql ="SELECT WORK.id,type_id,comment,"
+		String sql ="SELECT WORK.id,type_id,comment,workDivId,"
 				   +" type FROM WORK"
 				   +" INNER JOIN WORK_TYPE ON WORK.type_id = WORK_TYPE.id";
 				   
@@ -36,6 +36,7 @@ public class WorkDaoImpl implements WorkDao{
 			work.setId((int)result.get("id"));
 			work.setComment((String)result.get("comment"));
 			work.setTypeId((int)result.get("type_id"));
+			work.setWorkDivId((String)result.get("workDivId"));
 			
 			WorkType workType = new WorkType();
 			workType.setId((int)result.get("type_id"));
@@ -51,7 +52,7 @@ public class WorkDaoImpl implements WorkDao{
 	@Override
 	public Optional<Work> findById(int id) {
 		
-		String sql ="SELECT WORK.id, type_id, comment,"
+		String sql ="SELECT WORK.id, type_id, comment,workDivId,"
 				   +" type FROM WORK"
 				   +" INNER JOIN WORK_TYPE ON WORK.type_id = WORK_TYPE.id"
 				   +" WHERE WORK.id = ?";
@@ -62,6 +63,7 @@ public class WorkDaoImpl implements WorkDao{
 		work.setId((int)result.get("id"));
 		work.setTypeId((int)result.get("type_id"));
 		work.setComment((String)result.get("comment"));
+		work.setWorkDivId((String)result.get("workDivId"));
 		
 		WorkType workType = new WorkType();
 		workType.setId((int)result.get("type_id"));
@@ -75,16 +77,16 @@ public class WorkDaoImpl implements WorkDao{
 
 	@Override
 	public void insert(Work work) {
-		jdbcTemplate.update("INSERT INTO WORK(type_id,comment)VALUES(?,?)",
-				            work.getTypeId(),work.getComment());
+		jdbcTemplate.update("INSERT INTO WORK(type_id,comment,workDivId)VALUES(?,?,?)",
+				            work.getTypeId(),work.getComment(),work.getWorkDivId());
 	}
 	
 	
 
 	@Override
 	public int update(Work work) {
-		return jdbcTemplate.update("UPDATE WORK SET type_id = ?, comment = ? WHERE id =?",
-				                    work.getTypeId(),work.getComment(),work.getId());
+		return jdbcTemplate.update("UPDATE WORK SET type_id = ?, comment = ? , workDivId = ? WHERE id =?",
+				                    work.getTypeId(),work.getComment(),work.getWorkDivId(),work.getId());
 	}
 
 	@Override

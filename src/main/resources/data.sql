@@ -1,13 +1,14 @@
+
 INSERT INTO `STUFF_TYPE`  VALUES
-(1,'営業部'),
-(2,'システム部'),
-(3,'デザイン部');
+(1,'001'),
+(2,'002'),
+(3,'003');
 
 INSERT INTO `STUFF` VALUES
-(NULL,1,'ヤマダ','ああああ');
+(NULL,1,'ヤマダ','ああああ','aaa00012R');
 
 INSERT INTO `SUPPLIER` VALUES
-(NULL,1,'あああ');
+(NULL,1,'A社','あああ');
 
 INSERT INTO `SUPPLIER_TYPE` VALUES
 (1,'A社'),
@@ -15,7 +16,7 @@ INSERT INTO `SUPPLIER_TYPE` VALUES
 (3,'C社');
 
 INSERT INTO `WORK` VALUES
-(NULL,1,'進捗遅れあり');
+(NULL,1,'進捗遅れあり','OOOX11');
 
 INSERT INTO `WORK_TYPE` VALUES
 (1,'テスト'),
@@ -24,7 +25,7 @@ INSERT INTO `WORK_TYPE` VALUES
 (4,'ミーティング');
 
 INSERT INTO `DAILYREPORT` VALUES
-(NULL,1,'2020-07-07','5:00','15:00','AAA','イケダ');
+(NULL,1,1,1,'2020-07-07','5:00','15:00','AAA','イケダ');
 
 INSERT INTO `DAILYREPORT_TYPE` VALUES
 (1,'0%'),

@@ -24,10 +24,13 @@ public class DailyReportForm {
 	@NotNull(message ="内容を入力してください")
 	@Size(max =20,min = 1)
 	private String detail;
+
 	
 	private String name;
 	
-	private String stuffName;
+	private int stuffId;
+	
+	private int workId;
 	
 	private boolean newReport;
 	
@@ -42,18 +45,31 @@ public class DailyReportForm {
 			@NotNull(message = "内容を入力してください") String startTime,
 			@NotNull(message = "内容を入力してください") String endTime,
 			String stuffName,
-			String detail,
+			@NotNull(message ="内容を入力してください")@Size(min = 1, max = 20)String detail,
 			String name,
-			boolean newReport) {
+			boolean newReport, 
+			int stuffId,
+			int workId) {
 		
 		this.id= id;
 		this.created = created;
 		this.endTime = endTime;
 		this.startTime = startTime;
 		this.detail = detail;
-		this.stuffName = stuffName;
+		this.stuffId = stuffId;
+		this.workId = workId;
 		this.name = name;
 		this.newReport = newReport;
+		
+	}
+
+
+	public int getWorkId() {
+		return workId;
+	}
+
+	public void setWorkId(int workId) {
+		this.workId = workId;
 	}
 
 	public boolean isNewReport() {
@@ -72,16 +88,13 @@ public class DailyReportForm {
 		this.id = id;
 	}
 
-	
 
-	
-
-	public String getStuffName() {
-		return stuffName;
+	public int getStuffId() {
+		return stuffId;
 	}
 
-	public void setStuffName(String stuffName) {
-		this.stuffName = stuffName;
+	public void setStuffId(int stuffId) {
+		this.stuffId = stuffId;
 	}
 
 	public String getCreated() {

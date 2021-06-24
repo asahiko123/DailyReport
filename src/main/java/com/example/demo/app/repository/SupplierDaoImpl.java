@@ -22,26 +22,28 @@ public class SupplierDaoImpl implements SupplierDao{
 	@Override
 	public List<Supplier> findAll() {
 		
-		String sql = "SELECT SUPPLIER.id,type_id,comment," 
-				+" type FROM SUPPLIER"
-				+" INNER JOIN SUPPLIER_TYPE ON SUPPLIER.type_id = SUPPLIER_TYPE.id";
+		String sql = "SELECT SUPPLIER.id,type_id,supplier,comment FROM SUPPLIER";
+				//+" INNER JOIN SUPPLIER_TYPE ON SUPPLIER.type_id = SUPPLIER_TYPE.id";
 				
 		
 		List<Map<String,Object>>resultList = jdbcTemplate.queryForList(sql);
 		
 		List<Supplier> list = new ArrayList<Supplier>();
 		
+		System.out.println(resultList);
+		
 		for(Map<String,Object> result:resultList) {
 			
 			Supplier supplier = new Supplier();
 			supplier.setId((int)result.get("id"));
+			supplier.setSupplier((String)result.get("supplier"));
 			supplier.setComment((String)result.get("comment"));
 			
-			SupplierType supplierType  = new SupplierType();
-			supplierType.setId((int)result.get("type_id"));
-			supplierType.setType((String)result.get("type"));
+//			SupplierType supplierType  = new SupplierType();
+//			supplierType.setId((int)result.get("type_id"));
+//			supplierType.setType((String)result.get("type"));
 			
-			supplier.setSupplierType(supplierType);
+//			supplier.setSupplierType(supplierType);
 			list.add(supplier);
 		}
 		
@@ -51,24 +53,25 @@ public class SupplierDaoImpl implements SupplierDao{
 	@Override
 	public Optional<Supplier> findById(int id) {
 		
-		String sql = "SELECT SUPPLIER.id, type_id, comment," 
-				+ "type FROM SUPPLIER"
-				+" INNER JOIN SUPPLIER_TYPE ON SUPPLIER.type_id = SUPPLIER_TYPE.id"
+		String sql = "SELECT SUPPLIER.id, type_id, supplier, comment FROM SUPPLIER"
+				//+" INNER JOIN SUPPLIER_TYPE ON SUPPLIER.type_id = SUPPLIER_TYPE.id"
 				+" WHERE SUPPLIER.id = ?";
 		
 		Map<String,Object> result = jdbcTemplate.queryForMap(sql,id);
+		System.out.println(result);
 	
 		Supplier supplier  = new Supplier();
 		supplier.setId((int)result.get("id"));
 	    supplier.setTypeId((int)result.get("type_id"));
+	    supplier.setSupplier((String)result.get("supplier"));
 	    supplier.setComment((String)result.get("comment"));
 	    
-	    SupplierType supplierType = new SupplierType();
-	    supplierType.setId((int)result.get("type_id"));
-	    supplierType.setType((String)result.get("type"));
-	    
-	    supplier.setSupplierType(supplierType);
-	    
+//	    SupplierType supplierType = new SupplierType();
+//	    supplierType.setId((int)result.get("type_id"));
+//	    supplierType.setType((String)result.get("type"));
+//	    
+//	    supplier.setSupplierType(supplierType);
+//	    
 	    Optional<Supplier> supOpt = Optional.ofNullable(supplier);
 		
 		return supOpt;
@@ -76,14 +79,14 @@ public class SupplierDaoImpl implements SupplierDao{
 
 	@Override
 	public void insert(Supplier supplier) {
-		jdbcTemplate.update("INSERT INTO SUPPLIER( type_id, comment) VALUES(?,?)",
-							supplier.getTypeId(),supplier.getComment());
+		jdbcTemplate.update("INSERT INTO SUPPLIER( type_id,supplier,comment) VALUES(?,?,?)",
+							supplier.getTypeId(),supplier.getSupplier(),supplier.getComment());
 	}
 
 	@Override
 	public int update(Supplier supplier) {
-		return jdbcTemplate.update("UPDATE SUPPLIER SET type_id = ?,comment = ? WHERE id = ?",
-									supplier.getTypeId(),supplier.getComment(),supplier.getId());
+		return jdbcTemplate.update("UPDATE SUPPLIER SET type_id = ?,supplier = ?,comment = ? WHERE id = ?",
+									supplier.getTypeId(),supplier.getSupplier(),supplier.getComment(),supplier.getId());
 	}
 
 	@Override

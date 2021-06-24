@@ -138,6 +138,7 @@ public class WorkController {
 		
 		work.setTypeId(workForm.getTypeId());
 		work.setComment(workForm.getComment());
+		work.setWorkDivId(workForm.getWorkDivId());
 	
 		
 		return work;
@@ -150,6 +151,7 @@ public class WorkController {
 		workForm.setId(work.getId());
 		workForm.setTypeId(work.getTypeId());
 		workForm.setComment(work.getComment());
+		workForm.setWorkDivId(work.getWorkDivId());
 		workForm.setNewWork(false);
 		
 		return workForm;

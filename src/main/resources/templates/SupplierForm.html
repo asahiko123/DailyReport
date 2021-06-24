@@ -49,39 +49,7 @@
     
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#"></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-      <ul class="navbar-nav me-auto mb-2 mb-md-0">
-        <li class="nav-item active">
-          <a class="nav-link" aria-current="page" href="#"　th:href = "@{/main}">トップページ</a>
-          
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#"></a>
-        </li>
-        <!--
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">辟｡蜉ｹ</a>
-        </li>
-        -->
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">他のページに移る</a>
-          <ul class="dropdown-menu" aria-labelledby="dropdown01">
-            <li><a class="dropdown-item" href="#">スタッフマスタ</a></li>
-            <li><a class="dropdown-item" href="#">作業区分マスタ</a></li>
-            <li><a class="dropdown-item" href="#">日誌</a></li>
-          </ul>
-        </li>
-      </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="検索" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
-    </div>
+     <a class="btn btn-primary" href="#" th:href ="@{/main}">終了する</a>
   </div>
 </nav>
 
@@ -90,7 +58,7 @@
     <form method ="POST" th:action ="${supplierForm.newSupplier}? @{/main/supplier/insert} : @{/main/supplier/update}"  th:object = "${supplierForm}">
         <p th:if="${complete}" th:text="${complete}" class ="alert alert-primary" role ="alert"></p>
 	    <h1 th:text="${title}">Bootstrap</h1>
-	   			 <div class="form-group">
+	   			 <!--<div class="form-group">
 				    <label for="exampleFormControlSelect1" th:text="${name}"></label>
 				    <select class="form-control" id="exampleFormControlSelect1" name="typeId">
 				      <option value ="1" th:selected ="*{typeId == 1}">A社</option>
@@ -98,7 +66,13 @@
 				      <option value ="3" th:selected ="*{typeId == 3}">C社</option>			     
 				    </select>			  
 				  </div>
+				  -->
 				  
+				   <div class="form-group">
+				    <label for="exampleFormControlTextarea1">会社名</label>
+				     <div th:if="${#fields.hasErrors()}"class="alert alert-danger" role="alert"></div>
+				    <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" name="supplier" th:value ="*{supplier}"></textarea>
+				  </div>
 				  
 				  
 				   <div class="form-group">
@@ -106,6 +80,7 @@
 				     <div th:if="${#fields.hasErrors('comment')}"th:errors="*{comment}"class="alert alert-danger" role="alert"></div>
 				    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="comment" th:value ="*{comment}"></textarea>
 				  </div>
+				  
 				  <br></br>
 				  <div class="d-grid gap-2">
 				    <input type ="hidden" th:if ="${supplierId}" name = "supplierId" th:value="${supplierId}">
@@ -116,9 +91,16 @@
    
    <div th:if ="${supplierForm.newSupplier}" style ="margin:10px">
      <table class ="table table-striped">
+      <tr>
+	   <th></th>
+	   <th>会社名</th>
+	   <th>備考</th>
+	   <th></th>
+	   <th></th>
+	  </tr>
       <tr th:each ="obj : ${list}">
        <td th:text ="${obj.id}"></td>
-       <td th:text = "${obj.supplierType.type}"></td>
+       <td th:text = "${obj.supplier}"></td>
        <td th:text = "${obj.comment}"></td>
        <td><a type ="button" th:href ="@{/main/supplier/{id}(id=${obj.id})}">編集</a></td>
        <td>

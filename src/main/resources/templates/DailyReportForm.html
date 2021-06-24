@@ -51,28 +51,7 @@
     
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#" th:href ="@{/main}">トップページ</a>
-    
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-      <ul class="navbar-nav me-auto mb-2 mb-md-0">      
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">ドロップダウン</a>
-          <ul class="dropdown-menu" aria-labelledby="dropdown01">
-            <li><a class="dropdown-item" href="#">アクション</a></li>
-            <li><a class="dropdown-item" href="#">その他のアクション</a></li>
-            <li><a class="dropdown-item" href="#">その他</a></li>
-          </ul>
-        </li>
-      </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="検索" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
-    </div>
+    <a class="btn btn-primary" href="#" th:href ="@{/main}">終了する</a>
   </div>
 </nav>
 
@@ -81,13 +60,14 @@
    <form method ="POST"  th:action ="${dailyReportForm.newReport}? @{/main/report/insert}:@{/main/report/update}" th:object="${dailyReportForm}">
 	    <p th:if="${complete}" th:text="${complete}" class ="alert alert-primary" role ="alert"></p>
 	    <h1 th:text="${title}">Bootstrap スターターテンプレート</h1>
-	        
+	            
 	            <div class="form-group">
-				  <label for="exampleFormControlSelect1">担当者</label>
-	              <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name ="stuffName">
+				  <label for="exampleFormControlSelect1">スタッフID</label>
+	              <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name ="stuffId">
                     <option selected>選択してください</option>
-                    
-                    ></option>
+                    <option value ="1" th:selected ="*{stuffId == 1}"></option>
+                    <option value ="2" th:selected ="*{stuffId == 2}"></option>
+                    <option value ="3" th:selected ="*{stuffId == 3}"></option> 
                   </select>
 	            </div>
                    
@@ -121,12 +101,25 @@
 						
 				     <label>終了時刻</label> 
 				     <input type ="time" name ="endTime" th:value ="*{endTime}">
+				     
+				      <br>
+				   </br>
+				   
+				     <div class="form-group">
+					  <label for="exampleFormControlSelect1">作業区分</label>
+		              <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="workId">
+	                    <option selected>選択してください</option>
+	                    <option value ="1" th:selected ="*{workId == 1}"></option>
+	                    <option value ="2" th:selected ="*{workId == 2}"></option>
+	                    <option value ="3" th:selected ="*{workId == 3}"></option> 
+	                  </select>
+		            </div>
 		
 				   <br>
 				   </br>
 				   <div class="form-group">
 				    <label for="exampleFormControlTextarea1">日報内容</label>
-				    <div th:if="${#fields.hasErrors('detail')}"th:errors="*{detail}"class="alert alert-danger" role="alert"></div>
+				    <div th:if="${#fields.hasErrors('detail')}"class="alert alert-danger" role="alert"><p>1～20文字以内で入力してください</p></div>
 				    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="detail" th:value ="*{detail}"></textarea>
 				  </div>
 				  <br>
@@ -140,15 +133,29 @@
   <div th:if ="${dailyReportForm.newReport}" style ="margin :10px" >
    <table class ="table table-striped">
        
+     <tr>
+     	<th></th>
+     	<th>スタッフID</th>
+     	<th>進捗度</th>
+     	<th>作業区分</th>
+     	<th>作業日付</th>
+     	<th>開始時間</th>
+     	<th>終了時間</th>
+     	<th>作業内容</th>
+     	<th></th>
+     	<th></th>
+     	<th></th>
+     </tr>
      <tr th:each ="obj:${list}">
-       <td th:text ="${obj.stuffName}"></td>
        <td th:text ="${obj.id}"></td>
+       <td th:text ="${obj.stuff.registeredId}"></td>
        <td th:text ="${obj.dailyReportType.progress}"></td>
+       <td th:text ="${obj.work.workDivId}"></td>
        <td th:text ="${obj.created}"></td>
        <td th:text ="${obj.startTime}"></td>
        <td th:text ="${obj.endTime}"></td>
        <td th:text ="${obj.detail}"></td>
-       <td th:text ="${obj.name}"></td>    
+       <!--<td th:text ="${obj.name}"></td>    -->
        <td>
       	<a href ="#" th:href ="@{/main/report/{id}(id =${obj.id})}">編集</a>
        </td>

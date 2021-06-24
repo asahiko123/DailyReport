@@ -3,15 +3,15 @@ package com.example.demo.app.entity;
 public class StuffType {
 	
 	private int id;
-	private String department;
+	private String stuffId;
 	
 	public StuffType() {
 		
 	}
 	
-	public StuffType(int id,String department) {
+	public StuffType(int id,String stuffId) {
 		this.id = id;
-		this.department = department;
+		this.stuffId = stuffId;
 	}
 
 	public int getId() {
@@ -22,13 +22,15 @@ public class StuffType {
 		this.id = id;
 	}
 
-	public String getDepartment() {
-		return department;
+	public String getStuffId() {
+		return stuffId;
 	}
 
-	public void setDepartment(String department) {
-		this.department = department;
+	public void setStuffId(String stuffId) {
+		this.stuffId = stuffId;
 	}
+
+
 	
 
 }

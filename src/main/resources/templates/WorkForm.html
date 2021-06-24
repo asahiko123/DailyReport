@@ -13,7 +13,7 @@
 
     
 	  <!-- Bootstrap core CSS -->
-    <link href="bootstrap.min.css" th:href="@{/static/css/bootstrap.min.css}" rel="stylesheet">
+    <link href="bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="starter-template.css"  th:href="@{/css/starter-template.css}" rel="stylesheet">
@@ -49,38 +49,7 @@
     
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="https://example.com" th:href ="@{/main}">トップページ</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-      <ul class="navbar-nav me-auto mb-2 mb-md-0">
-      
-      <!--
-        <li class="nav-item active">
-          <a class="nav-link" aria-current="page" href="#">ホーム</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">リンク</a>
-        </li>
-        
-        -->
-    
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-bs-toggle="dropdown" aria-expanded="false">他のページに移る</a>
-          <ul class="dropdown-menu" aria-labelledby="dropdown01">
-            <li><a class="dropdown-item" href="#">アクション</a></li>
-            <li><a class="dropdown-item" href="#">その他のアクション</a></li>
-            <li><a class="dropdown-item" href="#">その他</a></li>
-          </ul>
-        </li>
-      </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="検索" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
-    </div>
+    <a class="btn btn-primary" href="#" th:href ="@{/main}">終了する</a>
   </div>
 </nav>
 
@@ -90,19 +59,27 @@
 	       <form method ="POST"  th:action = "${workForm.newWork}? @{/main/work/insert} : @{/main/work/update}" th:object ="${workForm}">
 	         <h1 th:text="${title}">Bootstrap スターターテンプレート</h1>
 	         　　<p th:if="${complete}" th:text="${complete}" class ="alert alert-primary" role ="alert"></p>
+	     
+
+				   <div class="form-group">
+				    <label for="exampleFormControlTextarea1">作業区分ID</label>
+				      <div th:if="${#fields.hasErrors()}"class="alert alert-danger" role="alert"><p>内容を入力してください</p></div>
+				    <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" name="workDivId" th:value ="${workDivId}"></textarea>
+				  </div>
 	          
 	   			 <div class="form-group">
 				    <label for="exampleFormControlSelect1">作業区分</label>
 				    <select class="form-control" id="exampleFormControlSelect1" name="typeId">
 				      <option value ="1" th:selected ="*{typeId == 1}">テスト</option>
 				      <option value ="2" th:selected ="*{typeId == 2}">コーディング</option>
-				      <option value ="3" th:selected ="*{typeId == 3}">要件定義</option>			     
+				      <option value ="3" th:selected ="*{typeId == 3}">要件定義</option>
+				      <option value ="4" th:selected ="*{typeId == 4}">ミーティング</option>		     
 				    </select>			  
 				  </div>
 				  
 				  
 				   <div class="form-group">
-				    <label for="exampleFormControlTextarea1">コメント</label>
+				    <label for="exampleFormControlTextarea1">備考</label>
 				      <div th:if="${#fields.hasErrors('comment')}"th:errors="*{comment}"class="alert alert-danger" role="alert"></div>
 				    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="comment" th:value ="${comment}"></textarea>
 				  </div>
@@ -117,11 +94,20 @@
   
   <div th:if ="${workForm.newWork}" style ="margin :10px">
     <table class ="table table-striped">
+      <tr>
+     	<th></th>
+     	<th>作業区分ID</th>
+     	<th>作業区分</th>
+     	<th>備考</th>
+     	<th></th>
+     	<th></th>
+     </tr>
       <tr th:each = "obj: ${list}">
-       <td th:text = "${obj.id}"></td>
-       <td th:text = "${obj.workType.type}"></td>
-       <td th:text = "${obj.comment}"></td>
-       <td><a type ="button" th:href = "@{/main/work/{id}(id=${obj.id})}">編集</a></td>
+        <td th:text = "${obj.id}"></td>
+        <td th:text = "${obj.workDivId}"></td>
+        <td th:text = "${obj.workType.type}"></td>
+        <td th:text = "${obj.comment}"></td>
+        <td><a type ="button" th:href = "@{/main/work/{id}(id=${obj.id})}">編集</a></td>
        <td>
         <form method ="POST" th:action ="@{/main/work/delete}">
          <input type = "hidden" name = "workId" th:value ="${obj.id}">

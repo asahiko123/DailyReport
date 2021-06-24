@@ -6,18 +6,28 @@ public class Work {
 	private int typeId;
 	private WorkType workType;
 	private String comment;
+	private String workDivId;
 	
 	public Work() {
 		
 	}
 	
-	public Work(int id,String comment, int typeId, WorkType workType) {
+	public Work(int id,String comment,String workDivId, int typeId, WorkType workType) {
 		this.id = id;
 		this.typeId = typeId;
 		this.workType = workType;
 		this.comment = comment;
+		this.workDivId = workDivId;
 	}
 	
+	public String getWorkDivId() {
+		return workDivId;
+	}
+
+	public void setWorkDivId(String workDivId) {
+		this.workDivId = workDivId;
+	}
+
 	public int getTypeId() {
 		return typeId;
 	}

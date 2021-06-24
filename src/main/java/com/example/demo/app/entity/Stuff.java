@@ -7,20 +7,31 @@ public class Stuff {
 	private int typeId;
 	private String name;
     private String detail;
+    private String registeredId;
 	
 	public Stuff() {
 		
 	}
 	
-	public Stuff(int id,StuffType stuffType,int typeId,String name,String detail) {
+	public Stuff(int id,StuffType stuffType,int typeId,String name,String detail,String registeredId) {
 		this.id = id;
 		this.stuffType = stuffType;
 		this.typeId  = typeId;
 		this.name = name;
 		this.detail = detail;
+		this.registeredId = registeredId;
 		
 	}
 
+
+
+	public String getRegisteredId() {
+		return registeredId;
+	}
+
+	public void setRegisteredId(String registeredId) {
+		this.registeredId = registeredId;
+	}
 
 	public StuffType getStuffType() {
 		return stuffType;
@@ -62,5 +73,6 @@ public class Stuff {
 	public void setTypeId(int typeId) {
 		this.typeId = typeId;
 	}
+
 
 }

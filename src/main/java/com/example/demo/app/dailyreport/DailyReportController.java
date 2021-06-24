@@ -91,16 +91,16 @@ public class DailyReportController {
 		
 		if(!result.hasErrors()) {
 			dailyReportService.insert(dailyReport);
+			 System.out.println(dailyReport.getStuffId());
 			return "redirect:/main/report";
 		}else {
 			dailyReportForm.setNewReport(true);
 			model.addAttribute("DailyReportForm",dailyReportForm);
 			List<DailyReport> list = dailyReportService.findAll();
-			//List<Stuff> stufflist = stuffService.findAll();
+		   
 			model.addAttribute("list",list);
-			//model.addAttribute("stufflist",stufflist);
 			model.addAttribute("title","日報入力");
-			System.out.println(result);
+			
 			return"DailyReportForm";
 		}
 		
@@ -156,6 +156,8 @@ public class DailyReportController {
 		dailyReport.setDetail(dailyReportForm.getDetail());
 		dailyReport.setName(dailyReportForm.getName());
 		dailyReport.setTypeId(dailyReportForm.getTypeId());
+		dailyReport.setStuffId(dailyReportForm.getStuffId());
+		dailyReport.setWorkId(dailyReportForm.getWorkId());
 		
 		return dailyReport;
 	}
@@ -170,6 +172,8 @@ public class DailyReportController {
 	    dailyReportForm.setName(dailyReport.getName());
 		dailyReportForm.setDetail(dailyReport.getDetail());
 		dailyReportForm.setTypeId(dailyReport.getTypeId());
+		dailyReportForm.setStuffId(dailyReport.getStuffId());
+		dailyReportForm.setWorkId(dailyReport.getWorkId());
 		dailyReportForm.setNewReport(false);
 		
 		return dailyReportForm;

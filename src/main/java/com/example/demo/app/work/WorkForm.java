@@ -2,7 +2,7 @@ package com.example.demo.app.work;
 
 import javax.validation.constraints.NotNull;
 
-import com.example.demo.app.entity.WorkType;
+
 
 public class WorkForm {
 	
@@ -10,20 +10,33 @@ public class WorkForm {
 	private int typeId;
 	@NotNull(message ="内容を入力してください")
 	private String comment;
+	private String workDivId;
 	private boolean newWork;
+	
 	
 	public WorkForm() {
 		
 	}
 	
 	
-	public WorkForm(int id,int typeId,String comment,boolean newWork) {
+	public WorkForm(int id,int typeId,String comment,String workDivId,boolean newWork) {
 		this.id = id;
 		this.typeId  = typeId;
 		this.comment = comment;
+		this.workDivId = workDivId;
 		this.newWork = newWork;
 		
 		
+	}
+
+
+	public String getWorkDivId() {
+		return workDivId;
+	}
+
+
+	public void setWorkDivId(String workDivId) {
+		this.workDivId = workDivId;
 	}
 
 

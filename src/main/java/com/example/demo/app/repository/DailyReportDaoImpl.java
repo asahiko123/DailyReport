@@ -12,6 +12,9 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.app.entity.DailyReport;
 import com.example.demo.app.entity.DailyReportType;
 import com.example.demo.app.entity.Stuff;
+import com.example.demo.app.entity.Work;
+//import com.example.demo.app.entity.StuffType;
+
 
 
 @Repository
@@ -26,10 +29,12 @@ public class DailyReportDaoImpl implements DailyReportDao{
 	@Override
 	public List<DailyReport> findAll() {
 		
-		String sql = "SELECT DAILYREPORT.id,type_id, created, startTime, endTime, detail, name,"
-				+ " progress FROM DAILYREPORT "
-				+ " INNER JOIN DAILYREPORT_TYPE ON DAILYREPORT_TYPE.id = DAILYREPORT.type_id";
-				//+ " INNER JOIN STUFF ON DAILYREPORT.type_id = STUFF.id";
+		String sql = "SELECT DAILYREPORT.id, stuff_id, work_id, DAILYREPORT.type_id,stuff_id, created, startTime, endTime,  DAILYREPORT.detail,  DAILYREPORT.name,"
+				+ " progress  , registeredId ,workDivId FROM DAILYREPORT "
+				+ " INNER JOIN DAILYREPORT_TYPE ON DAILYREPORT_TYPE.id = DAILYREPORT.type_id"
+		        //+ " INNER JOIN STUFF_TYPE ON STUFF_TYPE.id = DAILYREPORT.stuff_id";
+			    +" INNER JOIN STUFF ON STUFF.id = DAILYREPORT.stuff_id"
+		        +" INNER JOIN WORK ON WORK.id = DAILYREPORT.work_id";
 		     
 		
 		List<Map<String,Object>> resultList = jdbcTemplate.queryForList(sql);
@@ -42,22 +47,34 @@ public class DailyReportDaoImpl implements DailyReportDao{
 		for(Map<String,Object> result:resultList) {
 			DailyReport dailyReport = new DailyReport();
 			dailyReport.setId((int)result.get("id"));
+			dailyReport.setStuffId((int)result.get("stuff_id"));
+			dailyReport.setWorkId((int)result.get("work_id"));
 			dailyReport.setTypeId((int)result.get("type_id"));
            	dailyReport.setCreated(((String)result.get("created")));		
 			dailyReport.setStartTime((String)result.get("startTime"));
 			dailyReport.setEndTime((String)result.get("endTime"));
 			dailyReport.setDetail((String)result.get("detail"));
 			dailyReport.setName((String)result.get("name"));
-			//dailyReport.setStuffName((String)result.get("STUFF.name"));
+			
 			
 			DailyReportType dailyReportType = new DailyReportType();
 			dailyReportType.setId((int)result.get("type_id"));
 			dailyReportType.setProgress((String)result.get("progress"));
 			
-		
+//			StuffType stuffType = new StuffType();
+//			stuffType.setId((int)result.get("stuff_id"));
+//			stuffType.setStuffId((String)result.get("stuffId"));
 			
+			Stuff stuff = new Stuff();
+			stuff.setRegisteredId((String)result.get("registeredId"));
+			
+			Work work = new Work();
+			work.setWorkDivId((String)result.get("workDivId"));
 			
 			dailyReport.setDailyReportType(dailyReportType);
+			dailyReport.setStuff(stuff);
+			dailyReport.setWork(work);
+//			dailyReport.setStuffType(stuffType);
 			list.add(dailyReport);
 			
 		}
@@ -68,9 +85,11 @@ public class DailyReportDaoImpl implements DailyReportDao{
 	@Override
 	public Optional<DailyReport> getDailyReport(int id) {
 		
-		String sql = "SELECT DAILYREPORT.id,type_id, created, startTime, endTime, detail, name,"
-				+" progress  FROM DAILYREPORT"
+		String sql = "SELECT DAILYREPORT.id, stuff_id , work_id, DAILYREPORT.type_id, created, startTime, endTime,  DAILYREPORT.detail,  DAILYREPORT.name,"
+				+" progress ,registeredId  ,workDivId FROM DAILYREPORT"
 				+" INNER JOIN DAILYREPORT_TYPE ON DAILYREPORT_TYPE.id = DAILYREPORT.type_id"
+				+" INNER JOIN STUFF ON STUFF.id = DAILYREPORT.stuff_id"
+				+" INNER JOIN WORK ON WORK.id = DAILYREPORT.work_id"
 				+" WHERE DAILYREPORT.id = ?";
 		
 		Map<String,Object> result = jdbcTemplate.queryForMap(sql,id);
@@ -79,6 +98,8 @@ public class DailyReportDaoImpl implements DailyReportDao{
 		
 		dailyReport.setId((int)result.get("id"));
 		dailyReport.setTypeId((int)result.get("type_id"));
+		dailyReport.setStuffId((int)result.get("stuff_id"));
+		dailyReport.setWorkId((int)result.get("work_id"));
         dailyReport.setCreated(((String)result.get("created")));
 		dailyReport.setStartTime((String)result.get("startTime"));
 		dailyReport.setEndTime((String)result.get("endTime"));
@@ -89,6 +110,12 @@ public class DailyReportDaoImpl implements DailyReportDao{
 		dailyReportType.setId((int)result.get("type_id"));
 		dailyReportType.setProgress((String)result.get("progress"));
 		
+		Stuff stuff = new Stuff();
+		stuff.setRegisteredId((String)result.get("registeredId"));
+		
+		Work work = new Work();
+		work.setWorkDivId((String)result.get("workDivId"));
+		
 	    Optional<DailyReport> reportOpt = Optional.ofNullable(dailyReport);
 		
 		
@@ -98,15 +125,15 @@ public class DailyReportDaoImpl implements DailyReportDao{
 
 	@Override
 	public void insert(DailyReport dailyReport) {
-		jdbcTemplate.update("INSERT INTO DAILYREPORT(type_id,created,startTime,endTime,detail,name)VALUES(?,?,?,?,?,?)",
-							dailyReport.getTypeId(),dailyReport.getCreated(),dailyReport.getStartTime(),dailyReport.getEndTime(),dailyReport.getDetail(),dailyReport.getName());
+		jdbcTemplate.update("INSERT INTO DAILYREPORT(type_id,stuff_id,work_id,created,startTime,endTime,detail,name)VALUES(?,?,?,?,?,?,?,?)",
+							dailyReport.getTypeId(),dailyReport.getStuffId(),dailyReport.getWorkId(),dailyReport.getCreated(),dailyReport.getStartTime(),dailyReport.getEndTime(),dailyReport.getDetail(),dailyReport.getName());
 		
 	}
 
 	@Override
 	public int update(DailyReport dailyReport) {
-		return jdbcTemplate.update("UPDATE DAILYREPORT SET type_id = ? , created = ?, startTime = ? ,endTime = ? ,detail = ? ,name = ? WHERE id= ?",
-							dailyReport.getTypeId(),dailyReport.getCreated(),dailyReport.getStartTime(),dailyReport.getEndTime(),dailyReport.getDetail(),dailyReport.getName(),dailyReport.getId());
+		return jdbcTemplate.update("UPDATE DAILYREPORT SET type_id = ? , stuff_id = ?, work_id = ? ,created = ?, startTime = ? ,endTime = ? ,detail = ? ,name = ? WHERE id= ?",
+							dailyReport.getTypeId(),dailyReport.getStuffId(),dailyReport.getWorkId(),dailyReport.getCreated(),dailyReport.getStartTime(),dailyReport.getEndTime(),dailyReport.getDetail(),dailyReport.getName(),dailyReport.getId());
 		
 	}
 

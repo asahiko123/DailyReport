@@ -72,6 +72,7 @@ public class SupplierController {
 			             ) {
 		
 		Supplier supplier = makeSupplier(supplierForm,0);
+		System.out.println(supplier.getSupplier());
 		
 		if(!result.hasErrors()) {
 			
@@ -129,6 +130,7 @@ public class SupplierController {
 			supplier.setId(supplierId);
 		}
 		
+		supplier.setSupplier(supplierForm.getSupplier());
 		supplier.setComment(supplierForm.getComment());
 		supplier.setTypeId(supplierForm.getTypeId());
 		
@@ -140,6 +142,7 @@ public class SupplierController {
 		SupplierForm supplierForm = new SupplierForm();
 		
 		supplierForm.setId(supplier.getId());
+		supplierForm.setSupplier(supplier.getSupplier());
 		supplierForm.setComment(supplier.getComment());
 		supplierForm.setTypeId(supplier.getTypeId());
 		supplierForm.setNewSupplier(false);

@@ -132,6 +132,7 @@ public class StuffController {
 		stuff.setName(stuffForm.getName());
 		stuff.setDetail(stuffForm.getDetail());
 		stuff.setTypeId(stuffForm.getTypeId());
+		stuff.setRegisteredId(stuffForm.getRegisteredId());
 		
 		return stuff;
 	}
@@ -144,7 +145,8 @@ public class StuffController {
 		stuffForm.setName(stuff.getName());
 		stuffForm.setDetail(stuff.getDetail());
 		stuffForm.setNewStuff(false);
-		stuffForm.setTypeId(stuffForm.getId());
+		stuffForm.setTypeId(stuff.getTypeId());
+		stuffForm.setRegisteredId(stuff.getRegisteredId());
 		
 		return stuffForm;
 		

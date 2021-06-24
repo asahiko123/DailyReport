@@ -6,15 +6,18 @@ package com.example.demo.app.entity;
 public class DailyReport {
 	
 	private int id;
+	private int stuffId;
+	private int workId;
 	private DailyReportType dailyReportType;
+	private Stuff stuff;
+	private Work work;
 	private String created;
 	private String startTime;
 	private String endTime;
 	private String detail;
 	private String name;
-	private String stuffName;
 	private int typeId;
-
+	
 	
 	
 	
@@ -26,20 +29,26 @@ public class DailyReport {
 			int id,
 			int typeId,
 			int stuffId,
+			int workId,
 			DailyReportType dailyReportType,
+			Stuff stuff,
+			Work work,
 			String created,
 			String startTime,
 			String endTime,
 			String detail,
-			String name,
-			String stuffName
+			String name
+			
 			) {
 		
 		  super();
 		  this.id = id;
 		  this.typeId = typeId;
-		  this.stuffName = stuffName;
+		  this.stuffId = stuffId;
+		  this.workId = workId;
 		  this.dailyReportType = dailyReportType;
+		  this.stuff = stuff;
+		  this.work = work;
           this.created = created;
 		  this.startTime = startTime;
 		  this.endTime = endTime;
@@ -52,12 +61,38 @@ public class DailyReport {
 
 	
 
-	public String getStuffName() {
-		return stuffName;
+	public Work getWork() {
+		return work;
 	}
 
-	public void setStuffName(String stuffName) {
-		this.stuffName = stuffName;
+	public void setWork(Work work) {
+		this.work = work;
+	}
+
+	public int getWorkId() {
+		return workId;
+	}
+
+	public void setWorkId(int workId) {
+		this.workId = workId;
+	}
+
+	
+
+	public Stuff getStuff() {
+		return stuff;
+	}
+
+	public void setStuff(Stuff stuff) {
+		this.stuff = stuff;
+	}
+
+	public int getStuffId() {
+		return stuffId;
+	}
+
+	public void setStuffId(int stuffId) {
+		this.stuffId = stuffId;
 	}
 
 	public void setEndTime(String endTime) {
@@ -132,5 +167,6 @@ public class DailyReport {
 		this.dailyReportType = dailyReportType;
 	}
 
+	
 
 }

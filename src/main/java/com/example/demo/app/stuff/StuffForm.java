@@ -9,19 +9,28 @@ public class StuffForm {
 	private String name;
 	@NotNull(message ="内容を入力してください")
 	private String detail;
+	@NotNull(message ="内容を入力してください")		
+	private String registeredId;
 	private boolean newStuff;
 
 	public StuffForm() {
 		
 	}
-	public StuffForm(int id,int typeId,String name,String detail, boolean newStuff) {
+	public StuffForm(int id,int typeId,String name,String detail,String registeredId, boolean newStuff) {
 		this.id = id;
 		this.typeId = typeId;
 		this.name = name;
 		this.detail = detail;
+		this.registeredId = registeredId;
 		this.newStuff = newStuff;
 	}
 	
+	public String getRegisteredId() {
+		return registeredId;
+	}
+	public void setRegisteredId(String registeredId) {
+		this.registeredId = registeredId;
+	}
 	public String getDetail() {
 		return detail;
 	}
