@@ -64,12 +64,18 @@
 	            <div class="form-group">
 				  <label for="exampleFormControlSelect1">スタッフID</label>
 	              <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name ="stuffId">
-                    <option selected>選択してください</option>
-                    <option value ="1" th:selected ="*{stuffId == 1}"></option>
-                    <option value ="2" th:selected ="*{stuffId == 2}"></option>
-                    <option value ="3" th:selected ="*{stuffId == 3}"></option> 
+                    <option>選択してください</option>
+                    <option  th:each ="obj:${stuff}"  th:value ="${obj.id}"th:text ="${obj.registeredId}" ></option>       
                   </select>
 	            </div>
+	            
+	            <div class="form-group">
+				  <label for="exampleFormControlSelect1">作業区分ID</label>
+		            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="workId">
+	                  <option>選択してください</option>
+	                  <option th:each ="obj:${work}" th:value ="${obj.id}"th:text ="${obj.workDivId}"></option>
+	                </select>
+		        </div>
                    
 	   			 <div class="form-group">
 				    <label for="exampleFormControlSelect1">進捗度</label>
@@ -102,21 +108,11 @@
 				     <label>終了時刻</label> 
 				     <input type ="time" name ="endTime" th:value ="*{endTime}">
 				     
-				      <br>
-				   </br>
-				   
-				     <div class="form-group">
-					  <label for="exampleFormControlSelect1">作業区分</label>
-		              <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="workId">
-	                    <option selected>選択してください</option>
-	                    <option value ="1" th:selected ="*{workId == 1}"></option>
-	                    <option value ="2" th:selected ="*{workId == 2}"></option>
-	                    <option value ="3" th:selected ="*{workId == 3}"></option> 
-	                  </select>
-		            </div>
-		
+				     
 				   <br>
 				   </br>
+				   
+				   
 				   <div class="form-group">
 				    <label for="exampleFormControlTextarea1">日報内容</label>
 				    <div th:if="${#fields.hasErrors('detail')}"class="alert alert-danger" role="alert"><p>1～20文字以内で入力してください</p></div>
@@ -137,7 +133,7 @@
      	<th></th>
      	<th>スタッフID</th>
      	<th>進捗度</th>
-     	<th>作業区分</th>
+     	<th>作業区分ID</th>
      	<th>作業日付</th>
      	<th>開始時間</th>
      	<th>終了時間</th>

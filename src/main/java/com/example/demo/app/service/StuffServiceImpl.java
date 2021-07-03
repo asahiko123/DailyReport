@@ -23,6 +23,8 @@ public class StuffServiceImpl implements StuffService{
 	
 	}
 	
+	
+	
 	@Override
 	public Optional<Stuff> getStuff(int id) {
 		
@@ -57,6 +59,8 @@ public class StuffServiceImpl implements StuffService{
 		}
 		
 	}
+
+
 
 
 

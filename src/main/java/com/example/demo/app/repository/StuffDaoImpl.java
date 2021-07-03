@@ -34,7 +34,7 @@ public class StuffDaoImpl implements StuffDao{
 			
 			Stuff stuff = new Stuff();
 			stuff.setId((int)result.get("id"));
-			stuff.setTypeId((int)result.get("type_id"));
+//			stuff.setTypeId((int)result.get("type_id"));
 			stuff.setName((String)result.get("name"));
 			stuff.setDetail((String)result.get("detail"));
 			stuff.setRegisteredId((String)result.get("registeredId"));

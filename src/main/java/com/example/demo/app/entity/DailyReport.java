@@ -16,6 +16,7 @@ public class DailyReport {
 	private String endTime;
 	private String detail;
 	private String name;
+	private String registeredId;
 	private int typeId;
 	
 	
@@ -37,7 +38,8 @@ public class DailyReport {
 			String startTime,
 			String endTime,
 			String detail,
-			String name
+			String name,
+			String registeredId
 			
 			) {
 		
@@ -54,12 +56,21 @@ public class DailyReport {
 		  this.endTime = endTime;
 		  this.detail = detail;
 		  this.name = name;
+		  this.registeredId = registeredId;
 		
 		
 		
 	}
 
 	
+
+	public String getRegisteredId() {
+		return registeredId;
+	}
+
+	public void setRegisteredId(String registeredId) {
+		this.registeredId = registeredId;
+	}
 
 	public Work getWork() {
 		return work;

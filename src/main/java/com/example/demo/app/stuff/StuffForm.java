@@ -6,6 +6,7 @@ public class StuffForm {
 	
 	private int id;
 	private int typeId;
+	private int stuffId;
 	private String name;
 	@NotNull(message ="内容を入力してください")
 	private String detail;
@@ -16,15 +17,22 @@ public class StuffForm {
 	public StuffForm() {
 		
 	}
-	public StuffForm(int id,int typeId,String name,String detail,String registeredId, boolean newStuff) {
+	public StuffForm(int id,int typeId,String name,String detail,String registeredId,int stuffId, boolean newStuff) {
 		this.id = id;
 		this.typeId = typeId;
+		this.stuffId = stuffId;
 		this.name = name;
 		this.detail = detail;
 		this.registeredId = registeredId;
 		this.newStuff = newStuff;
 	}
 	
+	public int getStuffId() {
+		return stuffId;
+	}
+	public void setStuffId(int stuffId) {
+		this.stuffId = stuffId;
+	}
 	public String getRegisteredId() {
 		return registeredId;
 	}
@@ -61,5 +69,6 @@ public class StuffForm {
 	public void setNewStuff(boolean newStuff) {
 		this.newStuff = newStuff;
 	}
+	
 	
 }

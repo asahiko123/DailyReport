@@ -23,8 +23,6 @@ public class Stuff {
 		
 	}
 
-
-
 	public String getRegisteredId() {
 		return registeredId;
 	}

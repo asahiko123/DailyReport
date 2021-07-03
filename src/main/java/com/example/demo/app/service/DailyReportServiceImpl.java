@@ -7,6 +7,8 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.app.entity.DailyReport;
+import com.example.demo.app.entity.Stuff;
+import com.example.demo.app.entity.Work;
 import com.example.demo.app.repository.DailyReportDao;
 
 @Service
@@ -22,6 +24,15 @@ public class DailyReportServiceImpl implements DailyReportService{
 		
 		return dailyReportDao.findAll();
 	}
+	
+    public List<Stuff> findStuff() {
+		
+		return dailyReportDao.findStuff();
+	}
+    
+    public List<Work> findWork(){
+    	return dailyReportDao.findWork();
+    }
 
 	@Override
 	public Optional<DailyReport> getDailyReport(int id) {
@@ -37,6 +48,7 @@ public class DailyReportServiceImpl implements DailyReportService{
 	@Override
 	public void insert(DailyReport dailyReport) {
 		dailyReportDao.insert(dailyReport);
+//		dailyReportDao.insertStuff(dailyReport);
 		
 	}
 
@@ -57,5 +69,6 @@ public class DailyReportServiceImpl implements DailyReportService{
 		}
 		
 	}
+	
 
 }

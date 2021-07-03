@@ -9,6 +9,7 @@ public interface StuffService {
 	
 	List<Stuff> findAll();
 	
+	
 	Optional<Stuff> getStuff(int id);
 	
 	void insert(Stuff stuff);

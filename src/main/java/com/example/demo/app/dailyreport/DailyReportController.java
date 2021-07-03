@@ -17,8 +17,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.app.entity.DailyReport;
+import com.example.demo.app.entity.Stuff;
+import com.example.demo.app.entity.Work;
 //import com.example.demo.app.entity.Stuff;
 import com.example.demo.app.service.DailyReportService;
+import com.example.demo.app.stuff.StuffForm;
+import com.example.demo.app.work.WorkForm;
 //import com.example.demo.app.service.StuffService;
 
 @Controller
@@ -33,25 +37,33 @@ public class DailyReportController {
 		
 	}
 	
-
-	
-	
 	@GetMapping
 	public String top(Model model) {
 		
 		model.addAttribute("title","日報アプリ");
 		return"top";
 	}
+	
+	
 	@GetMapping("/report")
 	public String DailyReport(DailyReportForm dailyReportForm,Model model) {
 		
 		dailyReportForm.setNewReport(true);
 		List<DailyReport> list = dailyReportService.findAll();
+		List<Stuff> stuff = dailyReportService.findStuff();
+		List<Work> work = dailyReportService.findWork();
+		
 		
 		model.addAttribute("list",list);
+		model.addAttribute("stuff",stuff);
+		model.addAttribute("work",work);
 		model.addAttribute("title","日報入力");
+	
+		
 		return "DailyReportForm";
 	}
+	
+	
 	@GetMapping("/report/{id}")
 	public String showUpdate(
 			@PathVariable int id,
@@ -70,7 +82,13 @@ public class DailyReportController {
 		model.addAttribute("title","日報更新フォーム");
 		model.addAttribute("DailyReportForm",dailyReportForm);
 		List<DailyReport> list = dailyReportService.findAll();
+		List<Stuff> stuff = dailyReportService.findStuff();
+		List<Work> work = dailyReportService.findWork();
+		
+		
 		model.addAttribute("list",list);
+		model.addAttribute("stuff",stuff);
+		model.addAttribute("work",work);
 		model.addAttribute("dailyReportId",id);
 		
 		
@@ -83,21 +101,33 @@ public class DailyReportController {
 	public String insert(
 			@Valid@ModelAttribute DailyReportForm dailyReportForm,
 			BindingResult result,
+			StuffForm stuffForm,
+			WorkForm workForm,
 			Model model) {
 		
 		
 		DailyReport dailyReport  = makeDailyReport(dailyReportForm,0);
-	
+		
+		System.out.println(dailyReportForm.getStuffId());
+		
+		
 		
 		if(!result.hasErrors()) {
 			dailyReportService.insert(dailyReport);
-			 System.out.println(dailyReport.getStuffId());
+//			dailyReportService.insert(makestuff);
+//			dailyReportService.insert(makeWork);
+		
 			return "redirect:/main/report";
 		}else {
 			dailyReportForm.setNewReport(true);
 			model.addAttribute("DailyReportForm",dailyReportForm);
+		
 			List<DailyReport> list = dailyReportService.findAll();
-		   
+			List<Stuff> stuff = dailyReportService.findStuff();
+			List<Work> work = dailyReportService.findWork();
+			
+			model.addAttribute("stuff",stuff);
+			model.addAttribute("work",work);
 			model.addAttribute("list",list);
 			model.addAttribute("title","日報入力");
 			
@@ -111,13 +141,19 @@ public class DailyReportController {
 			@Valid@ModelAttribute DailyReportForm dailyReportForm,
 			BindingResult result,
 			@RequestParam("dailyReportId")int dailyReportId,
+			@RequestParam("stuffId")int stuffId,
+			StuffForm stuffForm,
+			WorkForm workForm,
 			Model model,
 			RedirectAttributes redirectAttributes) {
 		
 		
 		if(!result.hasErrors()) {
 			DailyReport dailyReport = makeDailyReport(dailyReportForm,dailyReportId);
+			
+
 			dailyReportService.update(dailyReport);
+			
 			redirectAttributes.addFlashAttribute("complete","変更しました");
 			return "redirect:/main/report/"+dailyReportId;
 			
@@ -158,6 +194,8 @@ public class DailyReportController {
 		dailyReport.setTypeId(dailyReportForm.getTypeId());
 		dailyReport.setStuffId(dailyReportForm.getStuffId());
 		dailyReport.setWorkId(dailyReportForm.getWorkId());
+		dailyReport.setRegisteredId(dailyReportForm.getRegisteredId());
+	
 		
 		return dailyReport;
 	}
@@ -174,11 +212,39 @@ public class DailyReportController {
 		dailyReportForm.setTypeId(dailyReport.getTypeId());
 		dailyReportForm.setStuffId(dailyReport.getStuffId());
 		dailyReportForm.setWorkId(dailyReport.getWorkId());
+		
+		
 		dailyReportForm.setNewReport(false);
 		
 		return dailyReportForm;
 	}
 	
-
+//	private Stuff makeStuff(StuffForm stuffForm,int stuffId) {
+//		
+//		Stuff stuff  = new Stuff();
+//		if(stuffId == 0) {
+//			stuff.setId(stuffId);
+//		}
+//		
+//		stuff.setRegisteredId(stuffForm.getRegisteredId());
+//	
+//		
+//		return stuff;
+//		
+//		
+//		
+//	}
+//	
+//	private Work makeWork(WorkForm workForm,int workId) {
+//		Work work  = new Work();
+//		if(workId == 0) {
+//			work.setId(workId);
+//		}
+//		work.setId(workForm.getId());
+//		work.setWorkDivId(workForm.getWorkDivId());
+//		
+//		return work;
+//	}
 	
+
 }

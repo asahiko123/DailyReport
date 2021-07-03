@@ -32,6 +32,10 @@ public class DailyReportForm {
 	
 	private int workId;
 	
+	private String registeredId;
+	
+	private String workDivId;
+	
 	private boolean newReport;
 	
 	
@@ -44,12 +48,13 @@ public class DailyReportForm {
      		@NotNull(message = "内容を入力してください") String created,
 			@NotNull(message = "内容を入力してください") String startTime,
 			@NotNull(message = "内容を入力してください") String endTime,
-			String stuffName,
 			@NotNull(message ="内容を入力してください")@Size(min = 1, max = 20)String detail,
 			String name,
 			boolean newReport, 
 			int stuffId,
-			int workId) {
+			int workId,
+			String registeredId,
+			String workDivId) {
 		
 		this.id= id;
 		this.created = created;
@@ -57,12 +62,32 @@ public class DailyReportForm {
 		this.startTime = startTime;
 		this.detail = detail;
 		this.stuffId = stuffId;
+		this.registeredId = registeredId;
+		this.workDivId = workDivId;
 		this.workId = workId;
 		this.name = name;
 		this.newReport = newReport;
 		
 	}
 
+
+	
+	public String getRegisteredId() {
+		return registeredId;
+	}
+
+	public void setRegisteredId(String registeredId) {
+		this.registeredId = registeredId;
+	}
+
+
+	public String getWorkDivId() {
+		return workDivId;
+	}
+
+	public void setWorkDivId(String workDivId) {
+		this.workDivId = workDivId;
+	}
 
 	public int getWorkId() {
 		return workId;

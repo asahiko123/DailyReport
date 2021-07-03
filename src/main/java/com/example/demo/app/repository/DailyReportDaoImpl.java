@@ -25,6 +25,7 @@ public class DailyReportDaoImpl implements DailyReportDao{
 	public DailyReportDaoImpl(JdbcTemplate jdbcTemplate) {
 		this.jdbcTemplate = jdbcTemplate;
 	}
+	
 
 	@Override
 	public List<DailyReport> findAll() {
@@ -36,6 +37,7 @@ public class DailyReportDaoImpl implements DailyReportDao{
 			    +" INNER JOIN STUFF ON STUFF.id = DAILYREPORT.stuff_id"
 		        +" INNER JOIN WORK ON WORK.id = DAILYREPORT.work_id";
 		     
+		
 		
 		List<Map<String,Object>> resultList = jdbcTemplate.queryForList(sql);
 		System.out.println(resultList);
@@ -122,19 +124,64 @@ public class DailyReportDaoImpl implements DailyReportDao{
 		
 		return reportOpt;
 	}
+	
+	@Override
+	public List<Stuff> findStuff() {
+		// TODO 自動生成されたメソッド・スタブ
+		String sql ="SELECT STUFF.id,type_id,name,detail,registeredId FROM STUFF ";
+	    		
+		List<Map<String,Object>>resultList = jdbcTemplate.queryForList(sql);
+		List<Stuff> list = new ArrayList<Stuff>();
+		
+		System.out.println(resultList);
+		
+		for(Map<String,Object>result :resultList){
+		Stuff stuff = new Stuff();
+		stuff.setId((int)result.get("id"));
+		stuff.setName((String)result.get("name"));
+		stuff.setRegisteredId((String)result.get("registeredId"));
+		stuff.setDetail((String)result.get("detail"));
+		
+		
+		list.add(stuff);
+		
+		
+		}
+		return list;
+	}
+	
+	public List<Work> findWork(){
+		
+		String sql ="SELECT WORK.id ,workDivId FROM WORK";
+		
+		List<Map<String,Object>> resultList = jdbcTemplate.queryForList(sql);
+		ArrayList<Work> list = new ArrayList<Work>();
+		
+		for(Map<String,Object>result:resultList) {
+			Work work = new Work();
+			work.setId((int)result.get("id"));
+			work.setWorkDivId((String)result.get("workDivId"));
+			
+			list.add(work);
+			
+		}
+		return list;
+	}
+
 
 	@Override
 	public void insert(DailyReport dailyReport) {
-		jdbcTemplate.update("INSERT INTO DAILYREPORT(type_id,stuff_id,work_id,created,startTime,endTime,detail,name)VALUES(?,?,?,?,?,?,?,?)",
-							dailyReport.getTypeId(),dailyReport.getStuffId(),dailyReport.getWorkId(),dailyReport.getCreated(),dailyReport.getStartTime(),dailyReport.getEndTime(),dailyReport.getDetail(),dailyReport.getName());
-		
+		jdbcTemplate.update("INSERT INTO DAILYREPORT(type_id,stuff_id,work_id,created,startTime,endTime,detail,name) VALUES(?,?,?,?,?,?,?,?)",  
+				             dailyReport.getTypeId(),dailyReport.getStuffId(),dailyReport.getWorkId(),dailyReport.getCreated(),dailyReport.getStartTime(),dailyReport.getEndTime(),dailyReport.getDetail(),dailyReport.getName());
+				             	
 	}
+	
+	
 
 	@Override
 	public int update(DailyReport dailyReport) {
 		return jdbcTemplate.update("UPDATE DAILYREPORT SET type_id = ? , stuff_id = ?, work_id = ? ,created = ?, startTime = ? ,endTime = ? ,detail = ? ,name = ? WHERE id= ?",
-							dailyReport.getTypeId(),dailyReport.getStuffId(),dailyReport.getWorkId(),dailyReport.getCreated(),dailyReport.getStartTime(),dailyReport.getEndTime(),dailyReport.getDetail(),dailyReport.getName(),dailyReport.getId());
-		
+							         dailyReport.getTypeId(),dailyReport.getStuffId(),dailyReport.getWorkId(),dailyReport.getCreated(),dailyReport.getStartTime(),dailyReport.getEndTime(),dailyReport.getDetail(),dailyReport.getName(),dailyReport.getId());	
 	}
 
 	@Override
@@ -143,4 +190,6 @@ public class DailyReportDaoImpl implements DailyReportDao{
 		
 	}
 
+
+	
 }
