@@ -1,10 +1,24 @@
 package com.example.demo.app.dailyreport;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,6 +44,14 @@ import com.example.demo.app.work.WorkForm;
 public class DailyReportController {
 	
 	private final DailyReportService dailyReportService;
+	private int id;
+	private String stuff;
+	private String work;
+	private String progress;
+	private String date;
+	private String start;
+	private String end;
+	private String detail;
 	
 	
 	public DailyReportController(DailyReportService dailyReportService) {
@@ -47,7 +69,7 @@ public class DailyReportController {
 	
 	@GetMapping("/report")
 	public String DailyReport(DailyReportForm dailyReportForm,Model model) {
-		
+
 		dailyReportForm.setNewReport(true);
 		List<DailyReport> list = dailyReportService.findAll();
 		List<Stuff> stuff = dailyReportService.findStuff();
@@ -107,16 +129,10 @@ public class DailyReportController {
 		
 		
 		DailyReport dailyReport  = makeDailyReport(dailyReportForm,0);
-		
-		System.out.println(dailyReportForm.getStuffId());
-		
-		
-		
+
 		if(!result.hasErrors()) {
 			dailyReportService.insert(dailyReport);
-//			dailyReportService.insert(makestuff);
-//			dailyReportService.insert(makeWork);
-		
+
 			return "redirect:/main/report";
 		}else {
 			dailyReportForm.setNewReport(true);
@@ -178,6 +194,104 @@ public class DailyReportController {
 		
 	}
 	
+	//エクセル出力を行う
+
+	@RequestMapping("/report/output")
+	public String download(RedirectAttributes redirectAttributes,
+			               DailyReportForm dailyReportForm,
+			               DailyReport dailyReport,
+			               Model model) throws IOException {
+	
+  
+	  
+    List<DailyReport> list = dailyReportService.findAll();
+    int i = 1;
+    
+	//テンプレートファイルの参照、読み込み
+    Path tempPath = Paths.get("C:\\Users\\hullh\\OneDrive\\template_dailyReport.xlsx");
+    InputStream inst = Files.newInputStream(tempPath);
+    Workbook workbook = new XSSFWorkbook(inst);
+    FileOutputStream out = null;
+    
+    //シート、セル、行の作成
+    Sheet sheet = workbook.getSheetAt(0);
+    Cell[][] cell;
+    cell = new Cell[7][8];
+    Row[] row;
+    row = new Row[7];
+    
+    //スタイル指定
+    CellStyle style = workbook.createCellStyle();
+    style.setBorderBottom(BorderStyle.THIN);
+    style.setBorderTop(BorderStyle.THIN);
+    style.setBorderRight(BorderStyle.THIN);
+    style.setBorderLeft(BorderStyle.THIN);
+    
+    CellStyle style2 = workbook.createCellStyle();
+    style2.setFillBackgroundColor(IndexedColors.SKY_BLUE.getIndex());
+    style2.setBorderBottom(BorderStyle.THIN);
+    style2.setBorderTop(BorderStyle.THIN);
+    style2.setBorderRight(BorderStyle.THIN);
+    style2.setBorderLeft(BorderStyle.THIN);
+    
+
+	//セルに値を設定
+	for(DailyReport objct:list) {
+		
+		id    = objct.getId();
+		stuff = objct.getStuff().getRegisteredId();
+		date = objct.getCreated();
+		start = objct.getStartTime();
+		end   = objct.getEndTime();
+		detail = objct.getDetail();
+		progress = objct.getDailyReportType().getProgress();
+		work = objct.getWork().getWorkDivId();
+		
+		
+		row[i] = sheet.createRow(i);
+
+        cell[i][0] = row[i].createCell(0);
+        cell[i][1] = row[i].createCell(1);
+        cell[i][2] = row[i].createCell(2);
+        cell[i][3] = row[i].createCell(3);
+        cell[i][4] = row[i].createCell(4);
+        cell[i][5] = row[i].createCell(5);
+        cell[i][6] = row[i].createCell(6);
+        cell[i][7] = row[i].createCell(7);
+       
+        cell[i][0].setCellValue(id);
+        cell[i][0].setCellStyle(style);
+        cell[i][1].setCellValue(stuff);
+        cell[i][1].setCellStyle(style);
+        cell[i][2].setCellValue(progress);
+        cell[i][2].setCellStyle(style);
+        cell[i][3].setCellValue(work);
+        cell[i][3].setCellStyle(style);
+        cell[i][4].setCellValue(date);
+        cell[i][4].setCellStyle(style);
+        cell[i][5].setCellValue(start);
+        cell[i][5].setCellStyle(style);
+        cell[i][6].setCellValue(end);
+        cell[i][6].setCellStyle(style);
+        cell[i][7].setCellValue(detail);
+        cell[i][7].setCellStyle(style);
+        
+	    i++;
+	}
+ 
+		
+
+
+    out = new FileOutputStream("C:\\Users\\hullh\\OneDrive\\result.xlsx");
+
+    workbook.write(out);
+    workbook.close();
+    redirectAttributes.addFlashAttribute("output","エクセル出力しました");
+	
+    return "redirect:/main/report";
+	}
+	
+	
 	private DailyReport makeDailyReport(DailyReportForm dailyReportForm,int dailyReportId) {
 	
 		DailyReport dailyReport = new DailyReport();
@@ -218,33 +332,5 @@ public class DailyReportController {
 		
 		return dailyReportForm;
 	}
-	
-//	private Stuff makeStuff(StuffForm stuffForm,int stuffId) {
-//		
-//		Stuff stuff  = new Stuff();
-//		if(stuffId == 0) {
-//			stuff.setId(stuffId);
-//		}
-//		
-//		stuff.setRegisteredId(stuffForm.getRegisteredId());
-//	
-//		
-//		return stuff;
-//		
-//		
-//		
-//	}
-//	
-//	private Work makeWork(WorkForm workForm,int workId) {
-//		Work work  = new Work();
-//		if(workId == 0) {
-//			work.setId(workId);
-//		}
-//		work.setId(workForm.getId());
-//		work.setWorkDivId(workForm.getWorkDivId());
-//		
-//		return work;
-//	}
-	
 
 }

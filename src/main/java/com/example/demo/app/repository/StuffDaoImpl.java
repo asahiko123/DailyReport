@@ -23,10 +23,9 @@ public class StuffDaoImpl implements StuffDao{
 	public List<Stuff> findAll() {
 		
 		String sql ="SELECT STUFF.id, type_id , name , detail, registeredId  FROM STUFF ";
-					//+" INNER JOIN STUFF_TYPE ON STUFF.type_id = STUFF_TYPE.id";
-		
+					
 		List<Map<String,Object>>resultList = jdbcTemplate.queryForList(sql);
-		System.out.println(resultList);
+		
 		
 		List<Stuff> list = new ArrayList<Stuff>();
 		
@@ -34,17 +33,10 @@ public class StuffDaoImpl implements StuffDao{
 			
 			Stuff stuff = new Stuff();
 			stuff.setId((int)result.get("id"));
-//			stuff.setTypeId((int)result.get("type_id"));
 			stuff.setName((String)result.get("name"));
 			stuff.setDetail((String)result.get("detail"));
 			stuff.setRegisteredId((String)result.get("registeredId"));
 			
-			
-//			StuffType stuffType = new StuffType();
-//			stuffType.setId((int)result.get("type_id"));
-//			stuffType.setStuffId((String)result.get("stuffId"));
-//			
-//			stuff.setStuffType(stuffType);
             list.add(stuff);
 			
 		}
@@ -55,7 +47,6 @@ public class StuffDaoImpl implements StuffDao{
 	public Optional<Stuff> findById(int id) {
 		
 		String sql ="SELECT STUFF.id, type_id, name, detail, registeredId  FROM STUFF"
-//				+" INNER JOIN STUFF_TYPE ON STUFF.type_id = STUFF_TYPE.id"
 				+" WHERE STUFF.id = ?";
 		
 		Map<String,Object> result = jdbcTemplate.queryForMap(sql,id);
@@ -67,10 +58,7 @@ public class StuffDaoImpl implements StuffDao{
 		stuff.setName((String)result.get("name"));
 		stuff.setDetail((String)result.get("detail"));
 		stuff.setRegisteredId((String)result.get("registeredId"));
-		
-//		StuffType stuffType = new StuffType();
-//		stuffType.setId((int)result.get("type_id"));
-//		stuffType.setStuffId((String)result.get("stuffId"));
+
 		
 		Optional<Stuff> stuffOpt = Optional.ofNullable(stuff);
 		

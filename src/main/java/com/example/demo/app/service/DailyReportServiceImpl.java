@@ -48,7 +48,6 @@ public class DailyReportServiceImpl implements DailyReportService{
 	@Override
 	public void insert(DailyReport dailyReport) {
 		dailyReportDao.insert(dailyReport);
-//		dailyReportDao.insertStuff(dailyReport);
 		
 	}
 

@@ -23,7 +23,6 @@ public class SupplierDaoImpl implements SupplierDao{
 	public List<Supplier> findAll() {
 		
 		String sql = "SELECT SUPPLIER.id,type_id,supplier,comment FROM SUPPLIER";
-				//+" INNER JOIN SUPPLIER_TYPE ON SUPPLIER.type_id = SUPPLIER_TYPE.id";
 				
 		
 		List<Map<String,Object>>resultList = jdbcTemplate.queryForList(sql);
@@ -39,11 +38,6 @@ public class SupplierDaoImpl implements SupplierDao{
 			supplier.setSupplier((String)result.get("supplier"));
 			supplier.setComment((String)result.get("comment"));
 			
-//			SupplierType supplierType  = new SupplierType();
-//			supplierType.setId((int)result.get("type_id"));
-//			supplierType.setType((String)result.get("type"));
-			
-//			supplier.setSupplierType(supplierType);
 			list.add(supplier);
 		}
 		
@@ -54,7 +48,6 @@ public class SupplierDaoImpl implements SupplierDao{
 	public Optional<Supplier> findById(int id) {
 		
 		String sql = "SELECT SUPPLIER.id, type_id, supplier, comment FROM SUPPLIER"
-				//+" INNER JOIN SUPPLIER_TYPE ON SUPPLIER.type_id = SUPPLIER_TYPE.id"
 				+" WHERE SUPPLIER.id = ?";
 		
 		Map<String,Object> result = jdbcTemplate.queryForMap(sql,id);
@@ -66,12 +59,7 @@ public class SupplierDaoImpl implements SupplierDao{
 	    supplier.setSupplier((String)result.get("supplier"));
 	    supplier.setComment((String)result.get("comment"));
 	    
-//	    SupplierType supplierType = new SupplierType();
-//	    supplierType.setId((int)result.get("type_id"));
-//	    supplierType.setType((String)result.get("type"));
-//	    
-//	    supplier.setSupplierType(supplierType);
-//	    
+
 	    Optional<Supplier> supOpt = Optional.ofNullable(supplier);
 		
 		return supOpt;

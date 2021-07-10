@@ -62,10 +62,7 @@ public class DailyReportDaoImpl implements DailyReportDao{
 			DailyReportType dailyReportType = new DailyReportType();
 			dailyReportType.setId((int)result.get("type_id"));
 			dailyReportType.setProgress((String)result.get("progress"));
-			
-//			StuffType stuffType = new StuffType();
-//			stuffType.setId((int)result.get("stuff_id"));
-//			stuffType.setStuffId((String)result.get("stuffId"));
+
 			
 			Stuff stuff = new Stuff();
 			stuff.setRegisteredId((String)result.get("registeredId"));
@@ -76,7 +73,6 @@ public class DailyReportDaoImpl implements DailyReportDao{
 			dailyReport.setDailyReportType(dailyReportType);
 			dailyReport.setStuff(stuff);
 			dailyReport.setWork(work);
-//			dailyReport.setStuffType(stuffType);
 			list.add(dailyReport);
 			
 		}
@@ -132,8 +128,6 @@ public class DailyReportDaoImpl implements DailyReportDao{
 	    		
 		List<Map<String,Object>>resultList = jdbcTemplate.queryForList(sql);
 		List<Stuff> list = new ArrayList<Stuff>();
-		
-		System.out.println(resultList);
 		
 		for(Map<String,Object>result :resultList){
 		Stuff stuff = new Stuff();
