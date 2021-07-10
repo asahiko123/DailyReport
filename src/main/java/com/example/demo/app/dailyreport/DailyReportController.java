@@ -14,7 +14,6 @@ import javax.validation.Valid;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -208,12 +207,15 @@ public class DailyReportController {
     int i = 1;
     
 	//テンプレートファイルの参照、読み込み
+    //Pathはローカルで指定
+    
     Path tempPath = Paths.get("C:\\Users\\hullh\\OneDrive\\template_dailyReport.xlsx");
     InputStream inst = Files.newInputStream(tempPath);
     Workbook workbook = new XSSFWorkbook(inst);
     FileOutputStream out = null;
     
     //シート、セル、行の作成
+    
     Sheet sheet = workbook.getSheetAt(0);
     Cell[][] cell;
     cell = new Cell[7][8];
@@ -221,21 +223,18 @@ public class DailyReportController {
     row = new Row[7];
     
     //スタイル指定
+    
     CellStyle style = workbook.createCellStyle();
     style.setBorderBottom(BorderStyle.THIN);
     style.setBorderTop(BorderStyle.THIN);
     style.setBorderRight(BorderStyle.THIN);
     style.setBorderLeft(BorderStyle.THIN);
     
-    CellStyle style2 = workbook.createCellStyle();
-    style2.setFillBackgroundColor(IndexedColors.SKY_BLUE.getIndex());
-    style2.setBorderBottom(BorderStyle.THIN);
-    style2.setBorderTop(BorderStyle.THIN);
-    style2.setBorderRight(BorderStyle.THIN);
-    style2.setBorderLeft(BorderStyle.THIN);
+
     
 
 	//セルに値を設定
+    
 	for(DailyReport objct:list) {
 		
 		id    = objct.getId();
@@ -289,6 +288,7 @@ public class DailyReportController {
     redirectAttributes.addFlashAttribute("output","エクセル出力しました");
 	
     return "redirect:/main/report";
+    
 	}
 	
 	
