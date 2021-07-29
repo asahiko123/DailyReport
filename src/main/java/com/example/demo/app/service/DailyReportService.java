@@ -20,9 +20,12 @@ public interface DailyReportService {
 	
 	void insert(DailyReport dailyReport);
 	
+	void resetNum(DailyReport dailyReport);
+	
 	void update(DailyReport dailyReport);
 	
 	void deleteById(int id);
+	
 	
 
 	

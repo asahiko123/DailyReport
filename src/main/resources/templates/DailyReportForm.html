@@ -61,21 +61,24 @@
 <div class="starter-template text-center py-5 px-3">
    <form method ="POST"  th:action ="${dailyReportForm.newReport}? @{/main/report/insert}:@{/main/report/update}" th:object="${dailyReportForm}">
 	    <p th:if="${complete}" th:text="${complete}" class ="alert alert-primary" role ="alert"></p>
+	    <p th:if="${unselected}" th:text="${unselected}" class ="alert alert-danger" role="alert"></p>
 	    <p th:if="${output}" th:text="${output}" class="alert alert-primary" role="alert"></p>
 	    <h1 th:text="${title}">Bootstrap スターターテンプレート</h1>
 	            
 	            <div class="form-group">
 				  <label for="exampleFormControlSelect1">スタッフID</label>
+				 <!-- <div th:if="${#fields.hasErrors('stuffId')" th:errors="*{stuffId}" class="alert alert-danger" role="alert"}></div>-->
 	              <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name ="stuffId">
-                    <option>選択してください</option>
+                    <option disabled selected value>選択してください</option>
                     <option  th:each ="obj:${stuff}"  th:value ="${obj.id}"th:text ="${obj.registeredId}" ></option>       
                   </select>
 	            </div>
 	            
 	            <div class="form-group">
 				  <label for="exampleFormControlSelect1">作業区分ID</label>
+				  <!--  <div th:if="${#fields.hasErrors('workId')" th:errors="*{workId}" class="alert alert-danger" role="alert"}></div>-->
 		            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="workId">
-	                  <option>選択してください</option>
+	                  <option disabled selected value>選択してください</option>
 	                  <option th:each ="obj:${work}" th:value ="${obj.id}"th:text ="${obj.workDivId}"></option>
 	                </select>
 		        </div>
@@ -83,7 +86,7 @@
 	   			 <div class="form-group">
 				    <label for="exampleFormControlSelect1">進捗度</label>
 				    <select class="form-select form-select-lg mb-3" id="exampleFormControlSelect1" name="typeId">
-				    　<option selected>選択してください</option>
+				    　<option disabled selected value>選択してください</option>
 				      <option value ="1" th:selected ="*{typeId == 1}">0%</option>
 				      <option value ="2" th:selected ="*{typeId == 2}">10%</option>
 				      <option value ="3" th:selected ="*{typeId == 3}">20%</option>

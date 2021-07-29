@@ -22,7 +22,7 @@ public class WorkDaoImpl implements WorkDao{
 	@Override
 	public List<Work> findAll() {
 		
-		String sql ="SELECT WORK.id,type_id,comment,workDivId,"
+		String sql ="SELECT DISTINCT WORK.id,type_id,comment,workDivId,"
 				   +" type FROM WORK"
 				   +" INNER JOIN WORK_TYPE ON WORK.type_id = WORK_TYPE.id";
 				   
@@ -52,7 +52,7 @@ public class WorkDaoImpl implements WorkDao{
 	@Override
 	public Optional<Work> findById(int id) {
 		
-		String sql ="SELECT WORK.id, type_id, comment,workDivId,"
+		String sql ="SELECT  DISTINCT WORK.id, type_id, comment,workDivId,"
 				   +" type FROM WORK"
 				   +" INNER JOIN WORK_TYPE ON WORK.type_id = WORK_TYPE.id"
 				   +" WHERE WORK.id = ?";

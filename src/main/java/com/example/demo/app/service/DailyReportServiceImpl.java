@@ -68,6 +68,12 @@ public class DailyReportServiceImpl implements DailyReportService{
 		}
 		
 	}
+	@Override
+	public void resetNum(DailyReport dailyReport) {
+		
+		dailyReportDao.resetNum(dailyReport);
+		
+	}
 	
 
 }

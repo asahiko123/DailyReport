@@ -9,7 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.app.entity.Supplier;
-import com.example.demo.app.entity.SupplierType;
+
 @Repository
 public class SupplierDaoImpl implements SupplierDao{
 	

@@ -13,7 +13,7 @@ import com.example.demo.app.entity.DailyReport;
 import com.example.demo.app.entity.DailyReportType;
 import com.example.demo.app.entity.Stuff;
 import com.example.demo.app.entity.Work;
-//import com.example.demo.app.entity.StuffType;
+
 
 
 
@@ -30,10 +30,9 @@ public class DailyReportDaoImpl implements DailyReportDao{
 	@Override
 	public List<DailyReport> findAll() {
 		
-		String sql = "SELECT DAILYREPORT.id, stuff_id, work_id, DAILYREPORT.type_id,stuff_id, created, startTime, endTime,  DAILYREPORT.detail,  DAILYREPORT.name,"
+		String sql = "SELECT DISTINCT DAILYREPORT.id, stuff_id, work_id, DAILYREPORT.type_id,stuff_id, created, startTime, endTime,  DAILYREPORT.detail,  DAILYREPORT.name,"
 				+ " progress  , registeredId ,workDivId FROM DAILYREPORT "
 				+ " INNER JOIN DAILYREPORT_TYPE ON DAILYREPORT_TYPE.id = DAILYREPORT.type_id"
-		        //+ " INNER JOIN STUFF_TYPE ON STUFF_TYPE.id = DAILYREPORT.stuff_id";
 			    +" INNER JOIN STUFF ON STUFF.id = DAILYREPORT.stuff_id"
 		        +" INNER JOIN WORK ON WORK.id = DAILYREPORT.work_id";
 		     
@@ -83,7 +82,7 @@ public class DailyReportDaoImpl implements DailyReportDao{
 	@Override
 	public Optional<DailyReport> getDailyReport(int id) {
 		
-		String sql = "SELECT DAILYREPORT.id, stuff_id , work_id, DAILYREPORT.type_id, created, startTime, endTime,  DAILYREPORT.detail,  DAILYREPORT.name,"
+		String sql = "SELECT DISTINCT DAILYREPORT.id, stuff_id , work_id, DAILYREPORT.type_id, created, startTime, endTime,  DAILYREPORT.detail,  DAILYREPORT.name,"
 				+" progress ,registeredId  ,workDivId FROM DAILYREPORT"
 				+" INNER JOIN DAILYREPORT_TYPE ON DAILYREPORT_TYPE.id = DAILYREPORT.type_id"
 				+" INNER JOIN STUFF ON STUFF.id = DAILYREPORT.stuff_id"
@@ -115,9 +114,7 @@ public class DailyReportDaoImpl implements DailyReportDao{
 		work.setWorkDivId((String)result.get("workDivId"));
 		
 	    Optional<DailyReport> reportOpt = Optional.ofNullable(dailyReport);
-		
-		
-		
+
 		return reportOpt;
 	}
 	
@@ -183,6 +180,15 @@ public class DailyReportDaoImpl implements DailyReportDao{
 		return jdbcTemplate.update("DELETE FROM DAILYREPORT WHERE id = ?",id);
 		
 	}
+
+
+	@Override
+	public void resetNum(DailyReport dailyReport) {
+		jdbcTemplate.update("ALTER TABLE `DAILYREPORT` AUTO_INCREMENT = 1");
+		
+	}
+	
+	
 
 
 	

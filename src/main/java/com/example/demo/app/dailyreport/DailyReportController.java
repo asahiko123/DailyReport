@@ -131,7 +131,7 @@ public class DailyReportController {
 
 		if(!result.hasErrors()) {
 			dailyReportService.insert(dailyReport);
-
+			
 			return "redirect:/main/report";
 		}else {
 			dailyReportForm.setNewReport(true);
@@ -185,10 +185,12 @@ public class DailyReportController {
 	@PostMapping("/report/delete")
 	public String delete(
 			Model model,
+			DailyReport dailyReport,
 			@RequestParam("dailyReportId")int id
 			) {
 		
 		dailyReportService.deleteById(id);
+//		dailyReportService.resetNum(dailyReport);
 		return"redirect:/main/report";
 		
 	}

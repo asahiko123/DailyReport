@@ -19,9 +19,10 @@ public interface DailyReportDao {
 	
 	void insert(DailyReport dailyReport);
 	
+	void resetNum(DailyReport dailyReport);
+	
 	int update(DailyReport dailyReport);
 	
 	int deleteById(int id);
-	
 
 }
