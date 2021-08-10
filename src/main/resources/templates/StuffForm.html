@@ -110,7 +110,7 @@
 	  <div th:if ="${stuffForm.newStuff}" style ="margin :10px">
 	  　<table class ="table table-striped">
 	        <tr>
-	          <th></th>
+	         
 	          <th>スタッフID</th>
 	          <th>名前</th>
 	          <th>備考</th>
@@ -118,7 +118,7 @@
 	          <th></th>
 	        </tr>
 	  		<tr th:each ="obj:${list}">
-	  		  <td th:text="${obj.id}"></td>
+	  		  <!--<td th:text="${obj.id}"></td>-->
 	  		  <td th:text="${obj.registeredId}"></td>
 	  		  <td th:text="${obj.name}"></td>
 	  		  <td th:text="${obj.detail}"></td>  		  

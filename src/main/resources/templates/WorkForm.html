@@ -95,7 +95,7 @@
   <div th:if ="${workForm.newWork}" style ="margin :10px">
     <table class ="table table-striped">
       <tr>
-     	<th></th>
+     	
      	<th>作業区分ID</th>
      	<th>作業区分</th>
      	<th>備考</th>
@@ -103,7 +103,7 @@
      	<th></th>
      </tr>
       <tr th:each = "obj: ${list}">
-        <td th:text = "${obj.id}"></td>
+        <!--<td th:text = "${obj.id}"></td>-->
         <td th:text = "${obj.workDivId}"></td>
         <td th:text = "${obj.workType.type}"></td>
         <td th:text = "${obj.comment}"></td>

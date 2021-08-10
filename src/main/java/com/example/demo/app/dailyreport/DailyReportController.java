@@ -165,7 +165,7 @@ public class DailyReportController {
 		
 		if(!result.hasErrors()) {
 			DailyReport dailyReport = makeDailyReport(dailyReportForm,dailyReportId);
-			
+		
 
 			dailyReportService.update(dailyReport);
 			
@@ -190,7 +190,6 @@ public class DailyReportController {
 			) {
 		
 		dailyReportService.deleteById(id);
-//		dailyReportService.resetNum(dailyReport);
 		return"redirect:/main/report";
 		
 	}
@@ -298,8 +297,10 @@ public class DailyReportController {
 	
 		DailyReport dailyReport = new DailyReport();
 		
+		
 		if(dailyReportId != 0) {
 			dailyReport.setId(dailyReportId);
+			
 		}
 		
 		dailyReport.setStartTime(dailyReportForm.getStartTime());
@@ -320,6 +321,7 @@ public class DailyReportController {
 		
 		DailyReportForm dailyReportForm = new DailyReportForm();
 		
+		dailyReportForm.setId(dailyReport.getId());
 		dailyReportForm.setStartTime(dailyReport.getStartTime());
 		dailyReportForm.setEndTime(dailyReport.getEndTime());
 		dailyReportForm.setCreated(dailyReport.getCreated());

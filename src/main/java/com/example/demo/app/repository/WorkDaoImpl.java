@@ -1,3 +1,4 @@
+
 package com.example.demo.app.repository;
 
 import java.util.ArrayList;
@@ -22,11 +23,11 @@ public class WorkDaoImpl implements WorkDao{
 	@Override
 	public List<Work> findAll() {
 		
-		String sql ="SELECT DISTINCT WORK.id,type_id,comment,workDivId,"
-				   +" type FROM WORK"
+		String sql = "SELECT DISTINCT WORK.id,WORK.type_id,comment,workDivId,type FROM WORK"
 				   +" INNER JOIN WORK_TYPE ON WORK.type_id = WORK_TYPE.id";
 				   
 		List<Map<String,Object>>resultList = jdbcTemplate.queryForList(sql);
+		System.out.println(resultList);
 		
 		List<Work> list = new ArrayList<Work>();
 		
@@ -52,8 +53,7 @@ public class WorkDaoImpl implements WorkDao{
 	@Override
 	public Optional<Work> findById(int id) {
 		
-		String sql ="SELECT  DISTINCT WORK.id, type_id, comment,workDivId,"
-				   +" type FROM WORK"
+		String sql = "SELECT DISTINCT WORK.id, WORK.type_id, comment,workDivId, type FROM WORK"
 				   +" INNER JOIN WORK_TYPE ON WORK.type_id = WORK_TYPE.id"
 				   +" WHERE WORK.id = ?";
 		
