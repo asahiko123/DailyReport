@@ -16,6 +16,10 @@ bootJar {
     launchScript()
 }
 
+task stage{
+	dependsOn build 
+}
+
 repositories {
 	mavenCentral()
 }
