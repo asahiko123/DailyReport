@@ -210,7 +210,7 @@ public class DailyReportController {
 	//テンプレートファイルの参照、読み込み
     //Pathはローカルで指定
     
-    Path tempPath = Paths.get("C:\\Users\\hullh\\OneDrive\\template_dailyReport.xlsx");
+    Path tempPath = Paths.get("C:\\Users\\hullh\\git\\DailyReport\\src\\main\\resources\\static\\excel\\template_dailyReport.xlsx");
     InputStream inst = Files.newInputStream(tempPath);
     Workbook workbook = new XSSFWorkbook(inst);
     FileOutputStream out = null;
@@ -282,7 +282,7 @@ public class DailyReportController {
 		
 
 
-    out = new FileOutputStream("C:\\Users\\hullh\\OneDrive\\result.xlsx");
+    out = new FileOutputStream("C:\\Users\\Public\\result.xlsx");
 
     workbook.write(out);
     workbook.close();
