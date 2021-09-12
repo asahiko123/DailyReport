@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.79.0">
-    <title>Starter Template for Bootstrap · Bootstrap v5.0</title>
+    <title>Starter Template for Bootstrap ﾂｷ Bootstrap v5.0</title>
 
     <link rel="canonical" href="https://getbootstrap.jp/docs/5.0/examples/starter-template/">
     
@@ -51,106 +51,129 @@
     
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
   <div class="container-fluid">
-    <a class="btn btn-primary" href="#" th:href ="@{/main}">終了する</a>
+    <a class="btn btn-primary" href="#" th:href ="@{/main}">邨ゆｺ�縺吶ｋ</a>
   </div>
 </nav>
+    <div class="main-container">
+         <aside>
+         	<div class="aside">
+         		<h3>スタッフ選択</h3>
+         		<div class="form-group">
+				    <label for="exampleFormControlSelect1">スタッフ氏名</label>
+				    <select class="form-control" id="exampleFormControlSelect1" name="typeId">
+				      <option value ="1" th:selected ="*{typeId == 1}">テスト</option>
+				      <option value ="2" th:selected ="*{typeId == 2}">コーディング</option>
+				      <option value ="3" th:selected ="*{typeId == 3}">要件定義</option>
+				      <option value ="4" th:selected ="*{typeId == 4}">ミーティング</option>		     
+				    </select>			  
+				  </div>
+				  
+         		
+         	</div>
+         </aside> 
 
-<main role="main" class="container">
- 
- <div class="starter-template text-center py-5 px-3">
-	     <h1 th:text="${title}">Bootstrap スターターテンプレート</h1>
-	      <div class="wrapper">
-	      
-	      
-	        <div class="circlechart">
-			  <canvas id="myPieChart"></canvas>
-			  <script src="/js/Chart.bundle.js" th:src="@{/js/Chart.bundle.js}"></script>
-			
-			  <script>
-			  var ctx = document.getElementById("myPieChart");
-			  var myPieChart = new Chart(ctx, {
-			    type: 'pie',
-			    data: {
-			      labels: ["A型", "O型", "B型", "AB型"],
-			      datasets: [{
-			          backgroundColor: [
-			              "#BB5179",
-			              "#FAFF67",
-			              "#58A27C",
-			              "#3C00FF"
-			          ],
-			          data: [38, 31, 21, 10]
-			      }]
-			    },
-			    options: {
-			      title: {
-			        display: true,
-			        text: '作業区分別-労働時間内訳'
-			      }
-			    }
-			  });
-			  </script>
-			
-		    </div>
-		    
-		    <div class="input">
+		<main role="main" class="container">
 		        
-				<div class="col-md-5">
-		            <label for="country" class="form-label">氏名</label>
-		            <select class="form-select" id="country" required>
-		                <option value="">選択してください</option>
-		                <option>日本</option>
-		              </select>
-		              <div class="invalid-feedback">
-		                氏名を選択してください。
-		              </div>
-	            </div>
-	            
-	             <div class="col-md-4">
-		              <label for="state" class="form-label">作業区分</label>
-		              <select class="form-select" id="state" required>
-		                <option value="">選択してください</option>
-		                <option>東京都</option>
-		              </select>
-		              <div class="invalid-feedback">
-		                有効な作業区分を選択してください。
-		              </div>
-	            　</div>
-
-		         <div class="col-md-3">
-		             　<label for="zip" class="form-label">労働時間</label>
-		              <input type="text" class="form-control" id="zip" placeholder="" required>
-		              <div class="invalid-feedback">
-		                労働時間を入力してください。
-		              </div>
+		 <div class="starter-template text-center py-5 px-3">
+			     <h1 th:text="${title}">Bootstrap 繧ｹ繧ｿ繝ｼ繧ｿ繝ｼ繝�繝ｳ繝励Ξ繝ｼ繝�</h1>
+			     
+			      <div class="wrapper">
+			      	<div class="upper-wrapper">
+			      	      <div class="input">
+					        
+							<div class="col-md-5">
+					            <label for="country" class="form-label">豌丞錐</label>
+					            <select class="form-select" id="country" required>
+					                <option value="">驕ｸ謚槭＠縺ｦ縺上□縺輔＞</option>
+					                <option>譌･譛ｬ</option>
+					              </select>
+					              <div class="invalid-feedback">
+					                豌丞錐繧帝∈謚槭＠縺ｦ縺上□縺輔＞縲�
+					              </div>
+				            </div>
+				            
+				             <div class="col-md-4">
+					              <label for="state" class="form-label">菴懈･ｭ蛹ｺ蛻�</label>
+					              <select class="form-select" id="state" required>
+					                <option value="">驕ｸ謚槭＠縺ｦ縺上□縺輔＞</option>
+					                <option>譚ｱ莠ｬ驛ｽ</option>
+					              </select>
+					              <div class="invalid-feedback">
+					                譛牙柑縺ｪ菴懈･ｭ蛹ｺ蛻�繧帝∈謚槭＠縺ｦ縺上□縺輔＞縲�
+					              </div>
+				            縲�</div>
+			
+					         <div class="col-md-3">
+					             縲�<label for="zip" class="form-label">蜉ｴ蜒肴凾髢�</label>
+					              <input type="text" class="form-control" id="zip" placeholder="" required>
+					              <div class="invalid-feedback">
+					                蜉ｴ蜒肴凾髢薙ｒ蜈･蜉帙＠縺ｦ縺上□縺輔＞縲�
+					              </div>
+					         </div>
+					         <div>
+					         	<input class="btn btn-primary" type="submit" value="逋ｻ骭ｲ縺吶ｋ">
+					         </div>
+			             </div> 
+			             
+				        <div class="circlechart">
+						  <canvas id="myPieChart"></canvas>
+						  <script src="/js/Chart.bundle.js" th:src="@{/js/Chart.bundle.js}"></script>
+						
+						  <script>
+						  var ctx = document.getElementById("myPieChart");
+						  var myPieChart = new Chart(ctx, {
+						    type: 'pie',
+						    data: {
+						      labels: ["A蝙�", "O蝙�", "B蝙�", "AB蝙�"],
+						      datasets: [{
+						          backgroundColor: [
+						              "#BB5179",
+						              "#FAFF67",
+						              "#58A27C",
+						              "#3C00FF"
+						          ],
+						          data: [38, 31, 21, 10]
+						      }]
+						    },
+						    options: {
+						      title: {
+						        display: true,
+						        text: '菴懈･ｭ蛹ｺ蛻�蛻･-蜉ｴ蜒肴凾髢灘��險ｳ'
+						      }
+						    }
+						  });
+						  </script>
+						
+					    </div>      	 
 		         </div>
-		         <div>
-		         	<input class="btn btn-primary" type="submit" value="登録する">
-		         </div>
-             </div>
-             <div class="result">
-	             <table class="table table-striped table-hover">
-					<tr>
-				     	<th>氏名</th>
-				     	<th>作業区分ID</th>
-				     	<th>作業日付</th>
-				     	<th>開始時間</th>
-				     	<th>終了時間</th>
-				     	<th>作業内容</th>
-				     	<th></th>
-				     	<th></th>
-				     	<th></th>
-				     </tr>
-				 </table>
-			 </div>			 
-         </div>
-</main><!-- /.container -->
+		         <div class="result">
+			             <table class="table table-striped table-hover">
+							<tr>
+						     	<th>豌丞錐</th>
+						     	<th>菴懈･ｭ蛹ｺ蛻�ID</th>
+						     	<th>菴懈･ｭ譌･莉�</th>
+						     	<th>髢句ｧ区凾髢�</th>
+						     	<th>邨ゆｺ�譎る俣</th>
+						     	<th>菴懈･ｭ蜀�螳ｹ</th>
+						     	<th></th>
+						     	<th></th>
+						     	<th></th>
+						     </tr>
+						 </table>
+					 </div>		
+		        </div>
+		   </div>
+		     
+		</main><!-- /.container -->
+    </div>
 	 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="@{/js/jquery-slim.min.js}"><\/script>')</script>
     <script src="../../assets/js/vendor/popper.min.js"  th:src="@{/js/popper.min.js}"></script>
 
     <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" th:src="@{/js/bootstrap.bundle.min.js}"integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 
-      
+    <footer>
+    	<p>aaaa</p>
+    </footer>
   </body>
 </html>

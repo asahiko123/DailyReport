@@ -3,4 +3,64 @@ body {
   list-style-type:none;
 }
 
+.main-container{
+	display:flex;
+	flex-direction: row;
+	justify-content: flex-start;
+}
+
+.container{
+	display:flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	
+	margin-left:0;
+	padding-left: 0;
+}
+
+aside{
+	background:rgb(157, 209, 249);
+	width:10em;
+}
+
+.starter-template {
+	width:100em;
+}
+
+.wrapper{
+	display:flex;
+	flex-direction: column;
+	justify-content:center;
+	
+	width:90em;
+}
+
+.upper-wrapper{
+	display:flex;
+	flex-direction:row;
+	align-items:center;
+}
+
+.input{
+	width:30em;
+	
+}
+
+.col-md-5,.col-md-4,.col-md-3{
+	margin:0 auto;
+}
+
+.circlechart{
+	width:50em;
+}
+
+footer{
+	
+	position:fixed;
+	bottom:0;
+	right:0;
+	left:0;
+	background:rgb(0, 0, 0);
+	color:rgb(255, 255, 255);
+}
 
