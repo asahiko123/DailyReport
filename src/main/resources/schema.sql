@@ -58,3 +58,11 @@ CREATE TABLE IF NOT EXISTS WORK_TYPE(
   
 );
 
+CREATE TABLE IF NOT EXISTS WORKING_HOUR(
+  id INT(2) NOT NULL AUTO_INCREMENT,
+  type_id INT(2),
+  stuff_id INT(2),
+  work_id INT(2),
+  workTime INT(2),
+  PRIMARY KEY(id)
+);
