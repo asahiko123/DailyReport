@@ -1,4 +1,4 @@
-package com.example.demo.app.repository;
+ package com.example.demo.app.repository;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,7 +19,7 @@ public interface WorkingHourDao {
 	
 	List<Work> findWork();
 	
-	Optional<WorkingHour> getDailyReport(int id);
+	Optional<WorkingHour> getWorkingHour(int id);
 	
 	void insert(WorkingHour workingHour);	
 	

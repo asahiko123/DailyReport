@@ -6,11 +6,13 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 import com.example.demo.app.entity.Stuff;
 import com.example.demo.app.entity.Work;
 import com.example.demo.app.entity.WorkingHour;
 
+@Repository
 public class WorkingHourDaoImpl implements WorkingHourDao{
 	
 private final JdbcTemplate jdbcTemplate;
@@ -59,7 +61,7 @@ private final JdbcTemplate jdbcTemplate;
 	}
 	
 	@Override
-	public Optional<WorkingHour> getDailyReport(int id) {
+	public Optional<WorkingHour> getWorkingHour(int id){
 		
 		String sql ="SELECT DISTINCT WORKING_HOUR.id ,WORKING_HOUR.type_id,stuff_id,work_id,workTime"
 				+ " registeredId, workDivId FROM WORKING_HOUR"
@@ -91,33 +93,60 @@ private final JdbcTemplate jdbcTemplate;
 
 	@Override
 	public List<Stuff> findStuff() {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		String sql ="SELECT STUFF.id,type_id,name,detail,registeredId FROM STUFF ";
+		
+		List<Map<String,Object>>resultList = jdbcTemplate.queryForList(sql);
+		List<Stuff> list = new ArrayList<Stuff>();
+		
+		for(Map<String,Object>result :resultList){
+		Stuff stuff = new Stuff();
+		stuff.setId((int)result.get("id"));
+		stuff.setName((String)result.get("name"));
+		stuff.setRegisteredId((String)result.get("registeredId"));
+		stuff.setDetail((String)result.get("detail"));
+		
+		
+		list.add(stuff);
+		}
+		return list;
 	}
 
 	@Override
 	public List<Work> findWork() {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+		String sql ="SELECT WORK.id ,workDivId FROM WORK";
+		
+		List<Map<String,Object>> resultList = jdbcTemplate.queryForList(sql);
+		ArrayList<Work> list = new ArrayList<Work>();
+		
+		for(Map<String,Object>result:resultList) {
+			Work work = new Work();
+			work.setId((int)result.get("id"));
+			work.setWorkDivId((String)result.get("workDivId"));
+			
+			list.add(work);
+			
+		}
+		return list;
 	}
 
 
 	@Override
 	public void insert(WorkingHour workingHour) {
-		// TODO 自動生成されたメソッド・スタブ
+		jdbcTemplate.update("INSERT INTO WORKING_HOUR(type_id,stuff_id,work_id,workTime)VALUES(?,?,?,?)",
+							workingHour.getType_id(),workingHour.getStuff_id(),workingHour.getWork_id(),workingHour.getWorkTime());
 		
 	}
 
 	@Override
 	public int update(WorkingHour workingHour) {
-		// TODO 自動生成されたメソッド・スタブ
-		return 0;
+		return	jdbcTemplate.update("UPDATE WORKING_HOUR SET type_id=?, stuff_id=? ,work_id=? ,workTime =? WHERE id=?",
+				            workingHour.getType_id(),workingHour.getStuff_id(),workingHour.getWork_id(),workingHour.getWorkTime(),workingHour.getId());
+		
 	}
 
 	@Override
-	public int deleteById(int id) {
-		// TODO 自動生成されたメソッド・スタブ
-		return 0;
+	public int deleteById(int id) {	
+		return jdbcTemplate.update("DELETE FROM WORKING_HOUR WHERE id=?",id);
 	}
 
 	@Override
