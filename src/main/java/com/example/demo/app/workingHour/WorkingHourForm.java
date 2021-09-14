@@ -5,22 +5,37 @@ public class WorkingHourForm {
 	private int id;
 	private int type_id;
 	private int stuff_id;
+	private int work_id;
 	private int division_id;
 	private int breakdown_time;
+	
+	public WorkingHourForm() {
+		
+	}
 	
 	public WorkingHourForm(
 			int id,
 			int type_id,
 			int stuff_id,
+			int work_id,
 			int division_id,
 			int breakdown_time) {
 		
 		this.id =id;
 		this.type_id=type_id;
 		this.stuff_id  =stuff_id;
+		this.work_id = work_id;
 		this.division_id = division_id;
 		this.breakdown_time = breakdown_time;
 		
+	}
+
+	public int getWork_id() {
+		return work_id;
+	}
+
+	public void setWork_id(int work_id) {
+		this.work_id = work_id;
 	}
 
 	public int getId() {

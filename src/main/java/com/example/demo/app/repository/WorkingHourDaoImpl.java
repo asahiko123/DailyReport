@@ -24,10 +24,10 @@ private final JdbcTemplate jdbcTemplate;
 	@Override
 	public List<WorkingHour> findAll() {
 		
-		String sql ="SELECT DISTINCT WORKING_HOUR.id ,WORKING_HOUR.type_id,stuff_id,work_id,workTime"
-				+ " registeredId, workDivId FROM WORKING_HOUR"
-				+ " INNER JOIN STUFF ON STUFF.id = WORKING_HOUR.stuff_id"
-				+ " INNER JOIN WORK ON WORK.id = WORKING_HOUR.work_id";
+		String sql = "SELECT DISTINCT WORKING_HOUR.id ,WORKING_HOUR.type_id,stuff_id,work_id,workTime"
+				+" registeredId, workDivId FROM WORKING_HOUR"
+				+" INNER JOIN STUFF ON STUFF.id = WORKING_HOUR.stuff_id"
+				+" INNER JOIN WORK ON WORK.id = WORKING_HOUR.work_id";
 		
 		List<Map<String,Object>> resultList =jdbcTemplate.queryForList(sql);
 		
