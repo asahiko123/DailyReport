@@ -1,5 +1,8 @@
 package com.example.demo.app.entity;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 public class WorkingHour {
 	
 	private int id;
@@ -33,9 +36,12 @@ public class WorkingHour {
 		
 	}
 
+
+
 	public Stuff getStuff() {
 		return stuff;
 	}
+
 
 	public void setStuff(Stuff stuff) {
 		this.stuff = stuff;

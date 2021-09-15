@@ -58,14 +58,23 @@
          <aside>
          	<div class="aside">
 	         	<form method="POST" th:object="${workingHourForm}">
-	         		<h3>スタッフ選択</h3>
-	         				  
+	  
 					<div class="form-group">
 						<label for="exampleFormControlSelect1">氏名</label>
 						<select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="stuff_id">
 							<option disabled selected value>選択してください</option>
 							<option th:each="obj:${stuff}" th:value="${obj.id}" th:text="${obj.name}"></option>
 						</select>
+						
+						<label for="exampleFormControlSelect1">期間検索</label>
+					       <input type="date">
+					         <p>～</p>
+					       <input type="date">
+					      <br></br>
+					     <div class="d-grid gap-2">
+					        <button class="btn btn-primary" type="submit" >検索する</button>
+					     </div> 
+					       
 					</div>
 				</form>
          	</div>
@@ -75,7 +84,8 @@
 		        
 		 <div class="starter-template text-center py-5 px-3">
 			     <h1 th:text="${title}"></h1>
-			     <form method="POST" >
+			     <form method="POST">
+			     
 			      <div class="wrapper">
 			      	<div class="upper-wrapper">
 			      	      <div class="input">
@@ -89,6 +99,8 @@
 					              <div class="invalid-feedback">
 					                氏名を選択してください
 					              </div>
+					              
+					        
 				            </div>
 				            
 				             <div class="col-md-4">
@@ -110,6 +122,7 @@
 					              </div>
 					         </div>
 					         <div>
+					            <input th:if="${workingHourId}" type="hidden" th:value="${workingHourId}" name="workingHourId">
 					         	<button class="btn btn-primary" type="submit" >登録</button>
 					         </div>
 			             </div> 
@@ -150,8 +163,6 @@
 							<tr>
 						     	<th>スタッフID</th>					     	
 						     	<th>作業区分ID</th>
-						     	<th>作業Ⅰ労働時間</th>
-						     	<th>作業Ⅱ労働時間</th>
 						     	<th>総労働時間</th>					    
 						     </tr>
 						 </table>
