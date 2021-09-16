@@ -1,6 +1,7 @@
 package com.example.demo.app.entity;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+
 
 
 public class WorkingHour {
@@ -10,10 +11,10 @@ public class WorkingHour {
 	private String name;
 	private int stuff_id;
 	private int work_id;
-	private int workTime;
+	private String workTime;
 	private Stuff stuff;
 	private Work work;
-	private LocalDateTime created;
+	private LocalDate created;
 	
 	public WorkingHour() {
 		
@@ -22,11 +23,11 @@ public class WorkingHour {
 	public WorkingHour(
 			int id,
 		    int type_id,
-		    LocalDateTime created,
+		    LocalDate created,
 		    String name,
 		    int stuff_id,
 		    int work_id,
-		    int workTime,
+		    String workTime,
 		    Stuff stuff,
 		    Work work) {
 		
@@ -54,12 +55,12 @@ public class WorkingHour {
 
 
 
-	public LocalDateTime getCreated() {
+	public LocalDate getCreated() {
 		return created;
 	}
 
-	public void setCreated(LocalDateTime created) {
-		this.created = created;
+	public void setCreated(LocalDate localDate) {
+		this.created = localDate;
 	}
 
 	public Stuff getStuff() {
@@ -111,11 +112,11 @@ public class WorkingHour {
 		this.work_id = work_id;
 	}
 
-	public int getWorkTime() {
+	public String getWorkTime() {
 		return workTime;
 	}
 
-	public void setWorkTime(int workTime) {
+	public void setWorkTime(String workTime) {
 		this.workTime = workTime;
 	}
 	

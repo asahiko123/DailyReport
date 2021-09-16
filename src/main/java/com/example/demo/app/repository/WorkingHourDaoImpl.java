@@ -2,7 +2,9 @@ package com.example.demo.app.repository;
 
 
 
+
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -27,12 +29,13 @@ private final JdbcTemplate jdbcTemplate;
 	@Override
 	public List<WorkingHour> findAll() {
 		
-		String sql = "SELECT DISTINCT WORKING_HOUR.id ,WORKING_HOUR.type_id,WORKING_HOUR.name,created,stuff_id,work_id,workTime"
+		String sql = "SELECT DISTINCT WORKING_HOUR.id ,WORKING_HOUR.type_id,WORKING_HOUR.name,created,stuff_id,work_id,workTime,"
 				+" registeredId, workDivId FROM WORKING_HOUR"
 				+" INNER JOIN STUFF ON STUFF.id = WORKING_HOUR.stuff_id"
 				+" INNER JOIN WORK ON WORK.id = WORKING_HOUR.work_id";
 		
 		List<Map<String,Object>> resultList =jdbcTemplate.queryForList(sql);
+		System.out.println(resultList);
 		
 		List<WorkingHour> list = new ArrayList<WorkingHour>();
 		
@@ -45,9 +48,10 @@ private final JdbcTemplate jdbcTemplate;
 			workingHour.setStuff_id((int)result.get("stuff_id"));
 			workingHour.setType_id((int)result.get("type_id"));
 			workingHour.setName((String) result.get("name"));
-			workingHour.setCreated(((Timestamp) result.get("date")).toLocalDateTime());
+			workingHour.setCreated(((Timestamp) result.get("created")).toLocalDateTime().toLocalDate());
 			workingHour.setWork_id((int)result.get("work_id"));
-			workingHour.setWorkTime((int)result.get("workTime"));
+			workingHour.setWorkTime((String)result.get("workTime"));
+			
 			
 			Stuff stuff = new Stuff();
 			stuff.setRegisteredId((String)result.get("registeredId"));
@@ -68,7 +72,7 @@ private final JdbcTemplate jdbcTemplate;
 	@Override
 	public Optional<WorkingHour> getWorkingHour(int id){
 		
-		String sql ="SELECT DISTINCT WORKING_HOUR.id ,WORKING_HOUR.type_id,WORKING_HOUR.name,created,stuff_id,work_id,workTime"
+		String sql ="SELECT DISTINCT WORKING_HOUR.id ,WORKING_HOUR.type_id,WORKING_HOUR.name,created,stuff_id,work_id,workTime,"
 				+ " registeredId, workDivId FROM WORKING_HOUR"
 				+ " INNER JOIN STUFF ON STUFF.id = WORKING_HOUR.stuff_id"
 				+ " INNER JOIN WORK ON WORK.id = WORKING_HOUR.work_id"
@@ -82,9 +86,9 @@ private final JdbcTemplate jdbcTemplate;
 		workingHour.setStuff_id((int)result.get("stuff_id"));
 		workingHour.setType_id((int)result.get("type_id"));
 		workingHour.setName((String)result.get("name"));
-		workingHour.setCreated(((Timestamp)result.get("created")).toLocalDateTime());
+		workingHour.setCreated(((LocalDate)result.get("created")));
 		workingHour.setWork_id((int)result.get("work_id"));
-		workingHour.setWorkTime((int)result.get("workTime"));
+		workingHour.setWorkTime((String)result.get("workTime"));
 		
 		Stuff stuff = new Stuff();
 		stuff.setRegisteredId((String)result.get("registeredId"));

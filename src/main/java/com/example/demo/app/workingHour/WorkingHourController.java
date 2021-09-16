@@ -93,12 +93,15 @@ public class WorkingHourController{
 		
 		if(!result.hasErrors()) {
 			
+			
 		  workingHourService.insert(workingHour);
+		  System.out.println(workingHour.getWorkTime());
 		  
 		return "redirect:/main/workingHour";
 		
 		}else {
 			workingHourForm.setNewHour(true);
+		
 			
 			model.addAttribute("WorkingHourForm",workingHourForm);
 			
@@ -140,6 +143,15 @@ public class WorkingHourController{
 		}
 		
 	}
+	@PostMapping("/workingHour/delete")
+		public String delete(
+				Model model,
+				WorkingHour workingHour,
+				@RequestParam("workingHourId")int id) {
+			
+		workingHourService.deleteById(id);
+		return "redirect:/main/workingHour";
+	}
 	
 	
 	
@@ -154,6 +166,8 @@ public class WorkingHourController{
 		workingHour.setStuff_id(workingHourForm.getStuff_id());
 		workingHour.setType_id(workingHourForm.getType_id());
 		workingHour.setWork_id(workingHourForm.getWork_id());
+		workingHour.setCreated(workingHourForm.getCreated());
+		workingHour.setWorkTime(workingHourForm.getWorkTime());
 		
 		return workingHour;
 	}
@@ -166,6 +180,8 @@ public class WorkingHourController{
 		workingHourForm.setStuff_id(workingHour.getStuff_id());
 		workingHourForm.setType_id(workingHour.getType_id());
 		workingHourForm.setWork_id(workingHour.getWork_id());
+		workingHourForm.setCreated(workingHour.getCreated());
+		workingHourForm.setWorkTime(workingHour.getWorkTime());
 		
 		workingHourForm.setNewHour(false);
 		

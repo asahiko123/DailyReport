@@ -1,17 +1,24 @@
 package com.example.demo.app.workingHour;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+
+
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class WorkingHourForm {
 	
 	private int id;
 	private int type_id;
 	private String name;
-	private LocalDateTime created;
+	@NotNull(message="内容を入力してください")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate created;
 	private int stuff_id;
-	private int work_id;
+	@NotNull(message="内容を入力してください")private int work_id;
 	private int division_id;
-	private int breakdown_time;
+	@NotNull(message="内容を入力してください")private String workTime;
 	private boolean newHour;
 	
 	public WorkingHourForm() {
@@ -22,11 +29,11 @@ public class WorkingHourForm {
 			int id,
 			int type_id,
 			String name,
-			LocalDateTime created,
+			LocalDate created,
 			int stuff_id,
 			int work_id,
 			int division_id,
-			int breakdown_time,
+			String workTime,
 			boolean newHour) {
 		
 		this.id =id;
@@ -36,7 +43,7 @@ public class WorkingHourForm {
 		this.stuff_id  =stuff_id;
 		this.work_id = work_id;
 		this.division_id = division_id;
-		this.breakdown_time = breakdown_time;
+		this.workTime = workTime;
 		this.newHour = newHour;
 		
 	}
@@ -57,11 +64,11 @@ public class WorkingHourForm {
 		this.name = name;
 	}
 
-	public LocalDateTime getCreated() {
+	public LocalDate getCreated() {
 		return created;
 	}
 
-	public void setCreated(LocalDateTime created) {
+	public void setCreated(LocalDate created) {
 		this.created = created;
 	}
 
@@ -89,7 +96,7 @@ public class WorkingHourForm {
 		this.type_id = type_id;
 	}
 
-	public int getStuff_id() {
+	public  int getStuff_id() {
 		return stuff_id;
 	}
 
@@ -105,12 +112,14 @@ public class WorkingHourForm {
 		this.division_id = division_id;
 	}
 
-	public int getBreakdown_time() {
-		return breakdown_time;
+	public String getWorkTime() {
+		return workTime;
 	}
 
-	public void setBreakdown_time(int breakdown_time) {
-		this.breakdown_time = breakdown_time;
+	public void setWorkTime(String workTime) {
+		this.workTime = workTime;
 	}
+
+
 
 }

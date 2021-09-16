@@ -70,7 +70,7 @@
 				 <!-- <div th:if="${#fields.hasErrors('stuffId')" th:errors="*{stuffId}" class="alert alert-danger" role="alert"}></div>-->
 	              <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name ="stuffId">
                     <option disabled selected value>選択してください</option>
-                    <option  th:each ="obj:${stuff}"  th:value ="${obj.id}"th:text ="${obj.registeredId}" ></option>       
+                    <option  th:each ="obj:${stuff}"  th:value ="${obj.id}"th:text ="${obj.registeredId}"></option>       
                   </select>
 	            </div>
 	            

@@ -62,9 +62,9 @@ CREATE TABLE IF NOT EXISTS WORKING_HOUR(
   id INT(2) NOT NULL AUTO_INCREMENT,
   type_id INT(2),
   name VARCHAR(20),
-  created DATETIME,
-  stuff_id INT(2),
-  work_id INT(2),
-  workTime INT(2),
+  created DATETIME NOT NULL,
+  stuff_id INT(2) NOT NULL,
+  work_id INT(2) NOT NULL,
+  workTime VARCHAR(20)NOT NULL,
   PRIMARY KEY(id)
 );

@@ -80,89 +80,80 @@
          	</div>
          </aside> 
 
-		<main role="main" class="container">
-		        
-		 <div class="starter-template text-center py-5 px-3">
-			     <h1 th:text="${title}"></h1>
-			     <form method="POST"　th:action ="${workingHourForm.newHour}? @{/main/workingHour/insert}:@{/main/workingHour/update}" th:object="${workingHourForm}">
-			     
-			      <div class="wrapper">
-			      	<div class="upper-wrapper">
-			      	      <div class="input">
+		<main role="main" class="container">	        
+		<div class="starter-template text-center py-5 px-3">
+			<h1 th:text="${title}"></h1>
+			<form method="POST"th:action ="${workingHourForm.newHour}? @{/main/workingHour/insert}:@{/main/workingHour/update}" th:object="${workingHourForm}">			     
+			   <div class="wrapper">
+			     <div class="upper-wrapper">
+			      	 <div class="input">
 					        <h4>作業別労働時間-入力欄</h4>
 							<div class="col-md-5">
-					            <label for="country" class="form-label">氏名</label>
-					            <select class="form-select" id="country" required>
+					            <label  class="form-label">氏名</label>
+					            <select class="form-select" name="stuff_id" required>
 					                <option disabled selected value>選択してください</option>
-					                <option th:each="obj:${stuff}" th:value="${obj.id}" th:text="${obj.name}" name="stuff_id"></option>
+					                <option th:each="obj:${stuff}" th:value="${obj.id}" th:text="${obj.registeredId}"required></option>
 					              </select>
-					              <div class="invalid-feedback">
-					                氏名を選択してください
-					              </div>
 				            </div>
 				            
 				            <div class="col-md-5">
-				            	<label for="country" class="form-label">作業日付</label>
-				            	<input type="datetime-local" class ="form-control" name="created"　th:value ="*{created}" required>
+				            	<label class="form-label">作業日付</label>
+				            	<input type="date" class ="form-control" name="created"　th:value ="*{created}" required>
 				            </div>
 				            
 				             <div class="col-md-5">
-					              <label for="state" class="form-label">作業区分</label>
-					              <select class="form-select" id="state" required>
+					              <label class="form-label">作業区分</label>
+					              <select class="form-select"  name="work_id"required>
 					                <option disabled selected value>選択してください</option>
-					                <option th:each="obj:${work}" th:value="${obj.id}" th:text="${obj.workDivId}" name="work_id"></option>					                
+					                <option th:each="obj:${work}" th:value="${obj.id}" th:text="${obj.workDivId}" ></option>					                
 					              </select>
-					              <div class="invalid-feedback">
-					                作業区分を選択してください
-					              </div>
 				            　</div>
 			
 					         <div class="col-md-5">
-					             　　<label for="zip" class="form-label">作業時間</label>
-					              <input type="text" class="form-control" id="zip" name ="breakdown_time" th:value="*{breakdown_time}" placeholder="" required>
-					              <div class="invalid-feedback">
-					                労働時間を入力してください
-					              </div>
+					              <label class="form-label">作業時間</label>
+					              <input type="text" class="form-control" name ="workTime" th:value="${workTime}" placeholder="" required>       
 					         </div>
 					         <div>
 					            <input th:if="${workingHourId}" type="hidden" th:value="${workingHourId}" name="workingHourId">
 					         	<button class="btn btn-primary" type="submit" >登録</button>
 					         </div>
-			             </div> 
-			             
-				        <div class="circlechart">
-						  <canvas id="myPieChart"></canvas>
-						  <script src="/js/Chart.bundle.js" th:src="@{/js/Chart.bundle.js}"></script>
-						
-						  <script>
-						  var ctx = document.getElementById("myPieChart");
-						  var myPieChart = new Chart(ctx, {
-						    type: 'pie',
-						    data: {
-						      labels: ["A蝙�", "O蝙�", "B蝙�", "AB蝙�"],
-						      datasets: [{
-						          backgroundColor: [
-						              "#BB5179",
-						              "#FAFF67",
-						              "#58A27C",
-						              "#3C00FF"
-						          ],
-						          data: [38, 31, 21, 10]
-						      }]
-						    },
-						    options: {
-						      title: {
-						        display: true,
-						        text: '個人別-労働時間内訳'
-						      }
-						    }
-						  });
-						  </script>
-						
-					    </div>      	 
-		         </div>
-		         <div class="result">
-			             <table class="table table-striped table-hover">
+			      	 </div>
+			     
+			   
+			        <div class="circlechart">
+					  <canvas id="myPieChart"></canvas>
+					  <script src="/js/Chart.bundle.js" th:src="@{/js/Chart.bundle.js}"></script>
+					
+					  <script>
+					  var ctx = document.getElementById("myPieChart");
+					  var myPieChart = new Chart(ctx, {
+					    type: 'pie',
+					    data: {
+					      labels: ["A蝙�", "O蝙�", "B蝙�", "AB蝙�"],
+					      datasets: [{
+					          backgroundColor: [
+					              "#BB5179",
+					              "#FAFF67",
+					              "#58A27C",
+					              "#3C00FF"
+					          ],
+					          data: [38, 31, 21, 10]
+					      }]
+					    },
+					    options: {
+					      title: {
+					        display: true,
+					        text: '個人別-労働時間内訳'
+					      }
+					    }
+					  });
+					  </script>
+					
+				    </div>
+		
+				　</div>
+				　<div class="result">
+			             <table class="table table-striped table-hover table-sm ">
 							<tr>
 						     	<th>氏名</th>					     	
 						     	<th>作業日付</th>
@@ -170,20 +161,21 @@
 						     	<th>作業時間</th>			    
 						     </tr>
 						     <tr th:each="obj:${list}">
-						       <td th:text="${obj.stuff.name}"></td>
+						       <td th:text="${obj.stuff.registeredId}"></td>
 						       <td th:text="${obj.created}"></td>
-						       <td th:text="${obj.workDivId}"></td>
+						       <td th:text="${obj.work.workDivId}"></td>
 						       <td th:text="${obj.workTime}"></td>
 						     </tr>
 						 </table>
-					 </div>		
-		        </div>
-		      </form>
-		   </div>
+					 </div>
+			   </div>
+			</form>	 				
+		</div>
+			
 		     
 		</main><!-- /.container -->
-	
-    </div>
+	　</div>   
+ 
 	 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="@{/js/jquery-slim.min.js}"><\/script>')</script>
     <script src="../../assets/js/vendor/popper.min.js"  th:src="@{/js/popper.min.js}"></script>
