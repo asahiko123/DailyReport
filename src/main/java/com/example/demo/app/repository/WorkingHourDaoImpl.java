@@ -2,6 +2,7 @@ package com.example.demo.app.repository;
 
 
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +27,7 @@ private final JdbcTemplate jdbcTemplate;
 	@Override
 	public List<WorkingHour> findAll() {
 		
-		String sql = "SELECT DISTINCT WORKING_HOUR.id ,WORKING_HOUR.type_id,stuff_id,work_id,workTime"
+		String sql = "SELECT DISTINCT WORKING_HOUR.id ,WORKING_HOUR.type_id,WORKING_HOUR.name,created,stuff_id,work_id,workTime"
 				+" registeredId, workDivId FROM WORKING_HOUR"
 				+" INNER JOIN STUFF ON STUFF.id = WORKING_HOUR.stuff_id"
 				+" INNER JOIN WORK ON WORK.id = WORKING_HOUR.work_id";
@@ -43,6 +44,8 @@ private final JdbcTemplate jdbcTemplate;
 			workingHour.setId((int)result.get("id"));
 			workingHour.setStuff_id((int)result.get("stuff_id"));
 			workingHour.setType_id((int)result.get("type_id"));
+			workingHour.setName((String) result.get("name"));
+			workingHour.setCreated(((Timestamp) result.get("date")).toLocalDateTime());
 			workingHour.setWork_id((int)result.get("work_id"));
 			workingHour.setWorkTime((int)result.get("workTime"));
 			
@@ -65,7 +68,7 @@ private final JdbcTemplate jdbcTemplate;
 	@Override
 	public Optional<WorkingHour> getWorkingHour(int id){
 		
-		String sql ="SELECT DISTINCT WORKING_HOUR.id ,WORKING_HOUR.type_id,stuff_id,work_id,workTime"
+		String sql ="SELECT DISTINCT WORKING_HOUR.id ,WORKING_HOUR.type_id,WORKING_HOUR.name,created,stuff_id,work_id,workTime"
 				+ " registeredId, workDivId FROM WORKING_HOUR"
 				+ " INNER JOIN STUFF ON STUFF.id = WORKING_HOUR.stuff_id"
 				+ " INNER JOIN WORK ON WORK.id = WORKING_HOUR.work_id"
@@ -78,6 +81,8 @@ private final JdbcTemplate jdbcTemplate;
 		workingHour.setId((int)result.get("id"));
 		workingHour.setStuff_id((int)result.get("stuff_id"));
 		workingHour.setType_id((int)result.get("type_id"));
+		workingHour.setName((String)result.get("name"));
+		workingHour.setCreated(((Timestamp)result.get("created")).toLocalDateTime());
 		workingHour.setWork_id((int)result.get("work_id"));
 		workingHour.setWorkTime((int)result.get("workTime"));
 		
@@ -134,15 +139,15 @@ private final JdbcTemplate jdbcTemplate;
 
 	@Override
 	public void insert(WorkingHour workingHour) {
-		jdbcTemplate.update("INSERT INTO WORKING_HOUR(type_id,stuff_id,work_id,workTime)VALUES(?,?,?,?)",
-							workingHour.getType_id(),workingHour.getStuff_id(),workingHour.getWork_id(),workingHour.getWorkTime());
+		jdbcTemplate.update("INSERT INTO WORKING_HOUR(type_id,name,created,stuff_id,work_id,workTime)VALUES(?,?,?,?,?,?)",
+							workingHour.getType_id(),workingHour.getName(),workingHour.getCreated(),workingHour.getStuff_id(),workingHour.getWork_id(),workingHour.getWorkTime());
 		
 	}
 
 	@Override
 	public int update(WorkingHour workingHour) {
-		return	jdbcTemplate.update("UPDATE WORKING_HOUR SET type_id=?, stuff_id=? ,work_id=? ,workTime =? WHERE id=?",
-				            workingHour.getType_id(),workingHour.getStuff_id(),workingHour.getWork_id(),workingHour.getWorkTime(),workingHour.getId());
+		return	jdbcTemplate.update("UPDATE WORKING_HOUR SET type_id=?, name =?,created =?,stuff_id=? ,work_id=? ,workTime =? WHERE id=?",
+				            workingHour.getType_id(),workingHour.getName(),workingHour.getCreated(),workingHour.getStuff_id(),workingHour.getWork_id(),workingHour.getWorkTime(),workingHour.getId());
 		
 	}
 

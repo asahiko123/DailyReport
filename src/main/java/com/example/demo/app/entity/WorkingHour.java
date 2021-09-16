@@ -1,17 +1,19 @@
 package com.example.demo.app.entity;
 
 import java.time.LocalDateTime;
-import java.util.Date;
+
 
 public class WorkingHour {
 	
 	private int id;
 	private int type_id;
+	private String name;
 	private int stuff_id;
 	private int work_id;
 	private int workTime;
 	private Stuff stuff;
 	private Work work;
+	private LocalDateTime created;
 	
 	public WorkingHour() {
 		
@@ -20,6 +22,8 @@ public class WorkingHour {
 	public WorkingHour(
 			int id,
 		    int type_id,
+		    LocalDateTime created,
+		    String name,
 		    int stuff_id,
 		    int work_id,
 		    int workTime,
@@ -28,6 +32,8 @@ public class WorkingHour {
 		
 		this.id =id;
 		this.type_id=type_id;
+		this.created = created;
+		this.name = name;
 		this.stuff_id =stuff_id;
 		this.work_id = work_id;
 		this.workTime =workTime;
@@ -37,6 +43,24 @@ public class WorkingHour {
 	}
 
 
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+
+	public LocalDateTime getCreated() {
+		return created;
+	}
+
+	public void setCreated(LocalDateTime created) {
+		this.created = created;
+	}
 
 	public Stuff getStuff() {
 		return stuff;
