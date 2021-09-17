@@ -1,11 +1,13 @@
 package com.example.demo.app.service;
 
+
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.app.entity.DailyReport;
 import com.example.demo.app.entity.Stuff;
 import com.example.demo.app.entity.Work;
 import com.example.demo.app.entity.WorkingHour;
@@ -36,6 +38,12 @@ public class WorkingHourServiceImpl implements WorkingHourService{
 	public List<Work> findWork() {
 		
 		return workingHourDao.findWork();
+	}
+	
+	@Override
+	public List<DailyReport> findDailyReport() {
+		
+		return workingHourDao.findDailyReport();
 	}
 
 	@Override
@@ -75,5 +83,9 @@ public class WorkingHourServiceImpl implements WorkingHourService{
 		}
 		
 	}
+
+
+
+
 
 }

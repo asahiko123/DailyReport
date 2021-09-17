@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.demo.app.entity.DailyReport;
 import com.example.demo.app.entity.Stuff;
 import com.example.demo.app.entity.Work;
 import com.example.demo.app.entity.WorkingHour;
@@ -35,6 +36,7 @@ public class WorkingHourController{
 	public WorkingHourController(WorkingHourService workingHourService) {
 		this.workingHourService = workingHourService;
 	}
+	
 	
 	@GetMapping("/workingHour")
 	public String WorkingHour(WorkingHourForm workingHourForm ,Model model) {

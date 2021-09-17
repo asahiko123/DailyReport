@@ -14,6 +14,7 @@ public class WorkingHour {
 	private String workTime;
 	private Stuff stuff;
 	private Work work;
+	private DailyReport dailyReport;
 	private LocalDate created;
 	
 	public WorkingHour() {
@@ -29,7 +30,8 @@ public class WorkingHour {
 		    int work_id,
 		    String workTime,
 		    Stuff stuff,
-		    Work work) {
+		    Work work,
+		    DailyReport dailyReport) {
 		
 		this.id =id;
 		this.type_id=type_id;
@@ -40,10 +42,19 @@ public class WorkingHour {
 		this.workTime =workTime;
 		this.work = work;
 		this.stuff=stuff;
+		this.dailyReport=dailyReport;
 		
 	}
 
 
+
+	public DailyReport getDailyReport() {
+		return dailyReport;
+	}
+
+	public void setDailyReport(DailyReport dailyReport) {
+		this.dailyReport = dailyReport;
+	}
 
 	public String getName() {
 		return name;

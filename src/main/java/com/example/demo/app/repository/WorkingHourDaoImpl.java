@@ -13,6 +13,7 @@ import java.util.Optional;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.example.demo.app.entity.DailyReport;
 import com.example.demo.app.entity.Stuff;
 import com.example.demo.app.entity.Work;
 import com.example.demo.app.entity.WorkingHour;
@@ -29,10 +30,12 @@ private final JdbcTemplate jdbcTemplate;
 	@Override
 	public List<WorkingHour> findAll() {
 		
-		String sql = "SELECT DISTINCT WORKING_HOUR.id ,WORKING_HOUR.type_id,WORKING_HOUR.name,created,stuff_id,work_id,workTime,"
-				+" registeredId, workDivId FROM WORKING_HOUR"
+		String sql = "SELECT DISTINCT WORKING_HOUR.id ,WORKING_HOUR.type_id,WORKING_HOUR.name,WORKING_HOUR.created,WORKING_HOUR.stuff_id,WORKING_HOUR.work_id,workTime,"
+				+" registeredId, workDivId ,DAILYREPORT.created ,DAILYREPORT.name ,DAILYREPORT.startTime ,DAILYREPORT.endTime FROM WORKING_HOUR"
 				+" INNER JOIN STUFF ON STUFF.id = WORKING_HOUR.stuff_id"
-				+" INNER JOIN WORK ON WORK.id = WORKING_HOUR.work_id";
+				+" INNER JOIN WORK ON WORK.id = WORKING_HOUR.work_id"
+				+" INNER JOIN DAILYREPORT ON DAILYREPORT.id = WORKING_HOUR.id";
+			
 		
 		List<Map<String,Object>> resultList =jdbcTemplate.queryForList(sql);
 		System.out.println(resultList);
@@ -59,8 +62,15 @@ private final JdbcTemplate jdbcTemplate;
 			Work work = new Work();
 			work.setWorkDivId((String)result.get("workDivId"));
 			
+			DailyReport dailyReport = new DailyReport();
+			dailyReport.setCreated(((Timestamp)result.get("created")).toString());
+			dailyReport.setStartTime((String)result.get("startTime"));
+			dailyReport.setEndTime((String)result.get("endTime"));
+			
+			
 			workingHour.setStuff(stuff);
 			workingHour.setWork(work);
+			workingHour.setDailyReport(dailyReport);
 			
 			list.add(workingHour);
 			
@@ -139,6 +149,32 @@ private final JdbcTemplate jdbcTemplate;
 		}
 		return list;
 	}
+	
+	@Override
+	public List<DailyReport> findDailyReport() {
+
+		String sql ="SELECT DAILYREPORT.id,created ,name ,startTime ,endTime FROM DAILYREPORT";
+		
+		List<Map<String,Object>> resultList = jdbcTemplate.queryForList(sql);
+		ArrayList<DailyReport> list = new ArrayList<DailyReport>();
+		
+		for(Map<String,Object>result:resultList) {
+			
+			DailyReport dailyReport = new DailyReport();
+			dailyReport.setId((int)result.get("id"));
+			dailyReport.setCreated((String)result.get("created"));
+			dailyReport.setStartTime((String)result.get("startTime"));
+			dailyReport.setEndTime((String)result.get("endTime"));
+			
+			
+			
+			list.add(dailyReport);
+		}
+		return list;
+	}
+	
+	
+	
 
 
 	@Override
@@ -165,5 +201,8 @@ private final JdbcTemplate jdbcTemplate;
 		// TODO 自動生成されたメソッド・スタブ
 		return null;
 	}
+
+
+
 
 }
