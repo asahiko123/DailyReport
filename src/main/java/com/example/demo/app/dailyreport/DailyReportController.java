@@ -312,6 +312,8 @@ public class DailyReportController {
 		dailyReport.setStuffId(dailyReportForm.getStuffId());
 		dailyReport.setWorkId(dailyReportForm.getWorkId());
 		dailyReport.setRegisteredId(dailyReportForm.getRegisteredId());
+		dailyReport.setStartDate(dailyReportForm.getStartDate());
+		dailyReport.setEndDate(dailyReportForm.getEndDate());
 	
 		
 		return dailyReport;
@@ -330,6 +332,8 @@ public class DailyReportController {
 		dailyReportForm.setTypeId(dailyReport.getTypeId());
 		dailyReportForm.setStuffId(dailyReport.getStuffId());
 		dailyReportForm.setWorkId(dailyReport.getWorkId());
+		dailyReportForm.setStartDate(dailyReport.getStartDate());
+		dailyReportForm.setEndDate(dailyReport.getEndDate());
 		
 		
 		dailyReportForm.setNewReport(false);

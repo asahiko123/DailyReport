@@ -39,7 +39,7 @@ public class DailyReportDaoImpl implements DailyReportDao{
 		
 		
 		List<Map<String,Object>> resultList = jdbcTemplate.queryForList(sql);
-		System.out.println(resultList);
+		
 		
 		
 		List<DailyReport> list  = new ArrayList<DailyReport>();
@@ -57,6 +57,7 @@ public class DailyReportDaoImpl implements DailyReportDao{
 			dailyReport.setEndTime((String)result.get("endTime"));
 			dailyReport.setDetail((String)result.get("detail"));
 			dailyReport.setName((String)result.get("name"));
+
 			
 			
 			DailyReportType dailyReportType = new DailyReportType();

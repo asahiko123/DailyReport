@@ -24,6 +24,8 @@ public interface WorkingHourService {
 	
 	Optional<WorkingHour> getWorkingHour(int id);
 	
+	
+	
 	void insert(WorkingHour workingHour);
 	
 	void update(WorkingHour workingHour);

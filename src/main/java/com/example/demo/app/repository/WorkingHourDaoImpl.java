@@ -4,7 +4,6 @@ package com.example.demo.app.repository;
 
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +13,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.app.entity.DailyReport;
+import com.example.demo.app.entity.DailyReportType;
 import com.example.demo.app.entity.Stuff;
 import com.example.demo.app.entity.Work;
 import com.example.demo.app.entity.WorkingHour;
@@ -29,19 +29,21 @@ private final JdbcTemplate jdbcTemplate;
 
 	@Override
 	public List<WorkingHour> findAll() {
-		
-		String sql = "SELECT DISTINCT WORKING_HOUR.id ,WORKING_HOUR.type_id,WORKING_HOUR.name,WORKING_HOUR.created,WORKING_HOUR.stuff_id,WORKING_HOUR.work_id,workTime,"
-				+" registeredId, workDivId ,DAILYREPORT.created ,DAILYREPORT.name ,DAILYREPORT.startTime ,DAILYREPORT.endTime FROM WORKING_HOUR"
+	
+		String sql = "SELECT DISTINCT WORKING_HOUR.id ,WORKING_HOUR.type_id,WORKING_HOUR.name,WORKING_HOUR.created,WORKING_HOUR.end,WORKING_HOUR.stuff_id,WORKING_HOUR.work_id,workTime,"
+				+" registeredId, workDivId ,STUFF.name, DAILYREPORT.name,DAILYREPORT.detail, progress FROM WORKING_HOUR"
 				+" INNER JOIN STUFF ON STUFF.id = WORKING_HOUR.stuff_id"
 				+" INNER JOIN WORK ON WORK.id = WORKING_HOUR.work_id"
-				+" INNER JOIN DAILYREPORT ON DAILYREPORT.id = WORKING_HOUR.id";
-			
+				+" INNER JOIN DAILYREPORT ON DAILYREPORT.id = WORKING_HOUR.id"
+				+" INNER JOIN DAILYREPORT_TYPE ON DAILYREPORT_TYPE.id = DAILYREPORT.id";
+		
+		
 		
 		List<Map<String,Object>> resultList =jdbcTemplate.queryForList(sql);
 		System.out.println(resultList);
 		
 		List<WorkingHour> list = new ArrayList<WorkingHour>();
-		
+				
 		/*WorkingHourのentityのsetter,getterを呼び出しDB情報を詰めなおす*/
 		
 		for(Map<String,Object> result:resultList) {
@@ -51,29 +53,32 @@ private final JdbcTemplate jdbcTemplate;
 			workingHour.setStuff_id((int)result.get("stuff_id"));
 			workingHour.setType_id((int)result.get("type_id"));
 			workingHour.setName((String) result.get("name"));
-			workingHour.setCreated(((Timestamp) result.get("created")).toLocalDateTime().toLocalDate());
+			workingHour.setCreated((String) result.get("created"));
+			workingHour.setDate((String)result.get("end"));
 			workingHour.setWork_id((int)result.get("work_id"));
 			workingHour.setWorkTime((String)result.get("workTime"));
 			
 			
 			Stuff stuff = new Stuff();
 			stuff.setRegisteredId((String)result.get("registeredId"));
+			stuff.setName((String)result.get("name"));
 			
 			Work work = new Work();
 			work.setWorkDivId((String)result.get("workDivId"));
 			
 			DailyReport dailyReport = new DailyReport();
-			dailyReport.setCreated(((Timestamp)result.get("created")).toString());
-			dailyReport.setStartTime((String)result.get("startTime"));
-			dailyReport.setEndTime((String)result.get("endTime"));
+			dailyReport.setName((String)result.get("name"));
+			dailyReport.setDetail((String)result.get("detail"));
 			
-			
+			DailyReportType dailyReportType = new DailyReportType();
+			dailyReportType.setProgress((String)result.get("progress"));
+	
 			workingHour.setStuff(stuff);
 			workingHour.setWork(work);
 			workingHour.setDailyReport(dailyReport);
-			
+			workingHour.setDailyReportType(dailyReportType);
 			list.add(workingHour);
-			
+					
 		}
 		
 		return list;
@@ -96,7 +101,7 @@ private final JdbcTemplate jdbcTemplate;
 		workingHour.setStuff_id((int)result.get("stuff_id"));
 		workingHour.setType_id((int)result.get("type_id"));
 		workingHour.setName((String)result.get("name"));
-		workingHour.setCreated(((LocalDate)result.get("created")));
+		workingHour.setCreated(((String)result.get("created")));
 		workingHour.setWork_id((int)result.get("work_id"));
 		workingHour.setWorkTime((String)result.get("workTime"));
 		
@@ -152,8 +157,10 @@ private final JdbcTemplate jdbcTemplate;
 	
 	@Override
 	public List<DailyReport> findDailyReport() {
-
+		
 		String sql ="SELECT DAILYREPORT.id,created ,name ,startTime ,endTime FROM DAILYREPORT";
+
+
 		
 		List<Map<String,Object>> resultList = jdbcTemplate.queryForList(sql);
 		ArrayList<DailyReport> list = new ArrayList<DailyReport>();
@@ -161,13 +168,14 @@ private final JdbcTemplate jdbcTemplate;
 		for(Map<String,Object>result:resultList) {
 			
 			DailyReport dailyReport = new DailyReport();
+		
+			
 			dailyReport.setId((int)result.get("id"));
 			dailyReport.setCreated((String)result.get("created"));
 			dailyReport.setStartTime((String)result.get("startTime"));
 			dailyReport.setEndTime((String)result.get("endTime"));
-			
-			
-			
+		
+						
 			list.add(dailyReport);
 		}
 		return list;
@@ -179,15 +187,15 @@ private final JdbcTemplate jdbcTemplate;
 
 	@Override
 	public void insert(WorkingHour workingHour) {
-		jdbcTemplate.update("INSERT INTO WORKING_HOUR(type_id,name,created,stuff_id,work_id,workTime)VALUES(?,?,?,?,?,?)",
-							workingHour.getType_id(),workingHour.getName(),workingHour.getCreated(),workingHour.getStuff_id(),workingHour.getWork_id(),workingHour.getWorkTime());
+		jdbcTemplate.update("INSERT INTO WORKING_HOUR(type_id,name,created,end,stuff_id,work_id,workTime)VALUES(?,?,?,?,?,?,?)",
+							workingHour.getType_id(),workingHour.getName(),workingHour.getCreated(),workingHour.getEnd(),workingHour.getStuff_id(),workingHour.getWork_id(),workingHour.getWorkTime());
 		
 	}
 
 	@Override
 	public int update(WorkingHour workingHour) {
-		return	jdbcTemplate.update("UPDATE WORKING_HOUR SET type_id=?, name =?,created =?,stuff_id=? ,work_id=? ,workTime =? WHERE id=?",
-				            workingHour.getType_id(),workingHour.getName(),workingHour.getCreated(),workingHour.getStuff_id(),workingHour.getWork_id(),workingHour.getWorkTime(),workingHour.getId());
+		return	jdbcTemplate.update("UPDATE WORKING_HOUR SET type_id=?, name =?,created =?,date =? ,stuff_id=? ,work_id=? ,workTime =? WHERE id=?",
+				            workingHour.getType_id(),workingHour.getName(),workingHour.getCreated(),workingHour.getDate(),workingHour.getStuff_id(),workingHour.getWork_id(),workingHour.getWorkTime(),workingHour.getId());
 		
 	}
 
@@ -197,10 +205,40 @@ private final JdbcTemplate jdbcTemplate;
 	}
 
 	@Override
-	public List<WorkingHour> search() {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
+	public List<WorkingHour> search(WorkingHour workingHour) {
+		
+	String sql ="SELECT DISTINCT DAILYREPORT.id, stuff_id, work_id, DAILYREPORT.type_id,stuff_id, created, startTime, endTime,  DAILYREPORT.detail,  DAILYREPORT.name,"
+			+ "progress , registeredId ,workDivId FROM DAILYREPORT"
+			+ " INNER JOIN STUFF ON STUFF.id = WORKING_HOUR.stuff_id"
+			+ " INNER JOIN WORK ON WORK.id = WORKING_HOUR.work_id"
+			+" BETWEEN \'" +workingHour.getCreated()  + "\' AND \'" + workingHour.getDate() + "\'";
+	
+	List<Map<String,Object>> resultList = jdbcTemplate.queryForList(sql);
+	
+	ArrayList<WorkingHour> list = new ArrayList<WorkingHour>();
+	
+	for(Map<String,Object>result:resultList) {
+		
+		Stuff stuff = new Stuff();		
+		stuff.setRegisteredId((String)result.get("registeredId"));
+		
+		Work work = new Work();		
+		work.setWorkDivId((String)result.get("workDivId"));
+		
+		WorkingHour workinst = new WorkingHour();	
+		workinst.setCreated((String)result.get("created"));
+		
+		workinst.setStuff(stuff);
+		workinst.setWork(work);
+		
+		list.add(workinst);
+				
 	}
+		
+		return list;
+	}
+
+	
 
 
 

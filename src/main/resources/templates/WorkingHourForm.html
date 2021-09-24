@@ -57,23 +57,31 @@
     <div class="main-container">
          <aside>
          	<div class="aside">
-	         	<form>
+	         	<form method="POST"th:action ="${workingHourForm.newHour}? @{/main/workingHour/insert}:@{/main/workingHour/update}" th:object="${workingHourForm}" >
 	  
 					<div class="form-group">
 						<label for="exampleFormControlSelect1">氏名</label>
 						<select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="stuff_id">
 							<option disabled selected value>選択してください</option>
-							<option th:each="obj:${stuff}" th:value="${obj.id}" th:text="${obj.name}"></option>
+							<option th:each="obj:${stuff}" th:value="${obj.id}" th:text="${obj.registeredId}"></option>
+						</select>
+						
+						<label for="exampleFormControlSelect1">作業区分</label>
+						<select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="work_id">
+							<option disabled selected value>選択してください</option>
+							<option th:each="obj:${work}" th:value="${obj.id}" th:text="${obj.workDivId}"></option>
 						</select>
 						
 						<label for="exampleFormControlSelect1">期間検索</label>
-					       <input type="date">
+					       <input type="date" name ="created" th:value="*{created}">
 					         <p>～</p>
-					       <input type="date">
+					       <input type="date" name = "end" th:value="*{end}">
+					       
 					      <br></br>
 					     <div class="d-grid gap-2">
 					        <button class="btn btn-primary" type="submit" >検索する</button>
 					     </div> 
+					     
 					       
 					</div>
 				</form>
@@ -83,10 +91,10 @@
 		<main role="main" class="container">	        
 		<div class="starter-template text-center py-5 px-3">
 			<h1 th:text="${title}"></h1>
-			<form method="POST"th:action ="${workingHourForm.newHour}? @{/main/workingHour/insert}:@{/main/workingHour/update}" th:object="${workingHourForm}">			     
+			<form method="POST">			     
 			   <div class="wrapper">
 			     <div class="upper-wrapper">
-			      	 <div class="input">
+			      	     <!--<div class="input">
 					        <h4>作業別労働時間-入力欄</h4>
 							<div class="col-md-5">
 					            <label  class="form-label">氏名</label>
@@ -111,13 +119,14 @@
 			
 					         <div class="col-md-5">
 					              <label class="form-label">作業時間</label>
-					              <input type="text" class="form-control" name ="workTime" th:value="${workTime}" placeholder="" required>       
+					              <input type="text" class="form-control" name ="workTime" th:value="*{workTime}" placeholder="" required>       
 					         </div>
 					         <div>
 					            <input th:if="${workingHourId}" type="hidden" th:value="${workingHourId}" name="workingHourId">
 					         	<button class="btn btn-primary" type="submit" >登録</button>
 					         </div>
 			      	 </div>
+			      -->
 			     
 			   
 			        <div class="circlechart">
@@ -155,16 +164,17 @@
 				　<div class="result">
 			             <table class="table table-striped table-hover table-sm ">
 							<tr>
-						     	<th>氏名</th>					     	
-						     	<th>作業日付</th>
+						     	<th>スタッフID</th>					     	
+						     	<th>進捗度</th>
 						     	<th>作業区分</th>
-						     	<th>作業時間</th>			    
+						     	<th>作業日付</th>			    
 						     </tr>
 						     <tr th:each="obj:${list}">
-						       <td th:text="${obj.stuff.registeredId}"></td>
-						       <td th:text="${obj.created}"></td>
-						       <td th:text="${obj.work.workDivId}"></td>
-						       <td th:text="${obj.workTime}"></td>
+						       <td th:text ="${obj.stuff.registeredId}"></td>
+						       <td th:text ="${obj.dailyReportType.progress}"></td>
+						       <td th:text ="${obj.work.workDivId}"></td>
+						       <td th:text ="${obj.dailyReport.created}"></td>
+						       				 
 						     </tr>
 						 </table>
 					 </div>

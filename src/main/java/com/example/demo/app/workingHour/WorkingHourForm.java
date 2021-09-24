@@ -1,24 +1,18 @@
 package com.example.demo.app.workingHour;
 
-import java.time.LocalDate;
 
-
-import javax.validation.constraints.NotNull;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 public class WorkingHourForm {
 	
 	private int id;
 	private int type_id;
 	private String name;
-	@NotNull(message="内容を入力してください")
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate created;
+	private String created;
+	private String end;
 	private int stuff_id;
-	@NotNull(message="内容を入力してください")private int work_id;
-	private int division_id;
-	@NotNull(message="内容を入力してください")private String workTime;
+	private int work_id;
+
+//	@NotNull(message="内容を入力してください")private String workTime;
 	private boolean newHour;
 	
 	public WorkingHourForm() {
@@ -29,7 +23,8 @@ public class WorkingHourForm {
 			int id,
 			int type_id,
 			String name,
-			LocalDate created,
+			String created,
+			String end,
 			int stuff_id,
 			int work_id,
 			int division_id,
@@ -40,10 +35,11 @@ public class WorkingHourForm {
 		this.type_id=type_id;
 		this.name = name;
 		this.created = created;
+		this.end = end;
 		this.stuff_id  =stuff_id;
 		this.work_id = work_id;
-		this.division_id = division_id;
-		this.workTime = workTime;
+
+//		this.workTime = workTime;
 		this.newHour = newHour;
 		
 	}
@@ -60,16 +56,28 @@ public class WorkingHourForm {
 		return name;
 	}
 
+
+
+
+
+	public String getEnd() {
+		return end;
+	}
+
+	public void setEnd(String end) {
+		this.end = end;
+	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	public LocalDate getCreated() {
+	public String getCreated() {
 		return created;
 	}
 
-	public void setCreated(LocalDate created) {
-		this.created = created;
+	public void setCreated(String string) {
+		this.created = string;
 	}
 
 	public int getWork_id() {
@@ -104,21 +112,15 @@ public class WorkingHourForm {
 		this.stuff_id = stuff_id;
 	}
 
-	public int getDivision_id() {
-		return division_id;
-	}
 
-	public void setDivision_id(int division_id) {
-		this.division_id = division_id;
-	}
 
-	public String getWorkTime() {
-		return workTime;
-	}
-
-	public void setWorkTime(String workTime) {
-		this.workTime = workTime;
-	}
+//	public String getWorkTime() {
+//		return workTime;
+//	}
+//
+//	public void setWorkTime(String workTime) {
+//		this.workTime = workTime;
+//	}
 
 
 

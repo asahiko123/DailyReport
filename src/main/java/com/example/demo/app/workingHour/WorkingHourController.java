@@ -45,12 +45,13 @@ public class WorkingHourController{
 		List<WorkingHour> list=workingHourService.findAll();
 		List<Stuff> stuff= workingHourService.findStuff();
 		List<Work> work = workingHourService.findWork();
-		
+		List<DailyReport> dailyReport =workingHourService.findDailyReport();
 		
 		model.addAttribute("title","労務管理マスタ");
 		model.addAttribute("list",list);
 		model.addAttribute("stuff",stuff);
 		model.addAttribute("work",work);
+		model.addAttribute("dailyReport",dailyReport);
 		
 		return "WorkingHourForm";
 	}
@@ -97,13 +98,16 @@ public class WorkingHourController{
 			
 			
 		  workingHourService.insert(workingHour);
-		  System.out.println(workingHour.getWorkTime());
+
+			
+	
 		  
 		return "redirect:/main/workingHour";
 		
 		}else {
 			workingHourForm.setNewHour(true);
-		
+			System.out.println(workingHourForm.getCreated());
+			
 			
 			model.addAttribute("WorkingHourForm",workingHourForm);
 			
@@ -114,7 +118,7 @@ public class WorkingHourController{
 			model.addAttribute("stuff",stuff);
 			model.addAttribute("work",work);
 			model.addAttribute("list",list);
-			model.addAttribute("title","労務管理マスタ");
+			model.addAttribute("title","労務管理マスタb");
 			
 			return"WorkingHourForm";
 		}
@@ -169,7 +173,7 @@ public class WorkingHourController{
 		workingHour.setType_id(workingHourForm.getType_id());
 		workingHour.setWork_id(workingHourForm.getWork_id());
 		workingHour.setCreated(workingHourForm.getCreated());
-		workingHour.setWorkTime(workingHourForm.getWorkTime());
+//		workingHour.setWorkTime(workingHourForm.getWorkTime());
 		
 		return workingHour;
 	}
@@ -183,10 +187,12 @@ public class WorkingHourController{
 		workingHourForm.setType_id(workingHour.getType_id());
 		workingHourForm.setWork_id(workingHour.getWork_id());
 		workingHourForm.setCreated(workingHour.getCreated());
-		workingHourForm.setWorkTime(workingHour.getWorkTime());
+//		workingHourForm.setWorkTime(workingHour.getWorkTime());
 		
 		workingHourForm.setNewHour(false);
 		
 		return workingHourForm;
 	}
+	
+	
 }

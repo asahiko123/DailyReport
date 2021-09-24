@@ -15,14 +15,13 @@ public interface WorkingHourDao {
 	
 	List<WorkingHour> findAll();
 	
-	List<WorkingHour> search();
+	List<WorkingHour> search(WorkingHour workingHour);
 	
 	List<Stuff> findStuff();
 	
 	List<Work> findWork();
 	
 	List<DailyReport> findDailyReport();
-	
 	
 	Optional<WorkingHour> getWorkingHour(int id);
 	

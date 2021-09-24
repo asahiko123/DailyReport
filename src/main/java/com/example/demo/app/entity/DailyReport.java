@@ -14,6 +14,8 @@ public class DailyReport {
 	private String created;
 	private String startTime;
 	private String endTime;
+	private String startDate;
+	private String endDate;
 	private String detail;
 	private String name;
 	private String registeredId;
@@ -37,6 +39,8 @@ public class DailyReport {
 			String created,
 			String startTime,
 			String endTime,
+			String startDate,
+			String endDate,
 			String detail,
 			String name,
 			String registeredId
@@ -54,6 +58,8 @@ public class DailyReport {
           this.created = created;
 		  this.startTime = startTime;
 		  this.endTime = endTime;
+		  this.startDate = startDate;
+		  this.endDate = endDate;
 		  this.detail = detail;
 		  this.name = name;
 		  this.registeredId = registeredId;
@@ -63,6 +69,22 @@ public class DailyReport {
 	}
 
 	
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
 
 	public String getRegisteredId() {
 		return registeredId;

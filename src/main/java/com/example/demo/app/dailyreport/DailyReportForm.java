@@ -24,6 +24,10 @@ public class DailyReportForm {
 	@NotNull(message ="内容を入力してください")
 	@Size(max =20,min = 1)
 	private String detail;
+	
+	private String startDate;
+	
+	private String endDate;
 
 	
 	private String name;
@@ -49,6 +53,8 @@ public class DailyReportForm {
 			@NotNull(message = "内容を入力してください") String startTime,
 			@NotNull(message = "内容を入力してください") String endTime,
 			@NotNull(message ="内容を入力してください")@Size(min = 1, max = 20)String detail,
+			String startDate,
+			String endDate,
 			String name,
 			boolean newReport, 
 			int stuffId,
@@ -60,6 +66,8 @@ public class DailyReportForm {
 		this.created = created;
 		this.endTime = endTime;
 		this.startTime = startTime;
+		this.startDate = startDate;
+		this.endDate = endDate;
 		this.detail = detail;
 		this.stuffId = stuffId;
 		this.registeredId = registeredId;
@@ -72,6 +80,22 @@ public class DailyReportForm {
 
 
 	
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
 	public String getRegisteredId() {
 		return registeredId;
 	}

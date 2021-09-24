@@ -1,6 +1,6 @@
 package com.example.demo.app.entity;
 
-import java.time.LocalDate;
+
 
 
 
@@ -14,8 +14,11 @@ public class WorkingHour {
 	private String workTime;
 	private Stuff stuff;
 	private Work work;
+	private DailyReportType dailyReportType;
 	private DailyReport dailyReport;
-	private LocalDate created;
+	private String created;
+	private String date;
+	private String end;
 	
 	public WorkingHour() {
 		
@@ -24,29 +27,60 @@ public class WorkingHour {
 	public WorkingHour(
 			int id,
 		    int type_id,
-		    LocalDate created,
+		    String created,
+		    String date,
+		    String end,
 		    String name,
 		    int stuff_id,
 		    int work_id,
 		    String workTime,
 		    Stuff stuff,
 		    Work work,
+		    DailyReportType dailyReportType,
 		    DailyReport dailyReport) {
 		
 		this.id =id;
 		this.type_id=type_id;
 		this.created = created;
+		this.date = date;
+		this.end = end;
 		this.name = name;
 		this.stuff_id =stuff_id;
 		this.work_id = work_id;
 		this.workTime =workTime;
 		this.work = work;
 		this.stuff=stuff;
+		this.dailyReportType = dailyReportType;
 		this.dailyReport=dailyReport;
 		
 	}
 
 
+
+
+	public DailyReportType getDailyReportType() {
+		return dailyReportType;
+	}
+
+	public void setDailyReportType(DailyReportType dailyReportType) {
+		this.dailyReportType = dailyReportType;
+	}
+
+	public String getEnd() {
+		return end;
+	}
+
+	public void setEnd(String end) {
+		this.end = end;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
 
 	public DailyReport getDailyReport() {
 		return dailyReport;
@@ -66,11 +100,11 @@ public class WorkingHour {
 
 
 
-	public LocalDate getCreated() {
+	public String getCreated() {
 		return created;
 	}
 
-	public void setCreated(LocalDate localDate) {
+	public void setCreated(String localDate) {
 		this.created = localDate;
 	}
 
