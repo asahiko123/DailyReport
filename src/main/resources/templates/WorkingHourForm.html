@@ -129,7 +129,7 @@
 			      -->
 			     
 			   
-			        <div class="circlechart">
+			        <div class="circlechart" th:each="obj:${search}">
 					  <canvas id="myPieChart"></canvas>
 					  <script src="/js/Chart.bundle.js" th:src="@{/js/Chart.bundle.js}"></script>
 					
@@ -138,7 +138,7 @@
 					  var myPieChart = new Chart(ctx, {
 					    type: 'pie',
 					    data: {
-					      labels: ["A蝙�", "O蝙�", "B蝙�", "AB蝙�"],
+					      labels: ["[[${obj.work.workDivId}]]", "O蝙�", "B蝙�", "AB蝙�"],
 					      datasets: [{
 					          backgroundColor: [
 					              "#BB5179",
@@ -172,14 +172,14 @@
 						     	<th>終了時間</th>	
 						     	<th>作業内容</th>   
 						     </tr>
-						     <tr th:each="obj:${dailyReport}">
+						     <tr th:each="obj:${search}">
 						       <td th:text ="${obj.stuff.registeredId}"></td>
 						       <td th:text ="${obj.dailyReportType.progress}"></td>
 						       <td th:text ="${obj.work.workDivId}"></td>
-						       <td th:text ="${obj.created}"></td>
-						       <td th:text ="${obj.startTime}"></td>
-						       <td th:text="${obj.endTime}"></td>
-						       <td th:text="${obj.detail}"></td>
+						       <td th:text ="${obj.dailyReport.created}"></td>
+						       <td th:text ="${obj.dailyReport.startTime}"></td>
+						       <td th:text="${obj.dailyReport.endTime}"></td>
+						       <td th:text="${obj.dailyReport.detail}"></td>
 						       				 
 						     </tr>
 						 </table>

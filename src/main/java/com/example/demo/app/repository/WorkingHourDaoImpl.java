@@ -209,17 +209,16 @@ private final JdbcTemplate jdbcTemplate;
 	@Override
 	public List<WorkingHour> search(WorkingHour workingHour) {
 		
-	String sql ="SELECT DISTINCT DAILYREPORT.id, DAILYREPORT.type_id, DAILYREPORT.stuff_id, DAILYREPORT.work_id, DAILYREPORT.created, startTime, endTime,  DAILYREPORT.detail,  DAILYREPORT.name,"
-			+" progress  FROM DAILYREPORT"
+	String sql ="SELECT DISTINCT DAILYREPORT.id,DAILYREPORT.type_id,DAILYREPORT.stuff_id,DAILYREPORT.work_id,DAILYREPORT.created,startTime,endTime,DAILYREPORT.detail,DAILYREPORT.name,"
+			+" progress,registeredId,workDivId FROM DAILYREPORT"
 			+" INNER JOIN DAILYREPORT_TYPE ON DAILYREPORT_TYPE.id = DAILYREPORT.type_id "
-			+" WHERE DAILYREPORT.created BETWEEN \' " +workingHour.getCreated()  + "\' AND\' " + workingHour.getEnd()+ " \' ";
-//			+" WHERE DAILYREPORT.created BETWEEN '2021-9-20' AND '2021-9-25' ";
+			+" INNER JOIN STUFF ON STUFF.id = DAILYREPORT.stuff_id"
+			+" INNER JOIN WORK ON WORK.id = DAILYREPORT.work_id"
+			+" WHERE DAILYREPORT.created BETWEEN \'"+workingHour.getCreated()+"\' AND\'" +workingHour.getEnd()+" \'";
+
 	
 	
 	List<Map<String,Object>> resultList = jdbcTemplate.queryForList(sql);
-  
-   System.out.println(workingHour.getCreated());
-   System.out.println(workingHour.getEnd());
    
    System.out.println(resultList);
 	
@@ -230,14 +229,26 @@ private final JdbcTemplate jdbcTemplate;
 		Stuff stuff = new Stuff();		
 		stuff.setRegisteredId((String)result.get("registeredId"));
 		
-//		Work work = new Work();		
-//		work.setWorkDivId((String)result.get("workDivId"));
+		Work work = new Work();		
+		work.setWorkDivId((String)result.get("workDivId"));
+		
+		DailyReport dailyReport = new DailyReport();
+		dailyReport.setCreated((String)result.get("created"));
+		dailyReport.setStartTime((String)result.get("startTime"));
+		dailyReport.setEndTime((String)result.get("endTime"));
+		dailyReport.setDetail((String)result.get("detail"));
+		dailyReport.setName((String)result.get("name"));
+		
+		DailyReportType dailyReportType = new DailyReportType();
+		dailyReportType.setProgress((String)result.get("progress"));
 		
 		WorkingHour workinst = new WorkingHour();	
 		workinst.setCreated((String)result.get("created"));
 		
 		workinst.setStuff(stuff);
-//		workinst.setWork(work);
+		workinst.setWork(work);
+		workinst.setDailyReport(dailyReport);
+		workinst.setDailyReportType(dailyReportType);
 		
 		searchList.add(workinst);
 				

@@ -110,12 +110,14 @@ public class WorkingHourController{
 			
 		  workingHourService.insert(workingHour);	  
 		  List<WorkingHour> search = workingHourService.search(workingHour);
+		  List<Work> work = workingHourService.findWork();
 		  
 		  model.addAttribute("search",search);
+		  model.addAttribute("work",work);
 		  model.addAttribute("title" ,"労務管理マスタ(個人)");
 		  
 		  
-		return "redirect:/main/workingHour";
+		return "workingHourForm";
 		
 		}else {
 			workingHourForm.setNewHour(true);

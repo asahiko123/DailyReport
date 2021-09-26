@@ -27,7 +27,7 @@ public class WorkDaoImpl implements WorkDao{
 				   +" INNER JOIN WORK_TYPE ON WORK.type_id = WORK_TYPE.id";
 				   
 		List<Map<String,Object>>resultList = jdbcTemplate.queryForList(sql);
-		System.out.println(resultList);
+
 		
 		List<Work> list = new ArrayList<Work>();
 		
