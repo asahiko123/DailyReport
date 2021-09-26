@@ -57,7 +57,7 @@
     <div class="main-container">
          <aside>
          	<div class="aside">
-	         	<form method="POST"th:action ="${workingHourForm.newHour}? @{/main/workingHour/insert}:@{/main/workingHour/update}" th:object="${workingHourForm}" >
+	         	<form method="POST"th:action ="@{/main/workingHour/search} " th:object="${workingHourForm}" >
 	  
 					<div class="form-group">
 						<label for="exampleFormControlSelect1">氏名</label>
@@ -65,13 +65,13 @@
 							<option disabled selected value>選択してください</option>
 							<option th:each="obj:${stuff}" th:value="${obj.id}" th:text="${obj.registeredId}"></option>
 						</select>
-						
+						<!--"
 						<label for="exampleFormControlSelect1">作業区分</label>
 						<select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="work_id">
 							<option disabled selected value>選択してください</option>
 							<option th:each="obj:${work}" th:value="${obj.id}" th:text="${obj.workDivId}"></option>
 						</select>
-						
+						-->
 						<label for="exampleFormControlSelect1">期間検索</label>
 					       <input type="date" name ="created" th:value="*{created}">
 					         <p>～</p>
@@ -167,13 +167,19 @@
 						     	<th>スタッフID</th>					     	
 						     	<th>進捗度</th>
 						     	<th>作業区分</th>
-						     	<th>作業日付</th>			    
+						     	<th>作業日付</th>
+						     	<th>開始時間</th>	   
+						     	<th>終了時間</th>	
+						     	<th>作業内容</th>   
 						     </tr>
-						     <tr th:each="obj:${list}">
+						     <tr th:each="obj:${dailyReport}">
 						       <td th:text ="${obj.stuff.registeredId}"></td>
 						       <td th:text ="${obj.dailyReportType.progress}"></td>
 						       <td th:text ="${obj.work.workDivId}"></td>
-						       <td th:text ="${obj.dailyReport.created}"></td>
+						       <td th:text ="${obj.created}"></td>
+						       <td th:text ="${obj.startTime}"></td>
+						       <td th:text="${obj.endTime}"></td>
+						       <td th:text="${obj.detail}"></td>
 						       				 
 						     </tr>
 						 </table>

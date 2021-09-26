@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.demo.app.dailyreport.DailyReportForm;
 import com.example.demo.app.entity.DailyReport;
 import com.example.demo.app.entity.Stuff;
 import com.example.demo.app.entity.Work;
 import com.example.demo.app.entity.WorkingHour;
+import com.example.demo.app.service.DailyReportService;
 import com.example.demo.app.service.WorkingHourService;
 import com.example.demo.app.stuff.StuffForm;
 import com.example.demo.app.work.WorkForm;
@@ -30,11 +32,13 @@ import com.example.demo.app.work.WorkForm;
 public class WorkingHourController{
 	
 	private final WorkingHourService workingHourService;
+	private final DailyReportService dailyReportService;
 
 
 	
-	public WorkingHourController(WorkingHourService workingHourService) {
+	public WorkingHourController(WorkingHourService workingHourService,DailyReportService dailyReportService) {
 		this.workingHourService = workingHourService;
+		this.dailyReportService = dailyReportService;
 	}
 	
 	
@@ -45,7 +49,10 @@ public class WorkingHourController{
 		List<WorkingHour> list=workingHourService.findAll();
 		List<Stuff> stuff= workingHourService.findStuff();
 		List<Work> work = workingHourService.findWork();
-		List<DailyReport> dailyReport =workingHourService.findDailyReport();
+//		List<DailyReport> dailyReport =workingHourService.findDailyReport();
+		List<DailyReport> dailyReport = dailyReportService.findAll();
+		
+
 		
 		model.addAttribute("title","労務管理マスタ");
 		model.addAttribute("list",list);
@@ -53,8 +60,12 @@ public class WorkingHourController{
 		model.addAttribute("work",work);
 		model.addAttribute("dailyReport",dailyReport);
 		
+
+		
 		return "WorkingHourForm";
 	}
+	
+	
 	@GetMapping("/workingHour/{id}")
 	public String showUpdate(
 			@PathVariable int id,
@@ -83,8 +94,8 @@ public class WorkingHourController{
 		return "workingHourForm";
 	}
 	
-	@PostMapping("/workingHour/insert")
-	public String insert(
+	@PostMapping("/workingHour/search")
+	public String search(
 			@Valid@ModelAttribute WorkingHourForm workingHourForm,
 			BindingResult result,
 			StuffForm stuffForm,
@@ -97,10 +108,12 @@ public class WorkingHourController{
 		if(!result.hasErrors()) {
 			
 			
-		  workingHourService.insert(workingHour);
-
-			
-	
+		  workingHourService.insert(workingHour);	  
+		  List<WorkingHour> search = workingHourService.search(workingHour);
+		  
+		  model.addAttribute("search",search);
+		  model.addAttribute("title" ,"労務管理マスタ(個人)");
+		  
 		  
 		return "redirect:/main/workingHour";
 		
@@ -118,7 +131,7 @@ public class WorkingHourController{
 			model.addAttribute("stuff",stuff);
 			model.addAttribute("work",work);
 			model.addAttribute("list",list);
-			model.addAttribute("title","労務管理マスタb");
+			model.addAttribute("title","労務管理マスタ");
 			
 			return"WorkingHourForm";
 		}
@@ -173,6 +186,7 @@ public class WorkingHourController{
 		workingHour.setType_id(workingHourForm.getType_id());
 		workingHour.setWork_id(workingHourForm.getWork_id());
 		workingHour.setCreated(workingHourForm.getCreated());
+	    workingHour.setEnd(workingHourForm.getEnd());
 //		workingHour.setWorkTime(workingHourForm.getWorkTime());
 		
 		return workingHour;
@@ -187,6 +201,7 @@ public class WorkingHourController{
 		workingHourForm.setType_id(workingHour.getType_id());
 		workingHourForm.setWork_id(workingHour.getWork_id());
 		workingHourForm.setCreated(workingHour.getCreated());
+		workingHourForm.setEnd(workingHour.getEnd());
 //		workingHourForm.setWorkTime(workingHour.getWorkTime());
 		
 		workingHourForm.setNewHour(false);

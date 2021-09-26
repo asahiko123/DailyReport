@@ -19,12 +19,9 @@ public interface WorkingHourService {
 	
 	List<DailyReport> findDailyReport();
 	
-	List<WorkingHour> search();
-	
+	List<WorkingHour> search(WorkingHour workingHour);
 	
 	Optional<WorkingHour> getWorkingHour(int id);
-	
-	
 	
 	void insert(WorkingHour workingHour);
 	

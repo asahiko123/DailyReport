@@ -46,11 +46,7 @@ public class WorkingHourServiceImpl implements WorkingHourService{
 		return workingHourDao.findDailyReport();
 	}
 
-	@Override
-	public List<WorkingHour> search() {
-	
-		return null;
-	}
+
 
 	@Override
 	public Optional<WorkingHour> getWorkingHour(int id) {
@@ -82,6 +78,12 @@ public class WorkingHourServiceImpl implements WorkingHourService{
 			throw new DataNotFoundException("削除するデータは存在しません");
 		}
 		
+	}
+
+	@Override
+	public List<WorkingHour> search(WorkingHour workingHour) {
+		
+		return workingHourDao.search(workingHour);
 	}
 
 

@@ -194,6 +194,10 @@ public class DailyReportController {
 		
 	}
 	
+	
+	
+
+	
 	//エクセル出力を行う
 
 	@RequestMapping("/report/output")

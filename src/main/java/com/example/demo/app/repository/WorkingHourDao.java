@@ -15,17 +15,17 @@ public interface WorkingHourDao {
 	
 	List<WorkingHour> findAll();
 	
-	List<WorkingHour> search(WorkingHour workingHour);
-	
 	List<Stuff> findStuff();
 	
 	List<Work> findWork();
 	
 	List<DailyReport> findDailyReport();
 	
+	List<WorkingHour>search(WorkingHour workingHour);
+	
 	Optional<WorkingHour> getWorkingHour(int id);
 	
-	void insert(WorkingHour workingHour);	
+	void  insert(WorkingHour workingHour);	
 	
 	int update(WorkingHour workingHour);
 	

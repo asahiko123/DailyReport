@@ -3,7 +3,6 @@ package com.example.demo.app.repository;
 
 
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +30,7 @@ private final JdbcTemplate jdbcTemplate;
 	public List<WorkingHour> findAll() {
 	
 		String sql = "SELECT DISTINCT WORKING_HOUR.id ,WORKING_HOUR.type_id,WORKING_HOUR.name,WORKING_HOUR.created,WORKING_HOUR.end,WORKING_HOUR.stuff_id,WORKING_HOUR.work_id,workTime,"
-				+" registeredId, workDivId ,STUFF.name, DAILYREPORT.name,DAILYREPORT.detail, progress FROM WORKING_HOUR"
+				+" registeredId, workDivId ,STUFF.name, DAILYREPORT.name,DAILYREPORT.detail, progress,startTime,endTime FROM WORKING_HOUR"
 				+" INNER JOIN STUFF ON STUFF.id = WORKING_HOUR.stuff_id"
 				+" INNER JOIN WORK ON WORK.id = WORKING_HOUR.work_id"
 				+" INNER JOIN DAILYREPORT ON DAILYREPORT.id = WORKING_HOUR.id"
@@ -40,7 +39,7 @@ private final JdbcTemplate jdbcTemplate;
 		
 		
 		List<Map<String,Object>> resultList =jdbcTemplate.queryForList(sql);
-		System.out.println(resultList);
+		
 		
 		List<WorkingHour> list = new ArrayList<WorkingHour>();
 				
@@ -69,6 +68,9 @@ private final JdbcTemplate jdbcTemplate;
 			DailyReport dailyReport = new DailyReport();
 			dailyReport.setName((String)result.get("name"));
 			dailyReport.setDetail((String)result.get("detail"));
+			dailyReport.setStartTime((String)result.get("startTime"));
+			dailyReport.setEndTime((String)result.get("endTime"));
+			dailyReport.setCreated((String)result.get("created"));
 			
 			DailyReportType dailyReportType = new DailyReportType();
 			dailyReportType.setProgress((String)result.get("progress"));
@@ -207,35 +209,41 @@ private final JdbcTemplate jdbcTemplate;
 	@Override
 	public List<WorkingHour> search(WorkingHour workingHour) {
 		
-	String sql ="SELECT DISTINCT DAILYREPORT.id, stuff_id, work_id, DAILYREPORT.type_id,stuff_id, created, startTime, endTime,  DAILYREPORT.detail,  DAILYREPORT.name,"
-			+ "progress , registeredId ,workDivId FROM DAILYREPORT"
-			+ " INNER JOIN STUFF ON STUFF.id = WORKING_HOUR.stuff_id"
-			+ " INNER JOIN WORK ON WORK.id = WORKING_HOUR.work_id"
-			+" BETWEEN \'" +workingHour.getCreated()  + "\' AND \'" + workingHour.getDate() + "\'";
+	String sql ="SELECT DISTINCT DAILYREPORT.id, DAILYREPORT.type_id, DAILYREPORT.stuff_id, DAILYREPORT.work_id, DAILYREPORT.created, startTime, endTime,  DAILYREPORT.detail,  DAILYREPORT.name,"
+			+" progress  FROM DAILYREPORT"
+			+" INNER JOIN DAILYREPORT_TYPE ON DAILYREPORT_TYPE.id = DAILYREPORT.type_id "
+			+" WHERE DAILYREPORT.created BETWEEN \' " +workingHour.getCreated()  + "\' AND\' " + workingHour.getEnd()+ " \' ";
+//			+" WHERE DAILYREPORT.created BETWEEN '2021-9-20' AND '2021-9-25' ";
+	
 	
 	List<Map<String,Object>> resultList = jdbcTemplate.queryForList(sql);
+  
+   System.out.println(workingHour.getCreated());
+   System.out.println(workingHour.getEnd());
+   
+   System.out.println(resultList);
 	
-	ArrayList<WorkingHour> list = new ArrayList<WorkingHour>();
+	ArrayList<WorkingHour> searchList = new ArrayList<WorkingHour>();
 	
 	for(Map<String,Object>result:resultList) {
 		
 		Stuff stuff = new Stuff();		
 		stuff.setRegisteredId((String)result.get("registeredId"));
 		
-		Work work = new Work();		
-		work.setWorkDivId((String)result.get("workDivId"));
+//		Work work = new Work();		
+//		work.setWorkDivId((String)result.get("workDivId"));
 		
 		WorkingHour workinst = new WorkingHour();	
 		workinst.setCreated((String)result.get("created"));
 		
 		workinst.setStuff(stuff);
-		workinst.setWork(work);
+//		workinst.setWork(work);
 		
-		list.add(workinst);
+		searchList.add(workinst);
 				
 	}
 		
-		return list;
+		return searchList;
 	}
 
 	

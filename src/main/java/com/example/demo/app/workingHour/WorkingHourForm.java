@@ -9,11 +9,13 @@ public class WorkingHourForm {
 	private String name;
 	private String created;
 	private String end;
+	private String workTime;
 	private int stuff_id;
 	private int work_id;
 
 //	@NotNull(message="内容を入力してください")private String workTime;
 	private boolean newHour;
+
 	
 	public WorkingHourForm() {
 		
@@ -25,10 +27,10 @@ public class WorkingHourForm {
 			String name,
 			String created,
 			String end,
+			String workTime,
 			int stuff_id,
 			int work_id,
 			int division_id,
-			String workTime,
 			boolean newHour) {
 		
 		this.id =id;
@@ -39,7 +41,7 @@ public class WorkingHourForm {
 		this.stuff_id  =stuff_id;
 		this.work_id = work_id;
 
-//		this.workTime = workTime;
+		this.workTime = workTime;
 		this.newHour = newHour;
 		
 	}
@@ -55,9 +57,6 @@ public class WorkingHourForm {
 	public String getName() {
 		return name;
 	}
-
-
-
 
 
 	public String getEnd() {
