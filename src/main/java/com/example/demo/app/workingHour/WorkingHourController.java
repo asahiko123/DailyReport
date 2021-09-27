@@ -109,8 +109,7 @@ public class WorkingHourController{
 			
 			
 		  workingHourService.insert(workingHour);	  
-		  DailyReport dailyReport = new DailyReport();
-		  List<WorkingHour> search = workingHourService.search(workingHour,dailyReport);
+		  List<WorkingHour> search = workingHourService.search(workingHour);
 		  List<Work> work = workingHourService.findWork();
 		  
 		  model.addAttribute("search",search);

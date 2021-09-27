@@ -206,7 +206,7 @@ private final JdbcTemplate jdbcTemplate;
 	}
 
 	@Override
-	public List<WorkingHour> search(WorkingHour workingHour,DailyReport dailyReport) {
+	public List<WorkingHour> search(WorkingHour workingHour) {
 		
 		
 	String sql ="SELECT DISTINCT DAILYREPORT.id,DAILYREPORT.type_id,DAILYREPORT.stuff_id,DAILYREPORT.work_id,DAILYREPORT.created,startTime,endTime,DAILYREPORT.detail,DAILYREPORT.name,"
@@ -214,8 +214,8 @@ private final JdbcTemplate jdbcTemplate;
 			+" INNER JOIN DAILYREPORT_TYPE ON DAILYREPORT_TYPE.id = DAILYREPORT.type_id "
 			+" INNER JOIN STUFF ON STUFF.id = DAILYREPORT.stuff_id"
 			+" INNER JOIN WORK ON WORK.id = DAILYREPORT.work_id"
-			+" WHERE DAILYREPORT.created BETWEEN \'"+workingHour.getCreated()+"\'AND\'" +workingHour.getEnd()+"\'";
-//			+" AND\'"+workingHour.getStuff_id()+"\'=\'"+dailyReport.getStuffId()+"\'";
+			+" WHERE(DAILYREPORT.created BETWEEN \'"+workingHour.getCreated()+"\'AND\'"+workingHour.getEnd()+"\')AND(DAILYREPORT.stuff_id =\'"+workingHour.getStuff_id()+"\')";
+
 
 	
 	List<Map<String,Object>> resultList = jdbcTemplate.queryForList(sql);   

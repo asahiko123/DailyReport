@@ -81,9 +81,9 @@ public class WorkingHourServiceImpl implements WorkingHourService{
 	}
 
 	@Override
-	public List<WorkingHour> search(WorkingHour workingHour,DailyReport dailyReport) {
+	public List<WorkingHour> search(WorkingHour workingHour) {
 		
-		return workingHourDao.search(workingHour,dailyReport);
+		return workingHourDao.search(workingHour);
 	}
 
 

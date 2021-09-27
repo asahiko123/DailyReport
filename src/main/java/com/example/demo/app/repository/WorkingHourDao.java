@@ -21,7 +21,7 @@ public interface WorkingHourDao {
 	
 	List<DailyReport> findDailyReport();
 	
-	List<WorkingHour>search(WorkingHour workingHour,DailyReport dailyReport);
+	List<WorkingHour>search(WorkingHour workingHour);
 	
 	Optional<WorkingHour> getWorkingHour(int id);
 	
