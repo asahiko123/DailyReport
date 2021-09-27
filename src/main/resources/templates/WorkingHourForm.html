@@ -170,7 +170,7 @@
 						     	<th>作業日付</th>
 						     	<th>開始時間</th>	   
 						     	<th>終了時間</th>	
-						     	<th>作業内容</th>   
+						     	<th>作業時間(分)</th>
 						     </tr>
 						     <tr th:each="obj:${search}">
 						       <td th:text ="${obj.stuff.registeredId}"></td>
@@ -179,7 +179,7 @@
 						       <td th:text ="${obj.dailyReport.created}"></td>
 						       <td th:text ="${obj.dailyReport.startTime}"></td>
 						       <td th:text="${obj.dailyReport.endTime}"></td>
-						       <td th:text="${obj.dailyReport.detail}"></td>
+						       <td th:text="${obj.workTime}"></td>
 						       				 
 						     </tr>
 						 </table>

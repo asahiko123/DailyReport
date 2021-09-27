@@ -14,6 +14,7 @@ public class DailyReport {
 	private String created;
 	private String startTime;
 	private String endTime;
+	private String diff;
 	private String startDate;
 	private String endDate;
 	private String detail;
@@ -39,6 +40,7 @@ public class DailyReport {
 			String created,
 			String startTime,
 			String endTime,
+			String diff,
 			String startDate,
 			String endDate,
 			String detail,
@@ -58,6 +60,7 @@ public class DailyReport {
           this.created = created;
 		  this.startTime = startTime;
 		  this.endTime = endTime;
+		  this.diff = diff;
 		  this.startDate = startDate;
 		  this.endDate = endDate;
 		  this.detail = detail;
@@ -69,6 +72,14 @@ public class DailyReport {
 	}
 
 	
+
+	public String getDiff() {
+		return diff;
+	}
+
+	public void setDiff(String diff) {
+		this.diff = diff;
+	}
 
 	public String getStartDate() {
 		return startDate;

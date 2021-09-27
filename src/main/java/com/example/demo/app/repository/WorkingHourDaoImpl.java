@@ -39,8 +39,7 @@ private final JdbcTemplate jdbcTemplate;
 		
 		
 		List<Map<String,Object>> resultList =jdbcTemplate.queryForList(sql);
-		
-		
+	
 		List<WorkingHour> list = new ArrayList<WorkingHour>();
 				
 		/*WorkingHourのentityのsetter,getterを呼び出しDB情報を詰めなおす*/
@@ -207,20 +206,20 @@ private final JdbcTemplate jdbcTemplate;
 	}
 
 	@Override
-	public List<WorkingHour> search(WorkingHour workingHour) {
+	public List<WorkingHour> search(WorkingHour workingHour,DailyReport dailyReport) {
+		
 		
 	String sql ="SELECT DISTINCT DAILYREPORT.id,DAILYREPORT.type_id,DAILYREPORT.stuff_id,DAILYREPORT.work_id,DAILYREPORT.created,startTime,endTime,DAILYREPORT.detail,DAILYREPORT.name,"
-			+" progress,registeredId,workDivId FROM DAILYREPORT"
+			+" progress,registeredId,workDivId, DATEDIFF(MINUTE,DAILYREPORT.startTime,DAILYREPORT.endTime)AS workTime FROM DAILYREPORT"
 			+" INNER JOIN DAILYREPORT_TYPE ON DAILYREPORT_TYPE.id = DAILYREPORT.type_id "
 			+" INNER JOIN STUFF ON STUFF.id = DAILYREPORT.stuff_id"
 			+" INNER JOIN WORK ON WORK.id = DAILYREPORT.work_id"
-			+" WHERE DAILYREPORT.created BETWEEN \'"+workingHour.getCreated()+"\' AND\'" +workingHour.getEnd()+" \'";
+			+" WHERE DAILYREPORT.created BETWEEN \'"+workingHour.getCreated()+"\'AND\'" +workingHour.getEnd()+"\'";
+//			+" AND\'"+workingHour.getStuff_id()+"\'=\'"+dailyReport.getStuffId()+"\'";
 
 	
-	
-	List<Map<String,Object>> resultList = jdbcTemplate.queryForList(sql);
-   
-   System.out.println(resultList);
+	List<Map<String,Object>> resultList = jdbcTemplate.queryForList(sql);   
+    System.out.println(resultList);
 	
 	ArrayList<WorkingHour> searchList = new ArrayList<WorkingHour>();
 	
@@ -232,22 +231,24 @@ private final JdbcTemplate jdbcTemplate;
 		Work work = new Work();		
 		work.setWorkDivId((String)result.get("workDivId"));
 		
-		DailyReport dailyReport = new DailyReport();
-		dailyReport.setCreated((String)result.get("created"));
-		dailyReport.setStartTime((String)result.get("startTime"));
-		dailyReport.setEndTime((String)result.get("endTime"));
-		dailyReport.setDetail((String)result.get("detail"));
-		dailyReport.setName((String)result.get("name"));
+		DailyReport dailyReportinst = new DailyReport();
+		dailyReportinst.setCreated((String)result.get("created"));
+		dailyReportinst.setStartTime((String)result.get("startTime"));
+		dailyReportinst.setEndTime((String)result.get("endTime"));
+		dailyReportinst.setDetail((String)result.get("detail"));
+		dailyReportinst.setName((String)result.get("name"));
+		
 		
 		DailyReportType dailyReportType = new DailyReportType();
 		dailyReportType.setProgress((String)result.get("progress"));
 		
 		WorkingHour workinst = new WorkingHour();	
 		workinst.setCreated((String)result.get("created"));
+		workinst.setWorkTime(((Long)result.get("workTime")).toString());
 		
 		workinst.setStuff(stuff);
 		workinst.setWork(work);
-		workinst.setDailyReport(dailyReport);
+		workinst.setDailyReport(dailyReportinst);
 		workinst.setDailyReportType(dailyReportType);
 		
 		searchList.add(workinst);

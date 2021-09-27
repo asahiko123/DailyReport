@@ -106,13 +106,13 @@
 				  
 				    <div th:if ="${#fields.hasErrors('created')}"th:errors ="*{created}" class ="alert alert-danger" role ="alert"></div>
 				    <label>作業日時</label>
-				      <input type ="date"name ="created" th:value ="*{created}">				  
+				      <input type ="datetime-local"name ="created" th:value ="*{created}">				  
 				 
 				     <label>開始時刻</label> 
-				       <input type ="time" name ="startTime" th:value ="*{startTime}">
+				       <input type ="datetime-local" name ="startTime" th:value ="*{startTime}">
 						
 				     <label>終了時刻</label> 
-				     <input type ="time" name ="endTime" th:value ="*{endTime}">
+				     <input type ="datetime-local" name ="endTime" th:value ="*{endTime}">
 				     
 				     
 				   <br>

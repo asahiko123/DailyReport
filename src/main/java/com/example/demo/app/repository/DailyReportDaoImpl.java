@@ -31,7 +31,7 @@ public class DailyReportDaoImpl implements DailyReportDao{
 	public List<DailyReport> findAll() {
 		
 		String sql = "SELECT DISTINCT DAILYREPORT.id, stuff_id, work_id, DAILYREPORT.type_id,stuff_id, created, startTime, endTime,  DAILYREPORT.detail,  DAILYREPORT.name,"
-				+ " progress  , registeredId ,workDivId FROM DAILYREPORT "
+				+ " progress,registeredId,workDivId FROM DAILYREPORT "
 				+ " INNER JOIN DAILYREPORT_TYPE ON DAILYREPORT_TYPE.id = DAILYREPORT.type_id"
 			    +" INNER JOIN STUFF ON STUFF.id = DAILYREPORT.stuff_id"
 		        +" INNER JOIN WORK ON WORK.id = DAILYREPORT.work_id";

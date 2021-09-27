@@ -309,6 +309,7 @@ public class DailyReportController {
 		
 		dailyReport.setStartTime(dailyReportForm.getStartTime());
 		dailyReport.setEndTime(dailyReportForm.getEndTime());
+		dailyReport.setDiff((String)dailyReportForm.getDiff());
        	dailyReport.setCreated(dailyReportForm.getCreated());	
 		dailyReport.setDetail(dailyReportForm.getDetail());
 		dailyReport.setName(dailyReportForm.getName());
@@ -330,6 +331,7 @@ public class DailyReportController {
 		dailyReportForm.setId(dailyReport.getId());
 		dailyReportForm.setStartTime(dailyReport.getStartTime());
 		dailyReportForm.setEndTime(dailyReport.getEndTime());
+		dailyReportForm.setDiff(dailyReport.getDiff());
 		dailyReportForm.setCreated(dailyReport.getCreated());
 	    dailyReportForm.setName(dailyReport.getName());
 		dailyReportForm.setDetail(dailyReport.getDetail());

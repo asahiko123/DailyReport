@@ -19,7 +19,7 @@ public interface WorkingHourService {
 	
 	List<DailyReport> findDailyReport();
 	
-	List<WorkingHour> search(WorkingHour workingHour);
+	List<WorkingHour> search(WorkingHour workingHour,DailyReport dailyReport);
 	
 	Optional<WorkingHour> getWorkingHour(int id);
 	

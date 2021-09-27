@@ -25,6 +25,8 @@ public class DailyReportForm {
 	@Size(max =20,min = 1)
 	private String detail;
 	
+	private String diff;
+	
 	private String startDate;
 	
 	private String endDate;
@@ -55,6 +57,7 @@ public class DailyReportForm {
 			@NotNull(message ="内容を入力してください")@Size(min = 1, max = 20)String detail,
 			String startDate,
 			String endDate,
+			String diff,
 			String name,
 			boolean newReport, 
 			int stuffId,
@@ -67,6 +70,7 @@ public class DailyReportForm {
 		this.endTime = endTime;
 		this.startTime = startTime;
 		this.startDate = startDate;
+		this.diff = diff;
 		this.endDate = endDate;
 		this.detail = detail;
 		this.stuffId = stuffId;
@@ -80,6 +84,14 @@ public class DailyReportForm {
 
 
 	
+	public String getDiff() {
+		return diff;
+	}
+
+	public void setDiff(String diff) {
+		this.diff = diff;
+	}
+
 	public String getStartDate() {
 		return startDate;
 	}
