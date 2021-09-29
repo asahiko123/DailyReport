@@ -219,7 +219,6 @@ private final JdbcTemplate jdbcTemplate;
 
 	
 	List<Map<String,Object>> resultList = jdbcTemplate.queryForList(sql);   
-    System.out.println(resultList);
 	
 	ArrayList<WorkingHour> searchList = new ArrayList<WorkingHour>();
 	
@@ -256,6 +255,17 @@ private final JdbcTemplate jdbcTemplate;
 	}
 		
 		return searchList;
+	}
+
+	@Override
+	public List<WorkingHour> sum(WorkingHour workingHour) {
+		
+		String sql ="SELECT SUM(workTime) AS workTimeSum FROM (SELECT DAILYREPORT.id,DAILYREPORT.type_id,DAILYREPORT.stuff_id,DAILYREPORT.work_id,DAILYREPORT.created,startTime,endTime,DATEDIFF(MINUTE,DAILYREPORT.startTime,DAILYREPORT.endTime)AS workTime FROM DAILYREPORT)";
+//				+ "WHERE(DAILYREPORT.created BETWEEN \'"+workingHour.getCreated()+"\'AND\'"+workingHour.getEnd()+"\')AND(DAILYREPORT.stuff_id =\'"+workingHour.getStuff_id()+"\')";
+		
+		List<Map<String,Object>>resultList = jdbcTemplate.queryForList(sql);
+		System.out.println(resultList);
+		return null;
 	}
 
 	
