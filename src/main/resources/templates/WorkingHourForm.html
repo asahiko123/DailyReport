@@ -129,16 +129,17 @@
 			      -->
 			     
 			   
-			        <div class="circlechart" th:each="obj:${search}">
+			        <div class="circlechart">
 					  <canvas id="myPieChart"></canvas>
 					  <script src="/js/Chart.bundle.js" th:src="@{/js/Chart.bundle.js}"></script>
 					
-					  <script>
+					  <script type="text/javascript">
 					  var ctx = document.getElementById("myPieChart");
 					  var myPieChart = new Chart(ctx, {
 					    type: 'pie',
 					    data: {
-					      labels: ["[[${obj.work.workDivId}]]", "","B蝙�", "AB蝙�"],
+						   
+					      labels: ["", "","B蝙�", "AB蝙�"],
 					      datasets: [{
 					          backgroundColor: [
 					              "#BB5179",
@@ -179,8 +180,14 @@
 						       <td th:text ="${obj.dailyReport.created}"></td>
 						       <td th:text ="${obj.dailyReport.startTime}"></td>
 						       <td th:text="${obj.dailyReport.endTime}"></td>
-						       <td th:text="${obj.workTime}"></td>
-						       				 
+						       <td th:text="${obj.workTime}"></td>					            			 
+						     </tr>
+						     
+						     <tr>						   
+						     	<th>総作業時間</th>
+						     </tr>	
+						     <tr th:each="obj:${sum}">
+						     	<td th:text="${obj.workTimeSum}"></td>
 						     </tr>
 						 </table>
 					 </div>

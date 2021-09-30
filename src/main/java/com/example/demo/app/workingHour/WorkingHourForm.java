@@ -10,6 +10,7 @@ public class WorkingHourForm {
 	private String created;
 	private String end;
 	private String workTime;
+	private String workTimeSum;
 	private int stuff_id;
 	private int work_id;
 
@@ -28,6 +29,7 @@ public class WorkingHourForm {
 			String created,
 			String end,
 			String workTime,
+			String workTimeSum,
 			int stuff_id,
 			int work_id,
 			int division_id,
@@ -40,10 +42,26 @@ public class WorkingHourForm {
 		this.end = end;
 		this.stuff_id  =stuff_id;
 		this.work_id = work_id;
-
+		this.workTimeSum = workTimeSum;
 		this.workTime = workTime;
 		this.newHour = newHour;
 		
+	}
+
+	public String getWorkTime() {
+		return workTime;
+	}
+
+	public void setWorkTime(String workTime) {
+		this.workTime = workTime;
+	}
+
+	public String getWorkTimeSum() {
+		return workTimeSum;
+	}
+
+	public void setWorkTimeSum(String workTimeSum) {
+		this.workTimeSum = workTimeSum;
 	}
 
 	public boolean isNewHour() {

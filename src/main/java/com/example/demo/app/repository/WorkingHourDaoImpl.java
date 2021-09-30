@@ -3,6 +3,7 @@ package com.example.demo.app.repository;
 
 
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -258,14 +259,19 @@ private final JdbcTemplate jdbcTemplate;
 	}
 
 	@Override
-	public List<WorkingHour> sum(WorkingHour workingHour) {
+	public WorkingHour sum(WorkingHour workingHour) {
 		
-		String sql ="SELECT SUM(workTime) AS workTimeSum FROM (SELECT DAILYREPORT.id,DAILYREPORT.type_id,DAILYREPORT.stuff_id,DAILYREPORT.work_id,DAILYREPORT.created,startTime,endTime,DATEDIFF(MINUTE,DAILYREPORT.startTime,DAILYREPORT.endTime)AS workTime FROM DAILYREPORT)";
-//				+ "WHERE(DAILYREPORT.created BETWEEN \'"+workingHour.getCreated()+"\'AND\'"+workingHour.getEnd()+"\')AND(DAILYREPORT.stuff_id =\'"+workingHour.getStuff_id()+"\')";
+		String sql ="SELECT SUM(workTime) AS workTimeSum FROM (SELECT DAILYREPORT.id,DAILYREPORT.type_id,DAILYREPORT.stuff_id,DAILYREPORT.work_id,DAILYREPORT.created,startTime,endTime,DATEDIFF(MINUTE,DAILYREPORT.startTime,DAILYREPORT.endTime)AS workTime FROM DAILYREPORT WHERE(DAILYREPORT.created BETWEEN \'"+workingHour.getCreated()+"\'AND\'"+workingHour.getEnd()+"\')AND(DAILYREPORT.stuff_id =\'"+workingHour.getStuff_id()+"\'))";
 		
-		List<Map<String,Object>>resultList = jdbcTemplate.queryForList(sql);
-		System.out.println(resultList);
-		return null;
+		Map<String,Object>result = jdbcTemplate.queryForMap(sql);
+		System.out.println(result);
+		
+		WorkingHour workinst = new WorkingHour();
+		
+		workinst.setWorkTimeSum(((BigDecimal)result.get("workTimeSum")).toString());
+		
+		
+		return workinst;
 	}
 
 	

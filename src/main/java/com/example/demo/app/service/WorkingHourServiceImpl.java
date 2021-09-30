@@ -87,7 +87,7 @@ public class WorkingHourServiceImpl implements WorkingHourService{
 	}
 
 	@Override
-	public List<WorkingHour> sum(WorkingHour workingHour) {
+	public WorkingHour sum(WorkingHour workingHour) {
 		
 		return workingHourDao.sum(workingHour);
 	}
