@@ -9,3 +9,12 @@ spring:
       ddl-auto: none
 
   h2.console.enabled: true
+    
+schema:
+    -classpath:h2/schema.sql
+    -classpath:org/springframework/security/core/userdetails/jdbc/users.ddl
+logging:
+    level:
+      org:
+      springframework:
+        security:DEBUG

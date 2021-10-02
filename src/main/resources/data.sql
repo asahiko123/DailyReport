@@ -36,4 +36,9 @@ FROM (
     WHERE `progress` = '0%' OR `progress` = '10%' OR `progress` = '20%' OR `progress` ='30%' OR `progress` ='40%' OR `progress` ='50%' OR `progress` ='60%' OR `progress` ='70%' OR `progress` ='80%' OR `progress` ='90%' OR `progress` ='100%'
 );
 
+INSERT INTO USERS (USERNAME,PASSWORD,ENABLED) VALUES
+('admin','{bcrypt}04e43776-9205-4a02-8fb9-07abf68ee27c',true);
+INSERT INTO AUTHORITIES(USERNAME,AUTHORITY) VALUES ('admin','ROLE_ADMIN');
+INSERT INTO AUTHORITIES(USERNAME,AUTHORITY) VALUES ('admin','ROLE_USER');
+
 
