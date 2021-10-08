@@ -261,16 +261,18 @@ private final JdbcTemplate jdbcTemplate;
 	@Override
 	public WorkingHour sum(WorkingHour workingHour) {
 		
-		String sql ="SELECT SUM(workTime) AS workTimeSum FROM (SELECT DAILYREPORT.id,DAILYREPORT.type_id,DAILYREPORT.stuff_id,DAILYREPORT.work_id,DAILYREPORT.created,startTime,endTime,DATEDIFF(MINUTE,DAILYREPORT.startTime,DAILYREPORT.endTime)AS workTime FROM DAILYREPORT WHERE(DAILYREPORT.created BETWEEN \'"+workingHour.getCreated()+"\'AND\'"+workingHour.getEnd()+"\')AND(DAILYREPORT.stuff_id =\'"+workingHour.getStuff_id()+"\'))";
+		String sql ="SELECT SUM(workTime)AS workTimeSum FROM (SELECT DAILYREPORT.id,DAILYREPORT.type_id,DAILYREPORT.stuff_id,DAILYREPORT.work_id,DAILYREPORT.created,startTime,endTime,DATEDIFF(MINUTE,DAILYREPORT.startTime,DAILYREPORT.endTime)AS workTime FROM DAILYREPORT WHERE(DAILYREPORT.created BETWEEN \'"+workingHour.getCreated()+"\'AND\'"+workingHour.getEnd()+"\')AND(DAILYREPORT.stuff_id =\'"+workingHour.getStuff_id()+"\'))";
 		
 		Map<String,Object>result = jdbcTemplate.queryForMap(sql);
-		System.out.println(result);
 		
 		WorkingHour workinst = new WorkingHour();
 		
-		workinst.setWorkTimeSum(((BigDecimal)result.get("workTimeSum")).toString());
-		
-		
+		if(result.get("workTimeSum")==null){
+			workinst.setWorkTimeSum("0");
+		}else {
+			workinst.setWorkTimeSum(((BigDecimal)result.get("workTimeSum")).toString());
+		}
+			
 		return workinst;
 	}
 

@@ -45,11 +45,11 @@ public class WorkingHourController{
 	@GetMapping("/workingHour")
 	public String WorkingHour(WorkingHourForm workingHourForm ,Model model) {
 		
-		workingHourForm.setNewHour(true);
+		
+		System.out.println(workingHourForm.isNewHour());
 		List<WorkingHour> list=workingHourService.findAll();
 		List<Stuff> stuff= workingHourService.findStuff();
 		List<Work> work = workingHourService.findWork();
-//		List<DailyReport> dailyReport =workingHourService.findDailyReport();
 		List<DailyReport> dailyReport = dailyReportService.findAll();
 		
 
@@ -59,8 +59,7 @@ public class WorkingHourController{
 		model.addAttribute("stuff",stuff);
 		model.addAttribute("work",work);
 		model.addAttribute("dailyReport",dailyReport);
-		
-
+	
 		
 		return "WorkingHourForm";
 	}
@@ -100,6 +99,7 @@ public class WorkingHourController{
 			BindingResult result,
 			StuffForm stuffForm,
 			WorkForm workForm,
+			RedirectAttributes redirectAttributes,
 			Model model
 			) {
 		
@@ -107,24 +107,25 @@ public class WorkingHourController{
 		
 		if(!result.hasErrors()) {
 			
-			
+	 
 		  workingHourService.insert(workingHour);	  
 		  List<WorkingHour> search = workingHourService.search(workingHour);
-		  List<Work> work = workingHourService.findWork();
-		  
+		  List<Work> work = workingHourService.findWork();	  
 		  WorkingHour sum = workingHourService.sum(workingHour);
-		  	  
-		  model.addAttribute("search",search);
-		  model.addAttribute("sum",sum);
-		  model.addAttribute("work",work);
-		  model.addAttribute("title" ,"労務管理マスタ(個人)");
+
+			 
+		  int size = search.size();
+		  
+		  redirectAttributes.addFlashAttribute("search",search);
+		  redirectAttributes.addFlashAttribute("work",work);
+		  redirectAttributes.addFlashAttribute("sum",sum);
+		  redirectAttributes.addFlashAttribute("size",size);
 		  
 		  
-		return "workingHourForm";
+		return "redirect:/main/workingHour";
 		
 		}else {
 			workingHourForm.setNewHour(true);
-			System.out.println(workingHourForm.getCreated());
 			
 			
 			model.addAttribute("WorkingHourForm",workingHourForm);

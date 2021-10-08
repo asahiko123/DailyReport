@@ -1,0 +1,17 @@
+{"properties": [
+  {
+    "name": "spring.schema",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.schema'"
+  },
+  {
+    "name": "spring.logging.level.springframework",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.logging.level.springframework'"
+  },
+  {
+    "name": "spring.logging.level.org",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.logging.level.org'"
+  }
+]}
