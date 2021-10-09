@@ -62,7 +62,7 @@
 					<div class="form-group">
 					
 						<label for="exampleFormControlSelect1">氏名</label>
-						<select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="stuff_id">
+						<select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="stuff_id"required>
 							<option disabled selected value>選択してください</option>
 							<option th:each="obj:${stuff}" th:value="${obj.id}" th:text="${obj.registeredId}"></option>
 						</select>
@@ -74,9 +74,9 @@
 						</select>
 						-->
 						<label for="exampleFormControlSelect1">期間検索</label>
-					       <input type="date" name ="created" th:value="*{created}">
+					       <input type="date" name ="created" th:value="*{created}"required>
 					         <p>～</p>
-					       <input type="date" name = "end" th:value="*{end}">
+					       <input type="date" name = "end" th:value="*{end}"required>
 					       
 					      <br></br>
 					     <div class="d-grid gap-2">
@@ -131,31 +131,41 @@
 			        <div class="circlechart">
 					  <canvas id="myPieChart"></canvas>
 					  <script src="/js/Chart.bundle.js" th:src="@{/js/Chart.bundle.js}"></script>
-					
+					 
 					  <script type="text/javascript" th:inline="javascript">
+					   /*<![CDATA[*/   
 					  var ctx = document.getElementById("myPieChart");
+					  var search=/*[[${search}]]*/
+
+					const work =search.map(x=>x.work.workDivId);
+					const stuff =search.map(x=>x.stuff.registeredId);
+					const time =search.map(x=>x.workTime);
+					console.log(work);
+					  
 					  var myPieChart = new Chart(ctx, {
 					    type: 'pie',
 					    data: {
 						   
-					      labels: ["", "","B蝙�", "AB蝙�"],
+					      labels: [work[0],work[1],work[2],work[3],work[4]],
 					      datasets: [{
 					          backgroundColor: [
 					              "#BB5179",
 					              "#FAFF67",
 					              "#58A27C",
-					              "#3C00FF"
+					              "#3C00FF",
+					              "#ff7f50"
 					          ],
-					          data: [38, 31, 21, 10]
+					          data: [time[0], time[1], time[2], time[3],time[4]]
 					      }]
 					    },
 					    options: {
 					      title: {
 					        display: true,
-					        text: '個人別-労働時間内訳'
+					        text: stuff[0]
 					      }
 					    }
 					  });
+					   /*]]>*/
 					  </script>	
 				    </div>
 				    

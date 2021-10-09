@@ -3,6 +3,8 @@ package com.example.demo.app.dailyreport;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 
 
 public class DailyReportForm {
@@ -15,7 +17,7 @@ public class DailyReportForm {
 	private String created;
 	
 	@NotNull(message="内容を入力してください")
-	
+
 	private String startTime;
 	
 	@NotNull(message ="内容を入力してください")
