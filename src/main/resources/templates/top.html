@@ -18,17 +18,9 @@
 
 <body class="text-center text-white bg-dark  h-100">
   <div class="cover-container d-flex w-100 p-3 mx-auto flex-column">
-    <header class="mb-auto">
-      <div>
-        
-        <!-- <h3 class="mb-0 float-md-start">カバー</h3>
-        <nav class="nav nav-masthead justify-content-center float-md-end">
-          <a class="nav-link active" aria-current="page" href="#">ホーム</a>
-          <a class="nav-link" href="#">特徴</a>
-          <a class="nav-link" href="#">要望</a>
-        </nav> -->
-      </div>
-      
+  
+    <header class="mb-auto">      
+          
     </header>
     <main class="px-3">
       <h1 th:text="${title}" class="p-5"></h1>
@@ -47,14 +39,13 @@
 		    
 		    </ul>
 		  </div>
-		  	  
-		     <div>
-                <form th:action="@{/user/logout}" method="post">
-                    <button class="logout-button">
-                        ログアウト
-                    </button>
-                </form>
-            </div>
+		  <div>
+         <form th:action="@{/user/logout}" method="post">
+            <button class ="btn btn-success">
+               ログアウト
+            </button>
+          </form>
+       </div>   
 		</div>  
     </main>
 
