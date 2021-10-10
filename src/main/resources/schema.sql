@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS WORKING_HOUR(
   end VARCHAR(225) ,
   stuff_id INT(2) NOT NULL,
   work_id INT(2) NOT NULL,
-  workTime VARCHAR(20),
+  workTime INT(2),
   PRIMARY KEY(id)
 );
 

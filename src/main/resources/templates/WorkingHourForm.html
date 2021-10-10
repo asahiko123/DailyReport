@@ -138,15 +138,39 @@
 					  var search=/*[[${search}]]*/
 
 					const work =search.map(x=>x.work.workDivId);
+					const workDivs =[...new Set(work)]
 					const stuff =search.map(x=>x.stuff.registeredId);
 					const time =search.map(x=>x.workTime);
-					console.log(work);
+					console.log(time);
+					
+					const groupBy= search.reduce((result,current)=>{
+						
+						const element = result.find(value=>value.work.workDivId === current.work.workDivId);
+						
+						if(element){		
+							element.count++;
+							element.workTime+=current.workTime;
+						}else{
+							
+							result.push({
+								work:{
+								workDivId :current.work.workDivId},
+								workTime:current.workTime,
+								count:1,
+							})
+						}
+						return result;
+					},[])
+					
+					const groupBytime=groupBy.map(x=>x.workTime);
+				
+					console.log(groupBy);
 					  
 					  var myPieChart = new Chart(ctx, {
 					    type: 'pie',
 					    data: {
 						   
-					      labels: [work[0],work[1],work[2],work[3],work[4]],
+					      labels: [workDivs[0],workDivs[1],workDivs[2],workDivs[3]],
 					      datasets: [{
 					          backgroundColor: [
 					              "#BB5179",
@@ -155,13 +179,13 @@
 					              "#3C00FF",
 					              "#ff7f50"
 					          ],
-					          data: [time[0], time[1], time[2], time[3],time[4]]
+					          data: [groupBytime[0],groupBytime[1],groupBytime[2],groupBytime[3]]
 					      }]
 					    },
 					    options: {
 					      title: {
 					        display: true,
-					        text: stuff[0]
+					        text: stuff[0],
 					      }
 					    }
 					  });

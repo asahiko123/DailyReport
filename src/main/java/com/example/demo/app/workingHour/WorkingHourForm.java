@@ -9,7 +9,7 @@ public class WorkingHourForm {
 	private String name;
 	private String created;
 	private String end;
-	private String workTime;
+	private Long workTime;
 	private String workTimeSum;
 	private int stuff_id;
 	private int work_id;
@@ -28,7 +28,7 @@ public class WorkingHourForm {
 			String name,
 			String created,
 			String end,
-			String workTime,
+			Long workTime,
 			String workTimeSum,
 			int stuff_id,
 			int work_id,
@@ -48,11 +48,11 @@ public class WorkingHourForm {
 		
 	}
 
-	public String getWorkTime() {
+	public Long getWorkTime() {
 		return workTime;
 	}
 
-	public void setWorkTime(String workTime) {
+	public void setWorkTime(Long workTime) {
 		this.workTime = workTime;
 	}
 

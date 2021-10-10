@@ -11,7 +11,7 @@ public class WorkingHour {
 	private String name;
 	private int stuff_id;
 	private int work_id;
-	private String workTime;
+	private Long workTime;
 	private String workTimeSum;
 	private Stuff stuff;
 	private Work work;
@@ -34,7 +34,7 @@ public class WorkingHour {
 		    String name,
 		    int stuff_id,
 		    int work_id,
-		    String workTime,
+		    Long workTime,
 		    Stuff stuff,
 		    Work work,
 		    DailyReportType dailyReportType,
@@ -168,11 +168,11 @@ public class WorkingHour {
 		this.work_id = work_id;
 	}
 
-	public String getWorkTime() {
+	public Long getWorkTime() {
 		return workTime;
 	}
 
-	public void setWorkTime(String workTime) {
+	public void setWorkTime(Long workTime) {
 		this.workTime = workTime;
 	}
 	

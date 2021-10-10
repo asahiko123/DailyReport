@@ -34,7 +34,6 @@ public class WorkingHourController{
 	private final WorkingHourService workingHourService;
 	private final DailyReportService dailyReportService;
 
-
 	
 	public WorkingHourController(WorkingHourService workingHourService,DailyReportService dailyReportService) {
 		this.workingHourService = workingHourService;
@@ -109,6 +108,11 @@ public class WorkingHourController{
 			
 	 
 		  workingHourService.insert(workingHour);	  
+		  
+		  String created= workingHour.getCreated();
+		  System.out.println(created);
+		  String end =workingHour.getEnd();
+		  System.out.println(end);
 		  List<WorkingHour> search = workingHourService.search(workingHour);
 		  List<Work> work = workingHourService.findWork();	  
 		  WorkingHour sum = workingHourService.sum(workingHour);

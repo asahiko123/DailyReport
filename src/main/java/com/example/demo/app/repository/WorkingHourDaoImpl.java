@@ -55,7 +55,7 @@ private final JdbcTemplate jdbcTemplate;
 			workingHour.setCreated((String) result.get("created"));
 			workingHour.setDate((String)result.get("end"));
 			workingHour.setWork_id((int)result.get("work_id"));
-			workingHour.setWorkTime((String)result.get("workTime"));
+			workingHour.setWorkTime((Long)result.get("workTime"));
 			
 			
 			Stuff stuff = new Stuff();
@@ -105,7 +105,7 @@ private final JdbcTemplate jdbcTemplate;
 		workingHour.setName((String)result.get("name"));
 		workingHour.setCreated(((String)result.get("created")));
 		workingHour.setWork_id((int)result.get("work_id"));
-		workingHour.setWorkTime((String)result.get("workTime"));
+		workingHour.setWorkTime((Long)result.get("workTime"));
 		
 		Stuff stuff = new Stuff();
 		stuff.setRegisteredId((String)result.get("registeredId"));
@@ -208,8 +208,7 @@ private final JdbcTemplate jdbcTemplate;
 
 	@Override
 	public List<WorkingHour> search(WorkingHour workingHour) {
-		
-		
+
 	String sql ="SELECT DISTINCT DAILYREPORT.id,DAILYREPORT.type_id,DAILYREPORT.stuff_id,DAILYREPORT.work_id,DAILYREPORT.created,startTime,endTime,DAILYREPORT.detail,DAILYREPORT.name,"
 			+" progress,registeredId,workDivId, DATEDIFF(MINUTE,DAILYREPORT.startTime,DAILYREPORT.endTime)AS workTime FROM DAILYREPORT"
 			+" INNER JOIN DAILYREPORT_TYPE ON DAILYREPORT_TYPE.id = DAILYREPORT.type_id "
@@ -217,9 +216,16 @@ private final JdbcTemplate jdbcTemplate;
 			+" INNER JOIN WORK ON WORK.id = DAILYREPORT.work_id"
 			+" WHERE(DAILYREPORT.created BETWEEN \'"+workingHour.getCreated()+"\'AND\'"+workingHour.getEnd()+"\')AND(DAILYREPORT.stuff_id =\'"+workingHour.getStuff_id()+"\')";
 
+//	String sql ="SELECT DISTINCT DAILYREPORT.id,DAILYREPORT.type_id,DAILYREPORT.stuff_id,DAILYREPORT.work_id,DAILYREPORT.created,startTime,endTime,DAILYREPORT.detail,DAILYREPORT.name,"
+//			+" progress,registeredId,workDivId, DATEDIFF(MINUTE,DAILYREPORT.startTime,DAILYREPORT.endTime)AS workTime FROM DAILYREPORT"
+//			+" INNER JOIN DAILYREPORT_TYPE ON DAILYREPORT_TYPE.id = DAILYREPORT.type_id "
+//			+" INNER JOIN STUFF ON STUFF.id = DAILYREPORT.stuff_id"
+//			+" INNER JOIN WORK ON WORK.id = DAILYREPORT.work_id"
+//			+" INNER JOIN WORKING_HOUR ON WORKING_HOUR.stuff_id = DAILYREPORT.stuff_id"
+//			+" WHERE(DAILYREPORT.created BETWEEN (WORKING_HOUR.created=? AND WORKING_HOUR.end=?)AND(DAILYREPORT.stuff_id =\'"+workingHour.getStuff_id()+"\'))";
 
+	List<Map<String,Object>> resultList = jdbcTemplate.queryForList(sql);
 	
-	List<Map<String,Object>> resultList = jdbcTemplate.queryForList(sql);   
 	
 	ArrayList<WorkingHour> searchList = new ArrayList<WorkingHour>();
 	
@@ -244,7 +250,8 @@ private final JdbcTemplate jdbcTemplate;
 		
 		WorkingHour workinst = new WorkingHour();	
 		workinst.setCreated((String)result.get("created"));
-		workinst.setWorkTime(((Long)result.get("workTime")).toString());
+		workinst.setEnd((String)result.get("end"));
+		workinst.setWorkTime(((Long)result.get("workTime")));
 		
 		workinst.setStuff(stuff);
 		workinst.setWork(work);
