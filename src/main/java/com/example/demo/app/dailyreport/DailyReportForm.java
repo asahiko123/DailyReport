@@ -3,10 +3,10 @@ package com.example.demo.app.dailyreport;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import com.example.demo.app.annotation.DayCheck;
 
 
-
+@DayCheck
 public class DailyReportForm {
 
 	private int id;

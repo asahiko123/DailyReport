@@ -76,9 +76,9 @@
 				  
 				  
 				   <div class="form-group">
-				    <label for="exampleFormControlTextarea1">備考</label>
+				    <label for="exampleFormControlTextarea1">案件名</label>
 				     <div th:if="${#fields.hasErrors('comment')}"th:errors="*{comment}"class="alert alert-danger" role="alert"></div>
-				    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="comment" th:value ="*{comment}"></textarea>
+				    <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" name="comment" th:value ="*{comment}"></textarea>
 				  </div>
 				  
 				  <br></br>
@@ -93,7 +93,7 @@
      <table class ="table table-striped">
       <tr>
 	   <th>会社名</th>
-	   <th>備考</th>
+	   <th>案件名</th>
 	   <th></th>
 	   <th></th>
 	  </tr>

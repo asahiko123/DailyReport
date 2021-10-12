@@ -67,7 +67,6 @@
 	            
 	            <div class="form-group">
 				  <label for="exampleFormControlSelect1">スタッフID</label>
-				 <!-- <div th:if="${#fields.hasErrors('stuffId')" th:errors="*{stuffId}" class="alert alert-danger" role="alert"}></div>-->
 	              <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name ="stuffId"required>
                     <option disabled selected value>選択してください</option>
                     <option  th:each ="obj:${stuff}"  th:value ="${obj.id}"th:text ="${obj.registeredId}"></option>       
@@ -76,7 +75,6 @@
 	            
 	            <div class="form-group">
 				  <label for="exampleFormControlSelect1">作業区分ID</label>
-				  <!--  <div th:if="${#fields.hasErrors('workId')" th:errors="*{workId}" class="alert alert-danger" role="alert"}></div>-->
 		            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="workId"required>
 	                  <option disabled selected value>選択してください</option>
 	                  <option th:each ="obj:${work}" th:value ="${obj.id}"th:text ="${obj.workDivId}"></option>
@@ -103,22 +101,21 @@
 				  
 				   <br>
 				   </br>
-				  
-				    <div th:if ="${#fields.hasErrors('created')}"th:errors ="*{created}" class ="alert alert-danger" role ="alert"></div>
+				   
+				   <div class="form-group">
+				   <p th:if="${dayCheck}" th:text="${dayCheck}" class ="alert alert-danger" role ="alert"></p>
 				    <label>作業日時</label>
-				      <input type ="date"name ="created" th:value ="*{created}"required>				  
-				 
+				      <input type ="date" class="form-control" name ="created" th:value ="*{created}"required>
 				     <label>開始時刻</label> 
-				       <input type ="datetime-local" name ="startTime" th:value ="*{startTime}"required>
+				       <input type ="datetime-local"class="form-control" name ="startTime" th:value ="*{startTime}"required>
 						
 				     <label>終了時刻</label> 
-				     <input type ="datetime-local" name ="endTime" th:value ="*{endTime}"required>
-				     
-				     
+				     <input type ="datetime-local"class="form-control" name ="endTime" th:value ="*{endTime}"required>
+				   </div>
+				   
 				   <br>
 				   </br>
-				   
-				   
+				     
 				   <div class="form-group"required>
 				    <label for="exampleFormControlTextarea1">日報内容</label>
 				    <div th:if="${#fields.hasErrors('detail')}"class="alert alert-danger" role="alert"><p>1～20文字以内で入力してください</p></div>

@@ -21,6 +21,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -127,6 +128,7 @@ public class DailyReportController {
 			Model model) {
 		
 		
+		
 		DailyReport dailyReport  = makeDailyReport(dailyReportForm,0);
 
 		if(!result.hasErrors()) {
@@ -136,6 +138,12 @@ public class DailyReportController {
 		}else {
 			dailyReportForm.setNewReport(true);
 			model.addAttribute("DailyReportForm",dailyReportForm);
+			
+			for(ObjectError error:result.getAllErrors()) {
+				String dayCheck = error.getDefaultMessage();
+				System.out.println(dayCheck);
+				model.addAttribute("dayCheck",dayCheck);
+			}
 		
 			List<DailyReport> list = dailyReportService.findAll();
 			List<Stuff> stuff = dailyReportService.findStuff();

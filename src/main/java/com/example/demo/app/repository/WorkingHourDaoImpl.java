@@ -208,26 +208,6 @@ private final JdbcTemplate jdbcTemplate;
 
 	@Override
 	public List<WorkingHour> search(WorkingHour workingHour) {
-
-//	String sql ="SELECT DISTINCT DAILYREPORT.id,DAILYREPORT.type_id,DAILYREPORT.stuff_id,DAILYREPORT.work_id,DAILYREPORT.created,startTime,endTime,DAILYREPORT.detail,DAILYREPORT.name,"
-//			+" progress,registeredId,workDivId, DATEDIFF(MINUTE,DAILYREPORT.startTime,DAILYREPORT.endTime)AS workTime FROM DAILYREPORT"
-//			+" INNER JOIN DAILYREPORT_TYPE ON DAILYREPORT_TYPE.id = DAILYREPORT.type_id "
-//			+" INNER JOIN STUFF ON STUFF.id = DAILYREPORT.stuff_id"
-//			+" INNER JOIN WORK ON WORK.id = DAILYREPORT.work_id"
-//			+" WHERE(DAILYREPORT.created BETWEEN \'"+workingHour.getCreated()+"\'AND\'"+workingHour.getEnd()+"\')AND(DAILYREPORT.stuff_id =\'"+workingHour.getStuff_id()+"\')";
-
-//	String sql ="SELECT DISTINCT DAILYREPORT.id,DAILYREPORT.type_id,DAILYREPORT.stuff_id,DAILYREPORT.work_id,DAILYREPORT.created,startTime,endTime,DAILYREPORT.detail,DAILYREPORT.name,"
-//			+" progress,registeredId,workDivId, DATEDIFF(MINUTE,DAILYREPORT.startTime,DAILYREPORT.endTime)AS workTime FROM DAILYREPORT"
-//			+" INNER JOIN DAILYREPORT_TYPE ON DAILYREPORT_TYPE.id = DAILYREPORT.type_id "
-//			+" INNER JOIN STUFF ON STUFF.id = DAILYREPORT.stuff_id"
-//			+" INNER JOIN WORK ON WORK.id = DAILYREPORT.work_id"
-//			+" INNER JOIN WORKING_HOUR ON WORKING_HOUR.stuff_id = DAILYREPORT.stuff_id"
-//			+" WHERE(DAILYREPORT.created BETWEEN (WORKING_HOUR.created=? AND WORKING_HOUR.end=?)AND(DAILYREPORT.stuff_id =\'"+workingHour.getStuff_id()+"\'))";
-	
-//	String sql="SELECT DISTINCT DAILYREPORT.id,DAILYREPORT.type_id,DAILYREPORT.stuff_id,DAILYREPORT.work_id,DAILYREPORT.created,startTime,endTime,DAILYREPORT.detail,DAILYREPORT.name,"
-//			+ "progress,registeredId,workDivId, DATEDIFF(MINUTE,DAILYREPORT.startTime,DAILYREPORT.endTime)AS workTime, WORKING_HOUR.created AS START,WORKING_HOUR.end,WORKING_HOUR.stuff_id FROM DAILYREPORT"
-//			+ "INNER JOIN DAILYREPORT_TYPE ON DAILYREPORT_TYPE.id = DAILYREPORT.type_id INNER JOIN STUFF ON STUFF.id = DAILYREPORT.stuff_id INNER JOIN WORK ON WORK.id = DAILYREPORT.work_id"
-//			+ "INNER JOIN WORKING_HOUR ON  WORKING_HOUR.id = DAILYREPORT.stuff_id WHERE(DAILYREPORT.created BETWEEN (WORKING_HOUR.created=? AND end=?)AND(DAILYREPORT.stuff_id=(WORKING_HOUR.stuff_id=?)))";
 	
 	String sql ="SELECT DISTINCT DAILYREPORT.id,DAILYREPORT.type_id,DAILYREPORT.stuff_id,DAILYREPORT.work_id,DAILYREPORT.created,startTime,endTime,DAILYREPORT.detail,DAILYREPORT.name,"
 			+" progress,registeredId,workDivId, DATEDIFF(MINUTE,DAILYREPORT.startTime,DAILYREPORT.endTime)AS workTime FROM DAILYREPORT"
