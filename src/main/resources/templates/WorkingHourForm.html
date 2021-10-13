@@ -64,7 +64,7 @@
 						<label for="exampleFormControlSelect1">氏名</label>
 						<select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="stuff_id"required>
 							<option disabled selected value>選択してください</option>
-							<option th:each="obj:${stuff}" th:value="${obj.id}" th:text="${obj.registeredId}"></option>
+							<option th:each="obj:${stuff}" th:value="${obj.id}" th:text="${obj.name}"></option>
 						</select>
 						<!--"
 						<label for="exampleFormControlSelect1">作業区分</label>
@@ -137,15 +137,15 @@
 					  var ctx = document.getElementById("myPieChart");
 					  var search=/*[[${search}]]*/
 
-					const work =search.map(x=>x.work.workDivId);
+					const work =search.map(x=>x.workType.type);
 					const workDivs =[...new Set(work)]
-					const stuff =search.map(x=>x.stuff.registeredId);
+					const stuff =search.map(x=>x.stuff.name);
 					const time =search.map(x=>x.workTime);
 					console.log(time);
 					
 					const groupBy= search.reduce((result,current)=>{
 						
-						const element = result.find(value=>value.work.workDivId === current.work.workDivId);
+						const element = result.find(value=>value.workType.type === current.workType.type);
 						
 						if(element){		
 							element.count++;
@@ -153,8 +153,8 @@
 						}else{
 							
 							result.push({
-								work:{
-								workDivId :current.work.workDivId},
+								workType:{
+								type :current.workType.type},
 								workTime:current.workTime,
 								count:1,
 							})

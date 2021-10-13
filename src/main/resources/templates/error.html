@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html lang="ja"
+      xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>エラー画面</title>
+     <!-- Bootstrap core CSS -->
+    <link th:href="@{/css/bootstrap.min.css}"rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link th:href="@{/css/signin.css}" rel="stylesheet">
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+</head>
+<body class="d-flex justify-content-center">
+	<div class="text-center">
+	  <h1>Oops!</h1>
+	　 <h3>アクセス権限がありません。管理者アカウントでログインしなおしてください。</h3><br/><br/>
+	  <a class="btn btn-primary" href="#" th:href ="@{/main}">終了する</a>
+	</div>
+</body>
+</html>

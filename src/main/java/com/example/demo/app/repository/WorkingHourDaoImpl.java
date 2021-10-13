@@ -16,6 +16,7 @@ import com.example.demo.app.entity.DailyReport;
 import com.example.demo.app.entity.DailyReportType;
 import com.example.demo.app.entity.Stuff;
 import com.example.demo.app.entity.Work;
+import com.example.demo.app.entity.WorkType;
 import com.example.demo.app.entity.WorkingHour;
 
 @Repository
@@ -210,10 +211,11 @@ private final JdbcTemplate jdbcTemplate;
 	public List<WorkingHour> search(WorkingHour workingHour) {
 	
 	String sql ="SELECT DISTINCT DAILYREPORT.id,DAILYREPORT.type_id,DAILYREPORT.stuff_id,DAILYREPORT.work_id,DAILYREPORT.created,startTime,endTime,DAILYREPORT.detail,DAILYREPORT.name,"
-			+" progress,registeredId,workDivId, DATEDIFF(MINUTE,DAILYREPORT.startTime,DAILYREPORT.endTime)AS workTime FROM DAILYREPORT"
+			+" progress,registeredId,STUFF.name,workDivId,type,DATEDIFF(MINUTE,DAILYREPORT.startTime,DAILYREPORT.endTime)AS workTime FROM DAILYREPORT"
 			+" INNER JOIN DAILYREPORT_TYPE ON DAILYREPORT_TYPE.id = DAILYREPORT.type_id "
 			+" INNER JOIN STUFF ON STUFF.id = DAILYREPORT.stuff_id"
 			+" INNER JOIN WORK ON WORK.id = DAILYREPORT.work_id"
+			+" INNER JOIN WORK_TYPE ON WORK.type_id = WORK_TYPE.id"
 			+" WHERE(DAILYREPORT.created BETWEEN ? AND ?)AND(DAILYREPORT.stuff_id=?)";
 
 	List<Map<String,Object>> resultList = jdbcTemplate.queryForList(sql,workingHour.getCreated(),workingHour.getEnd(),workingHour.getStuff_id());
@@ -225,9 +227,14 @@ private final JdbcTemplate jdbcTemplate;
 		
 		Stuff stuff = new Stuff();		
 		stuff.setRegisteredId((String)result.get("registeredId"));
+		stuff.setName((String)result.get("name"));
 		
 		Work work = new Work();		
 		work.setWorkDivId((String)result.get("workDivId"));
+		
+		WorkType workType = new WorkType();
+		workType.setType((String)result.get("type"));
+		
 		
 		DailyReport dailyReportinst = new DailyReport();
 		dailyReportinst.setCreated((String)result.get("created"));
@@ -247,6 +254,7 @@ private final JdbcTemplate jdbcTemplate;
 		
 		workinst.setStuff(stuff);
 		workinst.setWork(work);
+		workinst.setWorkType(workType);
 		workinst.setDailyReport(dailyReportinst);
 		workinst.setDailyReportType(dailyReportType);
 		

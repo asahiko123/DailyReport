@@ -15,6 +15,7 @@ public class WorkingHour {
 	private String workTimeSum;
 	private Stuff stuff;
 	private Work work;
+	private WorkType workType;
 	private DailyReportType dailyReportType;
 	private DailyReport dailyReport;
 	private String created;
@@ -37,6 +38,7 @@ public class WorkingHour {
 		    Long workTime,
 		    Stuff stuff,
 		    Work work,
+		    WorkType workType,
 		    DailyReportType dailyReportType,
 		    DailyReport dailyReport, 
 		    String workTimeSum) {
@@ -52,6 +54,7 @@ public class WorkingHour {
 		this.workTime =workTime;
 		this.workTimeSum = workTimeSum;
 		this.work = work;
+		this.workType =workType;
 		this.stuff=stuff;
 		this.dailyReportType = dailyReportType;
 		this.dailyReport=dailyReport;
@@ -60,6 +63,14 @@ public class WorkingHour {
 
 
 
+
+	public WorkType getWorkType() {
+		return workType;
+	}
+
+	public void setWorkType(WorkType workType) {
+		this.workType = workType;
+	}
 
 	public String getWorkTimeSum() {
 		return workTimeSum;
