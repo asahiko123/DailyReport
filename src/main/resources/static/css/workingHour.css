@@ -1,5 +1,10 @@
+html,body{
+	min-height:100vh;
+	width:100%;
+}
+
 body {
-  padding-top: 5rem;
+  padding-top: 3.5rem;
   list-style-type:none;
 }
 
@@ -7,14 +12,14 @@ body {
 	display:flex;
 	flex-direction: row;
 	justify-content: flex-start;
-	
+	min-height:100vh;
+	width:100%;
 }
 
 .container{
 	display:flex;
 	flex-direction: row;
 	justify-content: flex-start;
-	
 	margin:0 auto;
 }
 
@@ -47,6 +52,11 @@ aside{
 .input{
 	width:30em;
 	
+}
+
+.result{
+	width:100vh;
+	margin:0 auto;
 }
 
 .col-md-5,.col-md-4,.col-md-3{

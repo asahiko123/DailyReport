@@ -49,11 +49,11 @@
   </head>
   <body>
     
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-  <div class="container-fluid">
-    <a class="btn btn-primary" href="#" th:href ="@{/main}">終了する</a>
-  </div>
-</nav>
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top"id="nav">
+	  <div class="container-fluid">
+	    <a class="btn btn-primary" href="#" th:href ="@{/main}">終了する</a>
+	  </div>
+	</nav>
     <div class="main-container">
          <aside>
          	<div class="aside">
@@ -74,9 +74,9 @@
 						</select>
 						-->
 						<label for="exampleFormControlSelect1">期間検索</label>
-					       <input type="date" name ="created" th:value="*{created}"required>
+					       <input type="date" class="form-control"name ="created" th:value="*{created}"required>
 					         <p>～</p>
-					       <input type="date" name = "end" th:value="*{end}"required>
+					       <input type="date" class="form-control" name = "end" th:value="*{end}"required>
 					       
 					      <br></br>
 					     <div class="d-grid gap-2">
@@ -93,40 +93,6 @@
 			<form method="POST">			     
 			   <div class="wrapper">
 			     <div class="upper-wrapper">
-			      	     <!--<div class="input">
-					        <h4>作業別労働時間-入力欄</h4>
-							<div class="col-md-5">
-					            <label  class="form-label">氏名</label>
-					            <select class="form-select" name="stuff_id" required>
-					                <option disabled selected value>選択してください</option>
-					                <option th:each="obj:${stuff}" th:value="${obj.id}" th:text="${obj.registeredId}"required></option>
-					              </select>
-				            </div>
-				            
-				            <div class="col-md-5">
-				            	<label class="form-label">作業日付</label>
-				            	<input type="date" class ="form-control" name="created"　th:value ="*{created}" required>
-				            </div>
-				            
-				             <div class="col-md-5">
-					              <label class="form-label">作業区分</label>
-					              <select class="form-select"  name="work_id"required>
-					                <option disabled selected value>選択してください</option>
-					                <option th:each="obj:${work}" th:value="${obj.id}" th:text="${obj.workDivId}" ></option>					                
-					              </select>
-				            　</div>
-			
-					         <div class="col-md-5">
-					              <label class="form-label">作業時間</label>
-					              <input type="text" class="form-control" name ="workTime" th:value="*{workTime}" placeholder="" required>       
-					         </div>
-					         <div>
-					            <input th:if="${workingHourId}" type="hidden" th:value="${workingHourId}" name="workingHourId">
-					         	<button class="btn btn-primary" type="submit" >登録</button>
-					         </div>
-			      	 </div>
-			      -->
-			     
 			   
 			        <div class="circlechart">
 					  <canvas id="myPieChart"></canvas>
@@ -196,7 +162,7 @@
 		
 				　</div>
 				　<div class="result">
-			             <table class="table table-striped table-hover table-sm ">
+			             <table class="table table-striped table-hover table-sm" id="table">
 							<tr>
 						     	<th>スタッフID</th>					     	
 						     	<th>進捗度</th>
@@ -230,8 +196,7 @@
 			   </div>
 			</form>	 				
 		</div>
-			
-		     
+
 		</main><!-- /.container -->
 	　</div>   
  
