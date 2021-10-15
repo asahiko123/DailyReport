@@ -1,7 +1,6 @@
 package com.example.demo.app.workingHour;
 
 
-
 public class WorkingHourForm {
 	
 	private int id;
