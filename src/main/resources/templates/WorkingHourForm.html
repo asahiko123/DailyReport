@@ -104,8 +104,8 @@
 					  var ctx = document.getElementById("myPieChart");
 					  var search=/*[[${search}]]*/
 
-					const work =search.map(x=>x.workType.type);
-					const workDivs =[...new Set(work)]
+					const work =search.map(x=>x.workType.type);				
+					const workDivs =[...new Set(work)] //スプレッド構文
 					const stuff =search.map(x=>x.stuff.name);
 					const time =search.map(x=>x.workTime);
 					console.log(time);
@@ -150,8 +150,10 @@
 					      }]
 					    },
 					    options: {
+						  responsive:true,
 					      title: {
 					        display: true,
+					        fontSize:20,
 					        text: stuff[0],
 					      }
 					    }

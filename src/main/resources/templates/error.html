@@ -33,8 +33,9 @@
 <body class="d-flex justify-content-center">
 	<div class="text-center">
 	  <h1>Oops!</h1>
-	　 <h3>アクセス権限がありません。管理者アカウントでログインしなおしてください。</h3><br/><br/>
-	  <a class="btn btn-primary" href="#" th:href ="@{/main}">終了する</a>
+	　 <h3>このページに対するアクセス権限がないか、処理中にエラーが発生しました。</h3><br/><br/>
+	  <a class="btn btn-primary" href="#" th:href ="@{/user/login}">ログイン画面へ</a>
+	  <a class="btn btn-primary" href="#" th:href ="@{/main}">トップに戻る</a>
 	</div>
 </body>
 </html>

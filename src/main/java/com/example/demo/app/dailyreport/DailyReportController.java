@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -140,7 +141,11 @@ public class DailyReportController {
 			model.addAttribute("DailyReportForm",dailyReportForm);
 			
 			for(ObjectError error:result.getAllErrors()) {
-				String dayCheck = error.getDefaultMessage();
+				
+				ArrayList<String> dayCheck = new ArrayList<String>();
+				
+				String errorcheck = error.getDefaultMessage();
+				dayCheck.add(errorcheck);
 				System.out.println(dayCheck);
 				model.addAttribute("dayCheck",dayCheck);
 			}

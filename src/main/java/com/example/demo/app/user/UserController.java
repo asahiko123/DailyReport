@@ -34,6 +34,7 @@ public class UserController {
 		model.addAttribute("userForm", userForm);
 		
 		return "login";
+	
 	}
 	
 	@GetMapping("/signup")

@@ -107,7 +107,9 @@
 				   </br>
 				   
 				   <div class="form-group col-sm-5">
-				   <p th:if="${dayCheck}" th:text="${dayCheck}" class ="alert alert-danger" role ="alert"></p>
+				    <div th:each="obj:${dayCheck}">
+				     <p th:if="${dayCheck}"th:text="${obj}" class ="alert alert-danger" role ="alert"></p>
+				    </div>
 				    <label>作業日時</label>
 				      <input type ="date" class="form-control" name ="created" th:value ="*{created}"required>
 				     <label>開始時刻</label> 

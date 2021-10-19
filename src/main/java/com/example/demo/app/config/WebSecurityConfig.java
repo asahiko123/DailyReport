@@ -6,11 +6,13 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -21,6 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 import lombok.RequiredArgsConstructor;
 
@@ -41,18 +44,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
 		     .antMatchers("/h2-console/**").hasRole("ADMIN")
 		     .antMatchers("/main/workingHour").hasRole("ADMIN")
+		     .antMatchers("/main/**").authenticated()
 
 		     .and()
 		     .exceptionHandling()
 		     .authenticationEntryPoint(new JWTAuthenticationEntryPoint())
 		     .accessDeniedHandler(new JWTAccessDeniedHandler())
+		     
 
 		     .and().formLogin()
 		        .loginPage("/user/login").permitAll()
 		        .defaultSuccessUrl("/main")
+		        .failureHandler(new JWAuthenticationFailureHandler())
 		     .and().logout()
 		        .logoutUrl("/user/logout")
 		        .logoutSuccessUrl("/user/login")
+		    
 		     .and().csrf().ignoringAntMatchers("/h2-console/**")
 		     .and().headers().frameOptions().sameOrigin();
 
@@ -90,4 +97,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	    }
 	}
 	
+	public class JWAuthenticationFailureHandler implements AuthenticationFailureHandler{
+
+		@Override
+		public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
+				AuthenticationException exception) throws IOException, ServletException {
+			
+			String errorReason =null;
+			HttpServletResponse httpResponse = (HttpServletResponse) response;
+			
+			if(exception instanceof BadCredentialsException) {
+				errorReason ="ユーザー名またはパスワードが違います";
+			}else {
+				errorReason="不明なエラーが発生しました。管理者に連絡してください";
+			}
+			
+			if(errorReason !=null && errorReason.length()>0){
+				HttpSession session = request.getSession();
+				session.setAttribute("errorReason", errorReason);
+				httpResponse.sendRedirect("login");
+			}
+			
+		}
+	}
 }
