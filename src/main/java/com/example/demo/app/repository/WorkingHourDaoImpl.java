@@ -4,6 +4,8 @@ package com.example.demo.app.repository;
 
 
 import java.math.BigDecimal;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -244,13 +246,21 @@ private final JdbcTemplate jdbcTemplate;
 		dailyReportinst.setName((String)result.get("name"));
 		
 		
+//		,DATEDIFF(MINUTE,DAILYREPORT.startTime,DAILYREPORT.endTime)AS workTime 
+		
 		DailyReportType dailyReportType = new DailyReportType();
 		dailyReportType.setProgress((String)result.get("progress"));
 		
 		WorkingHour workinst = new WorkingHour();	
 		workinst.setCreated((String)result.get("created"));
 		workinst.setEnd((String)result.get("end"));
-		workinst.setWorkTime(((Long)result.get("workTime")));
+		workinst.setWorkTime((Long)result.get("workTime"));
+		
+//		LocalTime start = LocalTime.parse((String)result.get("startTime"));
+//		LocalTime end   = LocalTime.parse((String)result.get("endTime"));
+//		long timediff =start.until(end, ChronoUnit.MINUTES);
+		
+
 		
 		workinst.setStuff(stuff);
 		workinst.setWork(work);

@@ -8,8 +8,8 @@ public class WorkForm {
 	
 	private int id;
 	private int typeId;
-	@NotNull(message ="内容を入力してください")
 	private String comment;
+	@NotNull(message ="内容を入力してください")
 	private String workDivId;
 	private boolean newWork;
 	

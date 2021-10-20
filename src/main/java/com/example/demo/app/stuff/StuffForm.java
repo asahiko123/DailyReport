@@ -8,7 +8,6 @@ public class StuffForm {
 	private int typeId;
 	private int stuffId;
 	private String name;
-	@NotNull(message ="内容を入力してください")
 	private String detail;
 	@NotNull(message ="内容を入力してください")		
 	private String registeredId;

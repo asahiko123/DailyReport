@@ -47,6 +47,14 @@ public class DailyReportServiceImpl implements DailyReportService{
 
 	@Override
 	public void insert(DailyReport dailyReport) {
+		
+		String startTime = dailyReport.getCreated()+" "+dailyReport.getStartTime();
+		String endTime   = dailyReport.getCreated()+" "+dailyReport.getEndTime();
+//		System.out.println(startTime);
+//		System.out.println(endTime);
+		dailyReport.setStartTime(startTime);
+		dailyReport.setEndTime(endTime);
+
 		dailyReportDao.insert(dailyReport);
 		
 	}
