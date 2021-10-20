@@ -92,6 +92,12 @@ public class WorkingHourServiceImpl implements WorkingHourService{
 		return workingHourDao.sum(workingHour);
 	}
 
+	@Override
+	public List<WorkingHour> searchAll(WorkingHour workingHour) {
+		
+		return workingHourDao.searchAll(workingHour);
+	}
+
 
 
 

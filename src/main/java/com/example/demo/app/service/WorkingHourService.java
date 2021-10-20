@@ -21,6 +21,8 @@ public interface WorkingHourService {
 	
 	List<WorkingHour> search(WorkingHour workingHour);
 	
+	List<WorkingHour>searchAll(WorkingHour workingHour);
+	
 	WorkingHour sum(WorkingHour workingHour);
 	
 	Optional<WorkingHour> getWorkingHour(int id);

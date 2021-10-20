@@ -96,19 +96,25 @@
 			     <div class="upper-wrapper">
 			   
 			        <div class="circlechart">
+			        <button type="button" id="btn"><p id="btn-text">全員と比較する</p></button>
 					  <canvas id="myPieChart"></canvas>
+					  <canvas id="myChart"></canvas>
 					  <script src="/js/Chart.bundle.js" th:src="@{/js/Chart.bundle.js}"></script>				 
 					  <script type="text/javascript" th:inline="javascript">				  
 					   /*<![CDATA[*/   
 					  var ctx = document.getElementById("myPieChart");
 					  var search=/*[[${search}]]*/
+					  var searchAll=/*[[${searchAll}]]*/
 
 					const work =search.map(x=>x.workType.type);				
 					const workDivs =[...new Set(work)] //スプレッド構文
 					const stuff =search.map(x=>x.stuff.name);
 					const time =search.map(x=>x.workTime);
-					console.log(time);
 					
+					const workAll=searchAll.map(x=>x.workType.type);
+					const workDivsAll=[...new Set(workAll)]
+					const stuffAll =searchAll.map(x=>x.stuff.name);
+						    
 					const groupBy= search.reduce((result,current)=>{
 						
 						const element = result.find(value=>value.workType.type === current.workType.type);
@@ -128,15 +134,57 @@
 						return result;
 					},[])
 					
-					const groupBytime=groupBy.map(x=>x.workTime);
-				
-					console.log(groupBy);
-					  
+					const groupByAll= searchAll.reduce((result,current)=>{
+						
+						const element = result.find(value=>value.workType.type === current.workType.type && value.stuff.name === current.stuff.name);
+						
+						if(element){		
+							element.count++;
+							element.workTime+=current.workTime;
+						}else{
+							
+							result.push({
+								workType:{
+								type :current.workType.type},
+								stuff:{
+								name:current.stuff.name
+								},
+								workTime:current.workTime,
+								count:1,
+							})
+						}
+						return result;
+					},[])
+					
+					const groupBytime=groupBy.map(x=>x.workTime);		
+					
+					const groupBytimeAll= groupByAll.reduce((result,current)=>{
+						
+						const element = result.find(value=>value.workType.type === current.workType.type);
+						
+						if(element){		
+							element.count++;
+			                current.workTime.count++;
+			               
+						}else{
+							
+							result.push({
+								workType:{work:current.workType.type},
+								workTime:current.workTime
+							})
+							
+						}
+						return result;
+					},[])
+					
+					console.log(groupByAll)
+					console.log(groupBytimeAll);
+									  
 					  var myPieChart = new Chart(ctx, {
 					    type: 'pie',
 					    data: {
 						   
-					      labels: [workDivs[0],workDivs[1],workDivs[2],workDivs[3]],
+					      labels: [...workDivs],
 					      datasets: [{
 					          backgroundColor: [
 					              "#BB5179",
@@ -145,7 +193,7 @@
 					              "#3C00FF",
 					              "#ff7f50"
 					          ],
-					          data: [groupBytime[0],groupBytime[1],groupBytime[2],groupBytime[3]]
+					          data: [...groupBytime]
 					      }]
 					    },
 					    options: {
@@ -157,53 +205,40 @@
 					      }
 					    }
 					  });
-					 					  
-					   /*]]>*/
-					  </script>	
-					 <canvas id="myChart"></canvas>
-					 <script> 
-					  document.getElementById('btn').onclick = function(){
-						
-						if(myPieChart){
-							myPieChart.destroy();
-						}
-						drawChart();	
-					}
-					
-					function drawChart(){
-						
-						  var ctx = document.getElementById("myChart");
+					  
+					  function drawCharts(){
+						var ctx = document.getElementById("myChart");
 						  var myChart = new Chart(ctx, {
 						      type: 'bar',
 						      data: {
-						          labels: ["Jan.", "Feb.", "Mar.", "Apr.", "May", "Jun.", "Jul.", "Aug.", "Sep.", "Oct.", "Nov.", "Dec."],
+						          labels: [...new Set(stuffAll)],
 						          datasets: [{
-						              label: "学部学生",
+						              label: workDivsAll[0],
 						              borderWidth:1,
 						              backgroundColor: "#121554",
 						              borderColor: "#121554",
-						              data: [30000, 28000, 26000, 35000, 38000, 40000, 41000, 28000, 27000, 30000, 32000, 31000]
+						              data: [30000, 14000, 13000, 17500, 19000, 20000, 25000, 14000, 13500, 15000, 16000, 15500]
 						          },
 						           {
-						              label: "大学院生",
+						              label: workDivsAll[1],
 						              borderWidth:1,
 						              backgroundColor: "#1d3681",
 						              borderColor: "#1d3681",
 						              data: [15000, 14000, 13000, 17500, 19000, 20000, 25000, 14000, 13500, 15000, 16000, 15500]
 						          },{
-						              label: "教員",
+						              label: workDivsAll[2],
 						              borderWidth:1,
 						              backgroundColor: "#2e70a7",
 						              borderColor: "#2e70a7",
 						              data: [1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000,1000,1000]
 						          },{
-						              label: "職員",
+						              label: workDivsAll[3],
 						              borderWidth:1,
 						              backgroundColor: "#4eadc7",
 						              borderColor: "#4eadc7",
 						              data: [1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000,1000,1000]
 						          },{
-						              label: "一般利用者",
+						              label: workDivsAll[4],
 						              borderWidth:1,
 						              backgroundColor: "#a7d8bf",
 						              borderColor: "#a7d8bf",
@@ -238,9 +273,17 @@
 						          }
 						      }
 						  });
-																	
 					}
-					</script>
+					
+					 　document.getElementById('btn').onclick=　function(){
+							if(myPieChart){							
+								myPieChart.destroy();
+								document.getElementById('btn-text').innerHTML="個人グラフに戻る";
+							}
+							drawCharts();
+						}			  
+					   /*]]>*/
+					  </script>	
 				    </div>
 				　</div>
 				　<div class="result">

@@ -23,6 +23,8 @@ public interface WorkingHourDao {
 	
 	List<WorkingHour>search(WorkingHour workingHour);
 	
+	List<WorkingHour>searchAll(WorkingHour workingHour);
+	
 	Optional<WorkingHour> getWorkingHour(int id);
 	
 	WorkingHour sum(WorkingHour workingHour);

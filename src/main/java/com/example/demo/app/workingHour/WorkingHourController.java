@@ -110,19 +110,17 @@ public class WorkingHourController{
 		  workingHourService.insert(workingHour);	  
 		  
 		  String created= workingHour.getCreated();
-		  System.out.println(created);
 		  String end =workingHour.getEnd();
-		  System.out.println(end);
+		  
 		  List<WorkingHour> search = workingHourService.search(workingHour);
+		  List<WorkingHour> searchAll=workingHourService.searchAll(workingHour);
 		  List<Work> work = workingHourService.findWork();	  
 		  WorkingHour sum = workingHourService.sum(workingHour);
-
 			 
 		  int size = search.size();
-		  
-				                                                          
-		  
+	  
 		  redirectAttributes.addFlashAttribute("search",search);
+		  redirectAttributes.addFlashAttribute("searchAll",searchAll);
 		  redirectAttributes.addFlashAttribute("work",work);
 		  redirectAttributes.addFlashAttribute("sum",sum);
 		  redirectAttributes.addFlashAttribute("size",size);

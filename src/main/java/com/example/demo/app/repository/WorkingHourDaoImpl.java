@@ -244,9 +244,7 @@ private final JdbcTemplate jdbcTemplate;
 		dailyReportinst.setEndTime((String)result.get("endTime"));
 		dailyReportinst.setDetail((String)result.get("detail"));
 		dailyReportinst.setName((String)result.get("name"));
-		
-		
-//		,DATEDIFF(MINUTE,DAILYREPORT.startTime,DAILYREPORT.endTime)AS workTime 
+
 		
 		DailyReportType dailyReportType = new DailyReportType();
 		dailyReportType.setProgress((String)result.get("progress"));
@@ -255,12 +253,6 @@ private final JdbcTemplate jdbcTemplate;
 		workinst.setCreated((String)result.get("created"));
 		workinst.setEnd((String)result.get("end"));
 		workinst.setWorkTime((Long)result.get("workTime"));
-		
-//		LocalTime start = LocalTime.parse((String)result.get("startTime"));
-//		LocalTime end   = LocalTime.parse((String)result.get("endTime"));
-//		long timediff =start.until(end, ChronoUnit.MINUTES);
-		
-
 		
 		workinst.setStuff(stuff);
 		workinst.setWork(work);
@@ -293,9 +285,62 @@ private final JdbcTemplate jdbcTemplate;
 		return workinst;
 	}
 
-	
+	@Override
+	public List<WorkingHour> searchAll(WorkingHour workingHour) {
+		
+		String sql ="SELECT DISTINCT DAILYREPORT.id,DAILYREPORT.type_id,DAILYREPORT.stuff_id,DAILYREPORT.work_id,DAILYREPORT.created,startTime,endTime,DAILYREPORT.detail,DAILYREPORT.name,"
+				+" progress,registeredId,STUFF.name,workDivId,type,DATEDIFF(MINUTE,DAILYREPORT.startTime,DAILYREPORT.endTime)AS workTime FROM DAILYREPORT"
+				+" INNER JOIN DAILYREPORT_TYPE ON DAILYREPORT_TYPE.id = DAILYREPORT.type_id "
+				+" INNER JOIN STUFF ON STUFF.id = DAILYREPORT.stuff_id"
+				+" INNER JOIN WORK ON WORK.id = DAILYREPORT.work_id"
+				+" INNER JOIN WORK_TYPE ON WORK.type_id = WORK_TYPE.id"
+				+" WHERE(DAILYREPORT.created BETWEEN ? AND ?)";
 
+		List<Map<String,Object>> resultList = jdbcTemplate.queryForList(sql,workingHour.getCreated(),workingHour.getEnd());
+		
+		
+		ArrayList<WorkingHour> searchList = new ArrayList<WorkingHour>();
+		
+		for(Map<String,Object>result:resultList) {
+			
+			Stuff stuff = new Stuff();		
+			stuff.setRegisteredId((String)result.get("registeredId"));
+			stuff.setName((String)result.get("name"));
+			
+			Work work = new Work();		
+			work.setWorkDivId((String)result.get("workDivId"));
+			
+			WorkType workType = new WorkType();
+			workType.setType((String)result.get("type"));
+			
+			
+			DailyReport dailyReportinst = new DailyReport();
+			dailyReportinst.setCreated((String)result.get("created"));
+			dailyReportinst.setStartTime((String)result.get("startTime"));
+			dailyReportinst.setEndTime((String)result.get("endTime"));
+			dailyReportinst.setDetail((String)result.get("detail"));
+			dailyReportinst.setName((String)result.get("name"));
 
-
+			
+			DailyReportType dailyReportType = new DailyReportType();
+			dailyReportType.setProgress((String)result.get("progress"));
+			
+			WorkingHour workinst = new WorkingHour();	
+			workinst.setCreated((String)result.get("created"));
+			workinst.setEnd((String)result.get("end"));
+			workinst.setWorkTime((Long)result.get("workTime"));
+			
+			workinst.setStuff(stuff);
+			workinst.setWork(work);
+			workinst.setWorkType(workType);
+			workinst.setDailyReport(dailyReportinst);
+			workinst.setDailyReportType(dailyReportType);
+			
+			searchList.add(workinst);
+					
+		}
+			
+			return searchList;
+	}
 
 }
