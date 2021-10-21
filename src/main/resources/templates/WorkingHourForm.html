@@ -52,6 +52,7 @@
 	<nav class="navbar navbar-expand-md shadow fixed-top"id="nav">
 	  <div class="container-fluid">
 	    <a class="btn btn-primary" href="#" th:href ="@{/main}">終了する</a>
+	    <button type="button" id="btn">全員と比較する</button>
 	  </div>
 	</nav>
     <div class="main-container">
@@ -96,7 +97,7 @@
 			     <div class="upper-wrapper">
 			   
 			        <div class="circlechart">
-			        <button type="button" id="btn"><p id="btn-text">全員と比較する</p></button>
+
 					  <canvas id="myPieChart"></canvas>
 					  <canvas id="myChart"></canvas>
 					  <script src="/js/Chart.bundle.js" th:src="@{/js/Chart.bundle.js}"></script>				 
@@ -158,27 +159,28 @@
 					
 					const groupBytime=groupBy.map(x=>x.workTime);		
 					
-					const groupBytimeAll= groupByAll.reduce((result,current)=>{
+				  	const groupBytimeAll= groupByAll.reduce((result,current)=>{
 						
-						const element = result.find(value=>value.workType.type === current.workType.type);
+						const element = result.findIndex(x=>x.type === current.workType.type);
 						
-						if(element){		
-							element.count++;
-			                current.workTime.count++;
-			               
+						if(element>=0){
+							result[element]={
+								type:result[element].type,
+								values:[...result[element].values,current.workTime]
+							}
 						}else{
-							
 							result.push({
-								workType:{work:current.workType.type},
-								workTime:current.workTime
+								type:current.workType.type,
+								values:[current.workTime]
+								
 							})
-							
 						}
-						return result;
-					},[])
-					
-					console.log(groupByAll)
+						return result					
+					},[]).map(y=>y.values);
+							
 					console.log(groupBytimeAll);
+					console.log(groupByAll);
+
 									  
 					  var myPieChart = new Chart(ctx, {
 					    type: 'pie',
@@ -278,7 +280,7 @@
 					 　document.getElementById('btn').onclick=　function(){
 							if(myPieChart){							
 								myPieChart.destroy();
-								document.getElementById('btn-text').innerHTML="個人グラフに戻る";
+								document.getElementById('btn').innerHTML="個人グラフに戻る";
 							}
 							drawCharts();
 						}			  
