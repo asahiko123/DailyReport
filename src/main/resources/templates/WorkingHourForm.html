@@ -161,18 +161,19 @@
 					
 				  	const groupBytimeAll= groupByAll.reduce((result,current)=>{
 						
-						const element = result.findIndex(x=>x.type === current.workType.type);
+					
 						
+						const element = result.findIndex(x=>x.type === current.workType.type);
+						let count=0;
 						if(element>=0){
 							result[element]={
 								type:result[element].type,
 								values:[...result[element].values,current.workTime]
 							}
-						}else{
+						}else{						
 							result.push({
 								type:current.workType.type,
 								values:[current.workTime]
-								
 							})
 						}
 						return result					
@@ -219,32 +220,32 @@
 						              borderWidth:1,
 						              backgroundColor: "#121554",
 						              borderColor: "#121554",
-						              data: [30000, 14000, 13000, 17500, 19000, 20000, 25000, 14000, 13500, 15000, 16000, 15500]
+						              data: groupBytimeAll[0]
 						          },
 						           {
 						              label: workDivsAll[1],
 						              borderWidth:1,
 						              backgroundColor: "#1d3681",
 						              borderColor: "#1d3681",
-						              data: [15000, 14000, 13000, 17500, 19000, 20000, 25000, 14000, 13500, 15000, 16000, 15500]
+						              data: groupBytimeAll[1]
 						          },{
 						              label: workDivsAll[2],
 						              borderWidth:1,
 						              backgroundColor: "#2e70a7",
 						              borderColor: "#2e70a7",
-						              data: [1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000,1000,1000]
+						              data: groupBytimeAll[2]
 						          },{
 						              label: workDivsAll[3],
 						              borderWidth:1,
 						              backgroundColor: "#4eadc7",
 						              borderColor: "#4eadc7",
-						              data: [1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000,1000,1000]
+						              data: groupBytimeAll[3]
 						          },{
 						              label: workDivsAll[4],
 						              borderWidth:1,
 						              backgroundColor: "#a7d8bf",
 						              borderColor: "#a7d8bf",
-						              data: [3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000,3000,3000]
+						              data: groupBytimeAll[4]
 						          }]
 						
 						      },
