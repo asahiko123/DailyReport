@@ -100,7 +100,8 @@
 
 					  <canvas id="myPieChart"></canvas>
 					  <canvas id="myChart"></canvas>
-					  <script src="/js/Chart.bundle.js" th:src="@{/js/Chart.bundle.js}"></script>				 
+					  <script src="/js/Chart.bundle.js" th:src="@{/js/Chart.bundle.js}"></script>
+					  <script src="/chartjs-plugin-colorschemes"th:src="@{/js/chartjs-plugin-colorschemes.js}"></script>		 
 					  <script type="text/javascript" th:inline="javascript">				  
 					   /*<![CDATA[*/   
 					  var ctx = document.getElementById("myPieChart");
@@ -153,11 +154,39 @@
 								workTime:current.workTime,
 								count:1,
 							})
+							
 						}
 						return result;
 					},[])
 					
-					const groupBytime=groupBy.map(x=>x.workTime);		
+					
+					
+					let namelist=[...new Set(groupByAll.map(x=>x.stuff.name))];
+					let typelist=[...new Set(groupByAll.map(x=>x.workType.type))];
+					let conbination=[];					
+						for(let a of namelist){
+							for(let b of typelist){
+								
+								let result =conbination.push({
+									name:a,
+									type:b,								
+								})
+							}
+						}
+					
+					console.log(namelist);
+					console.log(conbination);
+					console.log(workDivsAll);
+	
+					const groupBytime=groupBy.map(x=>x.workTime)
+					
+					
+					for(let {name,type} of conbination){
+							if(groupByAll.findIndex(item=>name==item.stuff.name && type ==item.workType.type)==-1)
+							groupByAll.push({workType:{type:type},stuff:{name:name},workTime:0,count:0});
+						}
+						
+					/*
 					
 				  	const groupBytimeAll= groupByAll.reduce((result,current)=>{
 						
@@ -165,19 +194,43 @@
 						
 						if(element>=0){
 							result[element]={
+								stuff:result[element].name,
 								type:result[element].type,
 								values:[...result[element].values,current.workTime]
 							}
 						}else{
 							result.push({
+								stuff:current.stuff.name,
 								type:current.workType.type,
 								values:[current.workTime]
 								
 							})
 						}
-						return result					
-					},[]).map(y=>y.values);
-							
+						return result
+									
+					},[]).map(y=>y.values);*/
+					
+					const groupBytimeAll = groupByAll.reduce((result,current)=>{
+						
+						if(!result.hasOwnProperty(current.workType.type)){
+							result[current.workType.type]={};
+						}
+												
+						result[current.workType.type][current.stuff.name]= current.workTime;
+						
+						return result;
+					},{});
+					
+					const datasets =workDivsAll.map((value)=>{
+						
+						return{
+							label:value,
+							data:namelist.map((i)=>groupBytimeAll[value]&&groupBytimeAll[value][i]||0)
+						};
+					});
+					
+					
+					
 					console.log(groupBytimeAll);
 					console.log(groupByAll);
 
@@ -188,13 +241,6 @@
 						   
 					      labels: [...workDivs],
 					      datasets: [{
-					          backgroundColor: [
-					              "#BB5179",
-					              "#FAFF67",
-					              "#58A27C",
-					              "#3C00FF",
-					              "#ff7f50"
-					          ],
 					          data: [...groupBytime]
 					      }]
 					    },
@@ -204,7 +250,12 @@
 					        display: true,
 					        fontSize:20,
 					        text: stuff[0],
-					      }
+					      },
+					      plugins: {
+							  colorschemes: {
+						      scheme: 'tableau.Tableau20'
+								}
+							}
 					    }
 					  });
 					  
@@ -214,44 +265,13 @@
 						      type: 'bar',
 						      data: {
 						          labels: [...new Set(stuffAll)],
-						          datasets: [{
-						              label: workDivsAll[0],
-						              borderWidth:1,
-						              backgroundColor: "#121554",
-						              borderColor: "#121554",
-						              data: [30000, 14000, 13000, 17500, 19000, 20000, 25000, 14000, 13500, 15000, 16000, 15500]
-						          },
-						           {
-						              label: workDivsAll[1],
-						              borderWidth:1,
-						              backgroundColor: "#1d3681",
-						              borderColor: "#1d3681",
-						              data: [15000, 14000, 13000, 17500, 19000, 20000, 25000, 14000, 13500, 15000, 16000, 15500]
-						          },{
-						              label: workDivsAll[2],
-						              borderWidth:1,
-						              backgroundColor: "#2e70a7",
-						              borderColor: "#2e70a7",
-						              data: [1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000,1000,1000]
-						          },{
-						              label: workDivsAll[3],
-						              borderWidth:1,
-						              backgroundColor: "#4eadc7",
-						              borderColor: "#4eadc7",
-						              data: [1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000,1000,1000]
-						          },{
-						              label: workDivsAll[4],
-						              borderWidth:1,
-						              backgroundColor: "#a7d8bf",
-						              borderColor: "#a7d8bf",
-						              data: [3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000, 3000,3000,3000]
-						          }]
+						          datasets:datasets,
 						
 						      },
 						      options: {
 						          title: {
 						              display: true,
-						              text: '2016年図書館入館者数のご報告', //グラフの見出し
+						              text: '見出し', //グラフの見出し
 						              padding:3
 						          },
 						          scales: {
@@ -272,7 +292,12 @@
 						          },
 						          tooltips:{
 						            mode:'label' //マウスオーバー時に表示されるtooltip
-						          }
+						          },
+						          plugins: {
+							        colorschemes: {
+							        scheme: 'tableau.Tableau20'
+							            }
+							      }
 						      }
 						  });
 					}
@@ -332,7 +357,6 @@
     <script src="../../assets/js/vendor/popper.min.js"  th:src="@{/js/popper.min.js}"></script>
 
     <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" th:src="@{/js/bootstrap.bundle.min.js}"integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-
    
   </body>
 </html>
