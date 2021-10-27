@@ -225,7 +225,7 @@
 						
 						return{
 							label:value,
-							data:namelist.map((i)=>groupBytimeAll[value]&&groupBytimeAll[value][i]||0)
+							data:namelist.map((i)=>groupBytimeAll[value]&&groupBytimeAll[value][i])
 						};
 					});
 					
@@ -264,7 +264,7 @@
 						  var myChart = new Chart(ctx, {
 						      type: 'bar',
 						      data: {
-						          labels: [...new Set(stuffAll)],
+						          labels: [...new Set(stuffAll)],/*...new Set(stuffAll)*/
 						          datasets:datasets,
 						
 						      },
