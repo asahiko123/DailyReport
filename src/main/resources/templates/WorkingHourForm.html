@@ -52,7 +52,6 @@
 	<nav class="navbar navbar-expand-md shadow fixed-top"id="nav">
 	  <div class="container-fluid">
 	    <a class="btn btn-primary" href="#" th:href ="@{/main}">終了する</a>
-	    <button type="button" id="btn">全員と比較する</button>
 	  </div>
 	</nav>
     <div class="main-container">
@@ -82,7 +81,8 @@
 					       
 					      <br></br>
 					     <div class="d-grid gap-2">
-					        <button class="btn btn-primary" type="submit" >検索する</button>
+					        <button class="btn btn-primary" type="submit" id="btn-primary">検索する</button>
+					        <button class="button" id="btn" type="submit">他の人と比較する</button> 
 					     </div> 				       
 					</div>
 				</form>
@@ -98,13 +98,16 @@
 			   
 			        <div class="circlechart">
 
-					  <canvas id="myPieChart"></canvas>
+
 					  <canvas id="myChart"></canvas>
 					  <script src="/js/Chart.bundle.js" th:src="@{/js/Chart.bundle.js}"></script>
-					  <script src="/chartjs-plugin-colorschemes"th:src="@{/js/chartjs-plugin-colorschemes.js}"></script>		 
+					  <script src="/chartjs-plugin-colorschemes"th:src="@{/js/chartjs-plugin-colorschemes.js}"></script>
+					  <script>
+						 document.getElementById('btn').style.display="none";
+					  </script>	 
 					  <script type="text/javascript" th:inline="javascript">				  
 					   /*<![CDATA[*/   
-					  var ctx = document.getElementById("myPieChart");
+					  
 					  var search=/*[[${search}]]*/
 					  var searchAll=/*[[${searchAll}]]*/
 
@@ -116,6 +119,7 @@
 					const workAll=searchAll.map(x=>x.workType.type);
 					const workDivsAll=[...new Set(workAll)]
 					const stuffAll =searchAll.map(x=>x.stuff.name);
+					
 						    
 					const groupBy= search.reduce((result,current)=>{
 						
@@ -186,29 +190,7 @@
 							groupByAll.push({workType:{type:type},stuff:{name:name},workTime:0,count:0});
 						}
 						
-					/*
 					
-				  	const groupBytimeAll= groupByAll.reduce((result,current)=>{
-						
-						const element = result.findIndex(x=>x.type === current.workType.type);
-						
-						if(element>=0){
-							result[element]={
-								stuff:result[element].name,
-								type:result[element].type,
-								values:[...result[element].values,current.workTime]
-							}
-						}else{
-							result.push({
-								stuff:current.stuff.name,
-								type:current.workType.type,
-								values:[current.workTime]
-								
-							})
-						}
-						return result
-									
-					},[]).map(y=>y.values);*/
 					
 					const groupBytimeAll = groupByAll.reduce((result,current)=>{
 						
@@ -233,9 +215,35 @@
 					
 					console.log(groupBytimeAll);
 					console.log(groupByAll);
+				
+					drawCircle();
+					onclickBtn();
+					
+					
+				    document.getElementById('btn').onclick =function(){				
+						if(myPieChart){
+							myPieChart.destroy();
+							btn.innerText ="戻る";	
+							console.log("hi");	
+						    drawCharts();
+						}
+				    }
 
-									  
-					  var myPieChart = new Chart(ctx, {
+				    
+			        function onclickBtn(){
+					
+					window.btn = document.getElementById('btn');
+					
+						if(btn.style.display =="none"){
+							btn.style.display="block";
+							
+						}
+				    }
+				    
+				    function drawCircle(){
+
+					  var ctx = document.getElementById("myChart");				  			  
+					  window.myPieChart = new Chart(ctx, {
 					    type: 'pie',
 					    data: {
 						   
@@ -258,20 +266,23 @@
 							}
 					    }
 					  });
+					 }
 					  
 					  function drawCharts(){
+						
+					
 						var ctx = document.getElementById("myChart");
-						  var myChart = new Chart(ctx, {
+						  window.myChart = new Chart(ctx, {
 						      type: 'bar',
 						      data: {
-						          labels: [...new Set(stuffAll)],/*...new Set(stuffAll)*/
+						          labels: [...new Set(stuffAll)],
 						          datasets:datasets,
 						
 						      },
 						      options: {
 						          title: {
 						              display: true,
-						              text: '見出し', //グラフの見出し
+						              text: 'スタッフ作業時間内訳', //グラフの見出し
 						              padding:3
 						          },
 						          scales: {
@@ -302,13 +313,7 @@
 						  });
 					}
 					
-					 　document.getElementById('btn').onclick=　function(){
-							if(myPieChart){							
-								myPieChart.destroy();
-								document.getElementById('btn').innerHTML="個人グラフに戻る";
-							}
-							drawCharts();
-						}			  
+					 　		  
 					   /*]]>*/
 					  </script>	
 				    </div>
@@ -357,6 +362,5 @@
     <script src="../../assets/js/vendor/popper.min.js"  th:src="@{/js/popper.min.js}"></script>
 
     <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" th:src="@{/js/bootstrap.bundle.min.js}"integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-   
   </body>
 </html>

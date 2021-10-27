@@ -44,8 +44,6 @@ public class WorkingHourController{
 	@GetMapping("/workingHour")
 	public String WorkingHour(WorkingHourForm workingHourForm ,Model model) {
 		
-		
-		System.out.println(workingHourForm.isNewHour());
 		List<WorkingHour> list=workingHourService.findAll();
 		List<Stuff> stuff= workingHourService.findStuff();
 		List<Work> work = workingHourService.findWork();

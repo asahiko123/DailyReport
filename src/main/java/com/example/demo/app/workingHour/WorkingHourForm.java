@@ -12,8 +12,6 @@ public class WorkingHourForm {
 	private String workTimeSum;
 	private int stuff_id;
 	private int work_id;
-
-//	@NotNull(message="内容を入力してください")private String workTime;
 	private boolean newHour;
 
 	
