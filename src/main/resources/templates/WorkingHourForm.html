@@ -220,13 +220,13 @@
 					onclickBtn();
 					
 					
-				    document.getElementById('btn').onclick =function(){				
+				    document.getElementById('btn').onclick =function(){		
+						
 						if(myPieChart){
 							myPieChart.destroy();
-							btn.innerText ="戻る";	
-							console.log("hi");	
 						    drawCharts();
 						}
+						
 				    }
 
 				    
@@ -241,8 +241,7 @@
 				    }
 				    
 				    function drawCircle(){
-
-					  var ctx = document.getElementById("myChart");				  			  
+  					  var ctx = document.getElementById("myChart");	
 					  window.myPieChart = new Chart(ctx, {
 					    type: 'pie',
 					    data: {
