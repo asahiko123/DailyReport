@@ -62,9 +62,18 @@ public class DailyReportServiceImpl implements DailyReportService{
 	@Override
 	public void update(DailyReport dailyReport) {
 		
+		String startTime = dailyReport.getCreated()+" "+dailyReport.getStartTime();
+		String endTime   = dailyReport.getCreated()+" "+dailyReport.getEndTime();
+
+		dailyReport.setStartTime(startTime);
+		dailyReport.setEndTime(endTime);
+
+		
 		if(dailyReportDao.update(dailyReport) == 0) {
 			throw new DataNotFoundException("更新するデータが存在しません");
 		}
+		
+		dailyReportDao.update(dailyReport);
 		
 	}
 
