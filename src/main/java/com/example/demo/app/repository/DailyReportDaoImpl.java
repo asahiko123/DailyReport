@@ -31,7 +31,7 @@ public class DailyReportDaoImpl implements DailyReportDao{
 	public List<DailyReport> findAll() {
 		
 		String sql = "SELECT DISTINCT DAILYREPORT.id, stuff_id, work_id, DAILYREPORT.type_id,stuff_id, created, startTime, endTime,  DAILYREPORT.detail,  DAILYREPORT.name,"
-				+ " progress,registeredId,workDivId FROM DAILYREPORT "
+				+ " progress,registeredId,workDivId,STUFF.name FROM DAILYREPORT "
 				+ " INNER JOIN DAILYREPORT_TYPE ON DAILYREPORT_TYPE.id = DAILYREPORT.type_id"
 			    +" INNER JOIN STUFF ON STUFF.id = DAILYREPORT.stuff_id"
 		        +" INNER JOIN WORK ON WORK.id = DAILYREPORT.work_id";
@@ -67,6 +67,7 @@ public class DailyReportDaoImpl implements DailyReportDao{
 			
 			Stuff stuff = new Stuff();
 			stuff.setRegisteredId((String)result.get("registeredId"));
+			stuff.setName((String)result.get("name"));
 			
 			Work work = new Work();
 			work.setWorkDivId((String)result.get("workDivId"));
@@ -85,7 +86,7 @@ public class DailyReportDaoImpl implements DailyReportDao{
 	public Optional<DailyReport> getDailyReport(int id) {
 		
 		String sql = "SELECT DISTINCT DAILYREPORT.id, stuff_id , work_id, DAILYREPORT.type_id, created, startTime, endTime,  DAILYREPORT.detail,  DAILYREPORT.name,"
-				+" progress ,registeredId  ,workDivId FROM DAILYREPORT"
+				+" progress ,registeredId  ,workDivId,STUFF.name  FROM DAILYREPORT"
 				+" INNER JOIN DAILYREPORT_TYPE ON DAILYREPORT_TYPE.id = DAILYREPORT.type_id"
 				+" INNER JOIN STUFF ON STUFF.id = DAILYREPORT.stuff_id"
 				+" INNER JOIN WORK ON WORK.id = DAILYREPORT.work_id"
@@ -111,6 +112,7 @@ public class DailyReportDaoImpl implements DailyReportDao{
 		
 		Stuff stuff = new Stuff();
 		stuff.setRegisteredId((String)result.get("registeredId"));
+		stuff.setName((String)result.get("name"));
 		
 		Work work = new Work();
 		work.setWorkDivId((String)result.get("workDivId"));

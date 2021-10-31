@@ -141,7 +141,7 @@
 	       
 	     <tr>
 	     
-	     	<th>スタッフID</th>
+	     	<th>スタッフ名</th>
 	     	<th>進捗度</th>
 	     	<th>作業区分ID</th>
 	     	<th>作業日付</th>
@@ -154,7 +154,7 @@
 	     </tr>
 	     <tr th:each ="obj:${list}">
 	       <!--<td th:text ="${obj.id}"></td> -->
-	       <td th:text ="${obj.stuff.registeredId}"></td>
+	       <td th:text ="${obj.stuff.name}"></td>
 	       <td th:text ="${obj.dailyReportType.progress}"></td>
 	       <td th:text ="${obj.work.workDivId}"></td>
 	       <td th:text ="${obj.created}"></td>
