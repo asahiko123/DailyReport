@@ -7,6 +7,7 @@ import com.example.demo.app.entity.DailyReport;
 import com.example.demo.app.entity.Stuff;
 import com.example.demo.app.entity.Work;
 
+
 public interface DailyReportDao {
 	
 	List<DailyReport> findAll();
@@ -19,9 +20,9 @@ public interface DailyReportDao {
 	
 	void insert(DailyReport dailyReport);
 	
-	
 	int update(DailyReport dailyReport);
 	
 	int deleteById(int id);
-
+	
+	
 }

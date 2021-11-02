@@ -17,16 +17,11 @@ public interface DailyReportService {
 	
 	Optional<DailyReport> getDailyReport(int id);
 	
-	
 	void insert(DailyReport dailyReport);
-	
-	
+		
 	void update(DailyReport dailyReport);
 	
 	void deleteById(int id);
-	
-	
-
-	
+		
 
 }

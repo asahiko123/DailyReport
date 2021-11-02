@@ -15,8 +15,6 @@ import com.example.demo.app.entity.Stuff;
 import com.example.demo.app.entity.Work;
 
 
-
-
 @Repository
 public class DailyReportDaoImpl implements DailyReportDao{
 	
@@ -184,11 +182,5 @@ public class DailyReportDaoImpl implements DailyReportDao{
 		return jdbcTemplate.update("DELETE FROM DAILYREPORT WHERE id = ?",id);
 		
 	}
-
-
-
-	
-
-
 	
 }

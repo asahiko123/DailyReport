@@ -61,8 +61,8 @@
 	  
 					<div class="form-group">
 					
-						<label for="exampleFormControlSelect1">氏名</label>
-						<select class="form-select form-select mb-1" aria-label=".form-select example" name="stuff_id"required>
+						<label for="FormSelectName">氏名</label>
+						<select class="form-select form-select mb-1" aria-label=".form-select example" name="stuff_id"id="FormSelectName"required>
 							<option disabled selected value>選択してください</option>
 							<option th:each="obj:${stuff}" th:value="${obj.id}" th:text="${obj.name}"></option>
 						</select>
@@ -73,9 +73,9 @@
 							<option th:each="obj:${work}" th:value="${obj.id}" th:text="${obj.workDivId}"></option>
 						</select>
 						-->
-						<label for="exampleFormControlSelect1">期間検索</label>
+						<label for="FormSelectTime">期間検索</label>
 						
-					       <input type="date" class="form-control"name ="created" th:value="*{created}"required>
+					       <input type="date" class="form-control"name ="created" th:value="*{created}"id="FormSelectTime"required>
 					         <p>～</p>
 					       <input type="date" class="form-control" name = "end" th:value="*{end}"required>
 					       

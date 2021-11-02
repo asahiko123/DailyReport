@@ -38,9 +38,7 @@ private final JdbcTemplate jdbcTemplate;
 				+" INNER JOIN STUFF ON STUFF.id = WORKING_HOUR.stuff_id"
 				+" INNER JOIN WORK ON WORK.id = WORKING_HOUR.work_id"
 				+" INNER JOIN DAILYREPORT ON DAILYREPORT.id = WORKING_HOUR.id"
-				+" INNER JOIN DAILYREPORT_TYPE ON DAILYREPORT_TYPE.id = DAILYREPORT.id";
-		
-		
+				+" INNER JOIN DAILYREPORT_TYPE ON DAILYREPORT_TYPE.id = DAILYREPORT.id";		
 		
 		List<Map<String,Object>> resultList =jdbcTemplate.queryForList(sql);
 	

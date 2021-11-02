@@ -61,6 +61,8 @@
 <main role="main" class="container">
 <div class="starter-template text-center py-5 px-3">
  <div class="card" id="card">
+ 　　 <!--ここから入力フォーム-->
+ 
    <form method ="POST"  th:action ="${dailyReportForm.newReport}? @{/main/report/insert}:@{/main/report/update}" th:object="${dailyReportForm}">
 	    <p th:if="${complete}" th:text="${complete}" class ="alert alert-primary" role ="alert"></p>
 	    <p th:if="${unselected}" th:text="${unselected}" class ="alert alert-danger" role="alert"></p>
@@ -134,6 +136,9 @@
 				  </div>
 			   </div>
     </form> 
+    
+     <!--ここから出力テーブル-->
+     
    </div>
 	  <div th:if ="${dailyReportForm.newReport}" style ="margin :10px" >
 	   <table class ="table table-striped">
@@ -173,7 +178,26 @@
 	       
 	     </tr>
 	   </table>
-	  
+	   
+	   <!--ここからペジネーション
+	   <div>
+	     <ul>
+	       <li style="display:inline">
+	         <span th:if="${page.first}">&lt;&lt;前</span>
+	         <a th:if="${!page.first}"th:href="@{/main(page=${page.number}-1)}">&lt;&lt;前</a>
+	       </li>
+	       <li th:each="i:${#numbers.sequence(0,page.totalPages-1)}" style="display:inline; margin-left:20px;">
+	         <span th:if="${i}==${page.number}"th:text="${i+1}">1</span>
+	         <a th:if="${i}!=${page.number}" th:href="@{/main(page=${page =${i})}">
+	         	<span th:text="${i+1}">1</span>
+	         </a>
+	       </li>
+	       <li style="display:inline; margin-left:20px;">
+	       	  <span th:if="${page.last}">次&gt;&gt;</span>
+	       	  <a th:if="${!page.last}"th:href="@{/main(page=(${page.number}+1))}">次&gt;&gt;</a>
+	       </li>
+	     </ul>
+	   </div>-->
 	  </div>
 	  <br>
 	  </br>
