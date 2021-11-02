@@ -126,7 +126,8 @@ public class DailyReportController {
 			BindingResult result,
 			StuffForm stuffForm,
 			WorkForm workForm,
-			Model model) {
+			Model model,
+			RedirectAttributes redirectAttributes) {
 		
 		
 		
@@ -134,7 +135,7 @@ public class DailyReportController {
 
 		if(!result.hasErrors()) {
 			dailyReportService.insert(dailyReport);
-			
+			redirectAttributes.addFlashAttribute("dailyReportForm",dailyReportForm);
 			return "redirect:/main/report";
 		}else {
 			dailyReportForm.setNewReport(true);
@@ -183,6 +184,7 @@ public class DailyReportController {
 			dailyReportService.update(dailyReport);
 			
 			redirectAttributes.addFlashAttribute("complete","変更しました");
+			redirectAttributes.addFlashAttribute("dailyReportForm",dailyReportForm);
 			return "redirect:/main/report/"+dailyReportId;
 			
 		}else {
