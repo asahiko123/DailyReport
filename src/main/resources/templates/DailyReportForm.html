@@ -212,10 +212,10 @@
     
       
   </body>
-  <script type="text/javascript">
-   function check(){
-	document.getElementById('FormTextarea').value;
-	console.log(document.getElementById('FormTextarea').value);
-	}
+  <script type="text/javascript" th:inline="javascript">
+   /*<![CDATA[*/   
+   var list =/*[[${list}]]*/
+   document.getElementById('FormTextarea').innerText= list.slice(-1).map(x=>x.detail);
+    /*]]>*/
   </script>
 </html>

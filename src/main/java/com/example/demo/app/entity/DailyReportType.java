@@ -1,7 +1,9 @@
 package com.example.demo.app.entity;
 
-public class DailyReportType {
 
+
+public class DailyReportType {
+    
 	private int id;
 	
 	private String progress;

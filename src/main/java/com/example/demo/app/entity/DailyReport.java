@@ -1,10 +1,8 @@
 package com.example.demo.app.entity;
 
-
-
-
 public class DailyReport {
 	
+
 	private int id;
 	private int stuffId;
 	private int workId;

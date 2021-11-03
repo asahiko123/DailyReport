@@ -19,8 +19,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,19 +35,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.demo.app.entity.DailyReport;
 import com.example.demo.app.entity.Stuff;
 import com.example.demo.app.entity.Work;
-//import com.example.demo.app.entity.Stuff;
 import com.example.demo.app.service.DailyReportService;
-import com.example.demo.app.service.PaginationService;
 import com.example.demo.app.stuff.StuffForm;
 import com.example.demo.app.work.WorkForm;
-//import com.example.demo.app.service.StuffService;
 
 @Controller
 @RequestMapping("/main")
 public class DailyReportController {
 	
 	private final DailyReportService dailyReportService;
-	private final PaginationService paginationService;
 	private int id;
 	private String stuff;
 	private String work;
@@ -60,25 +54,23 @@ public class DailyReportController {
 	private String detail;
 	
 	
-	public DailyReportController(DailyReportService dailyReportService,PaginationService paginationService) {
+	public DailyReportController(DailyReportService dailyReportService) {
 		this.dailyReportService = dailyReportService;
-		this.paginationService =  paginationService;
+		
 	}
 	
 	@GetMapping
-	public String top(@PageableDefault(page=0,size=10)Pageable pageable,Model model) {
-		
-		Page<DailyReport> pagination = paginationService.getPages(pageable);
+	public String top(Model model) {
 		
 		model.addAttribute("title","日報アプリ");
-		model.addAttribute("page",pagination);
 
 		return"top";
 	}
 	
 	
 	@GetMapping("/report")
-	public String DailyReport(DailyReportForm dailyReportForm,Model model) {
+	public String DailyReport(DailyReportForm dailyReportForm,
+			Model model) {
 
 		dailyReportForm.setNewReport(true);
 		List<DailyReport> list = dailyReportService.findAll();
@@ -90,6 +82,7 @@ public class DailyReportController {
 		model.addAttribute("stuff",stuff);
 		model.addAttribute("work",work);
 		model.addAttribute("title","日報入力");
+		
 	
 		
 		return "DailyReportForm";
