@@ -110,13 +110,11 @@ public class DailyReportController {
 		List<Stuff> stuff = dailyReportService.findStuff();
 		List<Work> work = dailyReportService.findWork();
 		
-		
 		model.addAttribute("list",list);
 		model.addAttribute("stuff",stuff);
 		model.addAttribute("work",work);
 		model.addAttribute("dailyReportId",id);
-		
-		
+     	
 		
 		return "DailyReportForm";
 		
