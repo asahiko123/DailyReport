@@ -41,7 +41,7 @@
     </style>
   </head>
   <script>
-   	
+
 	function check(){
 		
 		if(window.confirm('本当に削除しますか')){
@@ -51,6 +51,8 @@
 			return false;
 		}
 	}
+	
+	
 	
   </script>
   <body>
@@ -78,16 +80,16 @@
 				</div>
 				<div class="form-group px-5 pt-5" id="card-contents">
 		            <div class="form-group col-sm-5">
-					  <label for="exampleFormControlSelect1">スタッフID</label>
-		              <select class="form-select form-select mb-3" aria-label=".form-select-lg example"id="exampleFormControlSelect1" name ="stuffId"required>
+					  <label for="stuffSelect">スタッフID</label>
+		              <select class="form-select form-select mb-3" aria-label=".form-select-lg example"id="stuffSelect" name ="stuffId"required>
 	                    <option disabled selected value>選択してください</option>
 	                    <option  th:each ="obj:${stuff}"  th:value ="${obj.id}"th:text ="${obj.name}"th:selected="${obj.id}==*{stuffId}"></option>    
 	                  </select>
 		            </div>
 		            
 		            <div class="form-group col-sm-5">
-					  <label for="exampleFormControlSelect2">作業区分ID</label>
-			            <select class="form-select form-select mb-3" aria-label=".form-select-lg example"id="exampleFormControlSelect2" name="workId"required>
+					  <label for="workSelect">作業区分ID</label>
+			            <select class="form-select form-select mb-3" aria-label=".form-select-lg example"id="workSelect" name="workId"required>
 		                  <option disabled selected value>選択してください</option>
 		                  <option th:each ="obj:${work}" th:value ="${obj.id}"th:text ="${obj.workDivId}"th:selected="${obj.id}==*{workId}"></option>
 		                </select>
@@ -219,11 +221,10 @@
   </body>
   <script type="text/javascript" th:inline="javascript">
    /*<![CDATA[*/     
-   var list =/*[[${list}]]*/  
-   
-    document.getElementById('FormTextarea').innerText= list.slice(-1).map(x=>x.detail);
-
-     
+   var list =/*[[${list}]]*/ 
+   var dailyReportId =/*[[${dailyReportId}]]*/
+   var complete =/*[[${complete}]]*/
+    
    window.onload = function(){
 
 	var perEntries = performance.getEntriesByType("navigation");
@@ -233,25 +234,19 @@
 				case 'navigate':
 				console.log('navigate');
 				document.getElementById('FormTextarea').innerText="";
+				if(complete){
+					document.getElementById('FormTextarea').innerText= list.filter(y=> y.id ==dailyReportId).map(x=>x.detail);
+				}
 				break;
-				case 'resource':
-				console.log('resource');
-				break;
+
 				case 'reload':
 				document.getElementById('FormTextarea').innerText="";
 				console.log('reload');
 				break;
-				case 'back_forward':
-				console.log('back_forward');
-				break;
-				case 'prerender':
-				document.getElementById('FormTextarea').innerText="";
-				console.log('prerender');
-				break;
+		
 			}
 		});
 	};	
-
     /*]]>*/
   </script>
 </html>
