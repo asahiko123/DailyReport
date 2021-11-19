@@ -12,7 +12,23 @@
     <!-- Custom styles for this template -->
     <link href="cover.css"  th:href="@{/css/cover.css}" rel="stylesheet">
     <href="https://bootstrap-guide.com/css/samples.css" th:href="@{/css/samples.css}"link rel="stylesheet" >
+    
+    <!-- ウェブアプリマニフェストの読み込み -->
+    <link rel="manifest" href="/manifest.json" crossorigin="use-credentials">
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" href="/image/icon-192x192.png">
+   
 </head>
+
+    <script>
+       //ServiceWorkerの登録 
+	   if ('serviceWorker' in navigator) {
+	    navigator.serviceWorker.register('/sw.js')
+	      .then((reg) => {
+	        console.log('Service worker registered.', reg);
+	      });
+		}
+    </script>
 
 <body class="text-center text-white bg-dark  h-100">
   <div class="cover-container d-flex w-100 p-3 mx-auto flex-column">

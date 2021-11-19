@@ -21,7 +21,10 @@
     <link href="starter-template.css"  th:href="@{/css/starter-template.css}" rel="stylesheet">
     <link href="dailyReport.css"  th:href="@{/css/dailyReport.css}" rel="stylesheet">
     
-
+	<!-- ウェブアプリマニフェストの読み込み -->
+    <link rel="manifest" href="/manifest.json" crossorigin="use-credentials">
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" href="/image/icon-192x192.png">
 	
 
     <style>
@@ -41,7 +44,14 @@
     </style>
   </head>
   <script>
-
+   //ServiceWorkerの登録 
+   if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+      .then((reg) => {
+        console.log('Service worker registered.', reg);
+      });
+	}
+	//削除確認
 	function check(){
 		
 		if(window.confirm('本当に削除しますか')){

@@ -1,0 +1,42 @@
+{
+    "name":"備品貸出管理アプリ",
+    "short_name":"貸出管理",
+    "icons": [{
+        "src": "/image/icon-72x72.png",
+        "sizes": "72x72",
+        "type": "image/png"
+      },{
+        "src": "/image/icon-96x96.png",
+        "sizes": "96x96",
+        "type": "image/png"
+      },{
+        "src": "/image/icon-128x128.png",
+        "sizes": "128x128",
+        "type": "image/png"
+      },{
+        "src": "/image/icon-152x152.png",
+        "sizes": "152x152",
+        "type": "image/png"
+      },{
+        "src": "/image/icon-144x144.png",
+        "sizes": "144x144",
+        "type": "image/png"
+      },{
+        "src": "/image/icon-167x167.png",
+        "sizes":"167x167",
+        "type": "image/png"
+      }, {
+        "src": "/image/icon-192x192.png",
+        "sizes":"192x192",
+        "type": "image/png"
+      },{
+        "src": "/image/icon-512x512.png",
+        "sizes":"512x512",
+        "type": "image/png"
+      }],
+    "start_url": "/",
+    "display": "standalone",
+    "orientation": "portrait-primary",
+    "background_color": "#FFFFFF",
+    "theme_color": "#FFFFFF"
+  }

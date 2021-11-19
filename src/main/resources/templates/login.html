@@ -20,6 +20,11 @@
 
     <!-- Custom styles for this template -->
     <link th:href="@{/css/signin.css}" rel="stylesheet">
+    
+    	<!-- ウェブアプリマニフェストの読み込み -->
+    <link rel="manifest" href="/manifest.json" crossorigin="use-credentials">
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" href="/image/icon-192x192.png">
 
 
     <style>
@@ -37,6 +42,15 @@
         }
       }
     </style>
+    <script>
+       //ServiceWorkerの登録 
+	   if ('serviceWorker' in navigator) {
+	    navigator.serviceWorker.register('/sw.js')
+	      .then((reg) => {
+	        console.log('Service worker registered.', reg);
+	      });
+		}
+    </script>
 
   </head>
   <body class="text-center">    
