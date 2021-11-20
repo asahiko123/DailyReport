@@ -34,7 +34,7 @@
         "sizes":"512x512",
         "type": "image/png"
       }],
-    "start_url": "/",
+    "start_url": "user/login",
     "display": "standalone",
     "orientation": "portrait-primary",
     "background_color": "#FFFFFF",
