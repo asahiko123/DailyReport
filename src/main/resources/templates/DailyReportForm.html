@@ -157,10 +157,10 @@
      <!--ここから出力テーブル-->
      
    </div>
-	  <div th:if ="${dailyReportForm.newReport}" style ="margin :10px" >
+	  <div class="table-responsive"th:if ="${dailyReportForm.newReport}" style ="margin :10px" >
 	   <table class ="table table-striped">
 	       
-	     <tr>
+	     <tr class="text-nowrap">
 	     
 	     	<th>スタッフ名</th>
 	     	<th>進捗度</th>
@@ -173,7 +173,7 @@
 	     	<th></th>
 	     	<th></th>
 	     </tr>
-	     <tr th:each ="obj:${list}">
+	     <tr th:each ="obj:${list}" class="text-nowrap">
 	       <!--<td th:text ="${obj.id}"></td> -->
 	       <td th:text ="${obj.stuff.name}"></td>
 	       <td th:text ="${obj.dailyReportType.progress}"></td>
