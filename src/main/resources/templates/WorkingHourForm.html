@@ -52,10 +52,45 @@
 	<nav class="navbar navbar-expand-md shadow fixed-top"id="nav">
 	  <div class="container-fluid">
 	    <a class="btn btn-primary" href="#" th:href ="@{/main}">終了する</a>
+	    
+	    <div class="dropdown">
+	  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" data-bs-display="static"aria-expanded="false" >
+	    条件を検索する
+	  </button>
+	  <div class="dropdown-menu dropdown-menu-end ">
+	  <form method="POST"th:action ="@{/main/workingHour/search} " th:object="${workingHourForm}" >
+			<div class="form-group">
+						
+			<label for="FormSelectName">氏名</label>
+			<select class="form-select form-select mb-1" aria-label=".form-select example" name="stuff_id"id="FormSelectName"required>
+		 	<option disabled selected value>選択してください</option>
+			<option th:each="obj:${stuff}" th:value="${obj.id}" th:text="${obj.name}"></option>
+			</select>
+					
+			<label for="FormSelectTime">期間検索</label>
+							
+			<input type="date" class="form-control"name ="created" th:value="*{created}"id="FormSelectTime"required>
+			<p>～</p>
+			<input type="date" class="form-control" name = "end" th:value="*{end}"required>
+						       
+			<br></br>
+			<div class="d-grid gap-2">
+			<button class="btn btn-primary" type="submit" id="btn-primary">検索する</button>
+			<button class="btn btn-success" id="btn" type="submit">他の人と比較する</button> 
+			</div> 				       
+			</div>
+		</form>
+	  
+	  <div class="dropdown-divider"></div>
+	  <a class="dropdown-item" href="#">New around here? Sign up</a>
+	  <a class="dropdown-item" href="#">Forgot password?</a>
+	</div>
+	</div>
 	  </div>
 	</nav>
+	<!--
     <div class="main-container">
-         <aside>
+        <aside>
          	<div class="aside">
 	         	<form method="POST"th:action ="@{/main/workingHour/search} " th:object="${workingHourForm}" >
 	  
@@ -73,6 +108,7 @@
 							<option th:each="obj:${work}" th:value="${obj.id}" th:text="${obj.workDivId}"></option>
 						</select>
 						-->
+						<!--
 						<label for="FormSelectTime">期間検索</label>
 						
 					       <input type="date" class="form-control"name ="created" th:value="*{created}"id="FormSelectTime"required>
@@ -87,7 +123,9 @@
 					</div>
 				</form>
          	</div>
-         </aside> 
+         </aside>-->
+         
+         
 
 		<main role="main" class="container">	        
 		<div class="starter-template text-center py-5 px-3">
@@ -98,8 +136,9 @@
 			   
 			        <div class="circlechart">
 
-
+					  <div class="chart-container"style="height:50vh;">
 					  <canvas id="myChart"></canvas>
+					  </div>
 					  <script src="/js/Chart.bundle.js" th:src="@{/js/Chart.bundle.js}"></script>
 					  <script src="/chartjs-plugin-colorschemes"th:src="@{/js/chartjs-plugin-colorschemes.js}"></script>
 					  <script>
@@ -253,6 +292,7 @@
 					    },
 					    options: {
 						  responsive:true,
+						  maintainAspectRatio: false,
 					      title: {
 					        display: true,
 					        fontSize:20,
@@ -279,6 +319,8 @@
 						
 						      },
 						      options: {
+								  responsive:true,
+								  maintainAspectRatio: false,
 						          title: {
 						              display: true,
 						              text: 'スタッフ作業時間内訳', //グラフの見出し
@@ -317,9 +359,9 @@
 					  </script>	
 				    </div>
 				　</div>
-				　<div class="result">
+				　<div class="result table-responsive">
 			             <table class="table table-striped table-hover table-sm" id="table">
-							<tr>
+							<tr class="text-nowrap">
 						     	<th>スタッフ名</th>					     	
 						     	<th>進捗度</th>
 						     	<th>作業区分</th>
@@ -327,21 +369,23 @@
 						     	<th>開始時間</th>	   
 						     	<th>終了時間</th>	
 						     	<th>作業時間(分)</th>
+						     	
 						     </tr>
-						     <tr th:each="obj:${search}">
+						     <tr th:each="obj:${search}"class="text-nowrap">
 						       <td th:text ="${obj.stuff.name}"></td>
 						       <td th:text ="${obj.dailyReportType.progress}"></td>
 						       <td th:text ="${obj.work.workDivId}"></td>
 						       <td th:text ="${obj.dailyReport.created}"></td>
 						       <td th:text ="${obj.dailyReport.startTime}"></td>
 						       <td th:text="${obj.dailyReport.endTime}"></td>
-						       <td th:text="${obj.workTime}"></td>					            			 
+						       <td th:text="${obj.workTime}"></td>
+						         			 
 						     </tr>
 						     
-						     <tr>						   
+						     <tr class="text-nowrap">						   
 						     	<th>総作業時間</th>
 						     </tr>	
-						     <tr th:each="obj:${sum}">
+						     <tr th:each="obj:${sum}"class="text-nowrap">
 						     	<td th:text="${obj.workTimeSum}"></td>
 						     </tr>
 						 </table>
@@ -357,9 +401,9 @@
 	　</div>   
  
 	 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="@{/js/jquery-slim.min.js}"><\/script>')</script>
-    <script src="../../assets/js/vendor/popper.min.js"  th:src="@{/js/popper.min.js}"></script>
-
-    <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" th:src="@{/js/bootstrap.bundle.min.js}"integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <!--<script>window.jQuery || document.write('<script src="@{/js/jquery-slim.min.js}"><\/script>')</script>-->
+    <script src="../../assets/js/vendor/popper.min.js"  th:href="@{/js/popper.min.js}"></script>
+　 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" th:href="@{/js/bootstrap.bundle.js}"integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" th:href="@{/js/bootstrap.bundle.min.js}"integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
   </body>
 </html>

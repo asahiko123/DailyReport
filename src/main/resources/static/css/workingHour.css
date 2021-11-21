@@ -30,6 +30,10 @@ body {
 	margin:0 auto;
 }
 
+.dropdown{
+	margin:0 10px;
+}
+
 aside{
 	background-color:#dbedff;
 	width:20em;
@@ -59,6 +63,8 @@ aside{
 	
 	padding: 3em 0;
 	margin:0 auto;
+	
+	width:100%;
 }
 
 .input{
@@ -67,7 +73,7 @@ aside{
 }
 
 .result{
-	width:100vh;
+	width:100%;
 	margin:0 auto;
 }
 
@@ -77,8 +83,9 @@ aside{
 }
 
 .circlechart{
-	width:50em;
+	width:100%;
 }
+
 
 
 
