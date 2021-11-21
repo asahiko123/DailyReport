@@ -361,17 +361,17 @@
 				　</div>
 				　<div class="result table-responsive">
 			             <table class="table table-striped table-hover table-sm" id="table">
-							<tr>
-						     	<th class="text-nowrap">スタッフ名</th>					     	
-						     	<th class="text-nowrap">進捗度</th>
-						     	<th class="text-nowrap">作業区分</th>
-						     	<th class="text-nowrap">作業日付</th>
-						     	<th class="text-nowrap">開始時間</th>	   
-						     	<th class="text-nowrap">終了時間</th>	
-						     	<th class="text-nowrap">作業時間(分)</th>
+							<tr class="text-nowrap">
+						     	<th>スタッフ名</th>					     	
+						     	<th>進捗度</th>
+						     	<th>作業区分</th>
+						     	<th>作業日付</th>
+						     	<th>開始時間</th>	   
+						     	<th>終了時間</th>	
+						     	<th>作業時間(分)</th>
 						     	
 						     </tr>
-						     <tr th:each="obj:${search}">
+						     <tr th:each="obj:${search}"class="text-nowrap">
 						       <td th:text ="${obj.stuff.name}"></td>
 						       <td th:text ="${obj.dailyReportType.progress}"></td>
 						       <td th:text ="${obj.work.workDivId}"></td>
@@ -382,10 +382,10 @@
 						         			 
 						     </tr>
 						     
-						     <tr>						   
+						     <tr class="text-nowrap">						   
 						     	<th>総作業時間</th>
 						     </tr>	
-						     <tr th:each="obj:${sum}">
+						     <tr th:each="obj:${sum}"class="text-nowrap">
 						     	<td th:text="${obj.workTimeSum}"></td>
 						     </tr>
 						 </table>

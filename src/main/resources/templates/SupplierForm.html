@@ -89,15 +89,15 @@
    </form>
    
    
-   <div th:if ="${supplierForm.newSupplier}" style ="margin:10px">
+   <div  class="table-responsive" th:if ="${supplierForm.newSupplier}" style ="margin:10px">
      <table class ="table table-striped">
-      <tr>
+      <tr class="text-nowrap">
 	   <th>会社名</th>
 	   <th>案件名</th>
 	   <th></th>
 	   <th></th>
 	  </tr>
-      <tr th:each ="obj : ${list}">
+      <tr th:each ="obj : ${list}"class="text-nowrap">
        <!--<td th:text ="${obj.id}"></td>-->
        <td th:text = "${obj.supplier}"></td>
        <td th:text = "${obj.comment}"></td>
@@ -112,7 +112,7 @@
      </table>
    </div>
    <br></br>
-   <p th:unless ="${supplierForm.newSupplier}"><a href ="#" th:href ="@{/main/supplier}">戻る</a></p>
+   <p th:unless ="${supplierForm.newSupplier}"><a href ="#" th:href ="@{/main/supplier}" class="text-nowrap">戻る</a></p>
   </div>
 
 </main><!-- /.container -->

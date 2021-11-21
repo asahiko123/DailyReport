@@ -107,9 +107,9 @@
 				  </div>  
       </form>
   
-	  <div th:if ="${stuffForm.newStuff}" style ="margin :10px">
+	  <div class="table-responsive" th:if ="${stuffForm.newStuff}" style ="margin :10px">
 	  　<table class ="table table-striped">
-	        <tr>
+	        <tr class="text-nowrap">
 	         
 	          <th>スタッフID</th>
 	          <th>名前</th>
@@ -117,7 +117,7 @@
 	          <th></th>
 	          <th></th>
 	        </tr>
-	  		<tr th:each ="obj:${list}">
+	  		<tr th:each ="obj:${list}" class="text-nowrap">
 	  		  <!--<td th:text="${obj.id}"></td>-->
 	  		  <td th:text="${obj.registeredId}"></td>
 	  		  <td th:text="${obj.name}"></td>
@@ -134,7 +134,7 @@
 	  </div>
 	  <br>
 	  </br>
-	  <p th:unless ="${stuffForm.newStuff}"><a href="#" th:href ="@{/main/stuff}">戻る</a></p>
+	  <p th:unless ="${stuffForm.newStuff}"><a href="#" th:href ="@{/main/stuff}" class="text-nowrap">戻る</a></p>
  </div>
 
 </main><!-- /.container -->

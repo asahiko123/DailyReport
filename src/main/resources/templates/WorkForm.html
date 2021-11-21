@@ -92,9 +92,9 @@
 			   
               </form>
   
-  <div th:if ="${workForm.newWork}" style ="margin :10px">
+  <div  class="table-responsive" th:if ="${workForm.newWork}" style ="margin :10px">
     <table class ="table table-striped">
-      <tr>
+      <tr class="text-nowrap">
      	
      	<th>作業区分ID</th>
      	<th>作業区分</th>
@@ -102,22 +102,22 @@
      	<th></th>
      	<th></th>
      </tr>
-      <tr th:each = "obj: ${list}">
+      <tr th:each = "obj: ${list}" class="text-nowrap">
         <!--<td th:text = "${obj.id}"></td>-->
         <td th:text = "${obj.workDivId}"></td>
         <td th:text = "${obj.workType.type}"></td>
         <td th:text = "${obj.comment}"></td>
-        <td><a type ="button" th:href = "@{/main/work/{id}(id=${obj.id})}">編集</a></td>
+        <td><a type ="button" th:href = "@{/main/work/{id}(id=${obj.id})}" class="text-nowrap">編集</a></td>
        <td>
         <form method ="POST" th:action ="@{/main/work/delete}">
          <input type = "hidden" name = "workId" th:value ="${obj.id}">
-         <input type = "submit" value ="削除"> 
+         <input type = "submit" value ="削除" class="text-nowrap"> 
         </form>
        </td>
       </tr>
     </table>
   </div>
-  <p th:unless ="${workForm.newWork}"><a href = "#" th:href ="@{/main/work}">戻る</a></p>
+  <p th:unless ="${workForm.newWork}"><a href = "#" th:href ="@{/main/work}" class="text-nowrap">戻る</a></p>
  </div>
 
 </main><!-- /.container -->
