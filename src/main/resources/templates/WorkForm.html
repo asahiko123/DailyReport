@@ -45,6 +45,19 @@
       }
     </style>
   </head>
+  
+   <script>
+  //削除確認
+	function check(){
+		
+		if(window.confirm('本当に削除しますか')){
+			return true;
+		}else{
+			window.alert('キャンセルしました');
+			return false;
+		}
+	}
+  </script>
   <body>
     
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
@@ -107,11 +120,11 @@
         <td th:text = "${obj.workDivId}"></td>
         <td th:text = "${obj.workType.type}"></td>
         <td th:text = "${obj.comment}"></td>
-        <td><a type ="button" th:href = "@{/main/work/{id}(id=${obj.id})}" class="text-nowrap">編集</a></td>
+        <td><a type ="button" th:href = "@{/main/work/{id}(id=${obj.id})}" class="btn btn-success text-nowrap">編集</a></td>
        <td>
-        <form method ="POST" th:action ="@{/main/work/delete}">
+        <form method ="POST" th:action ="@{/main/work/delete}" onsubmit="return check()">
          <input type = "hidden" name = "workId" th:value ="${obj.id}">
-         <input type = "submit" value ="削除" class="text-nowrap"> 
+         <input type = "submit" value ="削除" class="btn btn-danger text-nowrap">
         </form>
        </td>
       </tr>

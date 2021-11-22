@@ -57,7 +57,7 @@
 	  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" data-bs-display="static"aria-expanded="false" >
 	    条件を検索する
 	  </button>
-	  <div class="dropdown-menu dropdown-menu-end ">
+	  <div class="dropdown-menu dropdown-menu-end " style="background-color:#dbedff">
 	  <form method="POST"th:action ="@{/main/workingHour/search} " th:object="${workingHourForm}" >
 			<div class="form-group">
 						
@@ -80,10 +80,6 @@
 			</div> 				       
 			</div>
 		</form>
-	  
-	  <div class="dropdown-divider"></div>
-	  <a class="dropdown-item" href="#">New around here? Sign up</a>
-	  <a class="dropdown-item" href="#">Forgot password?</a>
 	</div>
 	</div>
 	  </div>
