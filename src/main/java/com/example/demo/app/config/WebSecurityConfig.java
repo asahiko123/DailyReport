@@ -60,7 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		        .logoutUrl("/user/logout")
 		        .logoutSuccessUrl("/user/login")
 		    
-		     .and().csrf().ignoringAntMatchers("/h2-console/**")
+		     .and().csrf().ignoringAntMatchers("/h2-console/**","/csv/**")
 		     .and().headers().frameOptions().sameOrigin();
 
 		     

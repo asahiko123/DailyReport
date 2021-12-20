@@ -70,7 +70,7 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
   <div class="container-fluid" th:object ="${dailyReportForm}">
     <a class="btn btn-primary" href="#" th:href ="@{/main}">終了する</a>
-	<a class="btn btn-primary" href="#" th:href ="@{/main/report/output}">エクセルで出力する</a>
+	<a class="btn btn-primary" href="#" th:href ="@{/csv/download}">CSVで出力する</a>
 	
   </div>
 </nav>
@@ -79,7 +79,7 @@
 <div class="starter-template text-center py-5 px-3">
  <div class="card" id="card">
  　　 <!--ここから入力フォーム-->
- 
+   <p th:if="${csv}" th:text="${csv}" class="alert alert-primary" role="alert"></p>
    <form method ="POST"  th:action ="${dailyReportForm.newReport}? @{/main/report/insert}:@{/main/report/update}" th:object="${dailyReportForm}">
 	    <p th:if="${complete}" th:text="${complete}" class ="alert alert-primary" role ="alert"></p>
 	    <p th:if="${unselected}" th:text="${unselected}" class ="alert alert-danger" role="alert"></p>

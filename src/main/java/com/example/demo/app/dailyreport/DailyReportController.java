@@ -76,7 +76,6 @@ public class DailyReportController {
 		List<Stuff> stuff = dailyReportService.findStuff();
 		List<Work> work = dailyReportService.findWork();
 		
-		
 		model.addAttribute("list",list);
 		model.addAttribute("stuff",stuff);
 		model.addAttribute("work",work);
@@ -217,7 +216,7 @@ public class DailyReportController {
 	@RequestMapping("/report/output")
 	public String download(RedirectAttributes redirectAttributes,
 			               DailyReportForm dailyReportForm,
-			               DailyReport dailyReport,
+			               DailyReport dailyRport,
 			               Model model) throws IOException {
 	
   
@@ -300,7 +299,7 @@ public class DailyReportController {
 		
 
 
-    out = new FileOutputStream("src\\main\\resources\\static\\excel\\result.xlsx");
+    out = new FileOutputStream("C:\\Users\\hullh\\result");
 
     workbook.write(out);
     workbook.close();
