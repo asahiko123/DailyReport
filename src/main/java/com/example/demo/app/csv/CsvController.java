@@ -21,6 +21,11 @@ public class CsvController {
 	private String created;
 	private String name;
 	private String progress;
+	private String workDiv;
+	private String workDay;
+	private String startTime;
+	private String endTime;
+	private String details;
 	
 	public CsvController(DailyReportService dailyReportService) {
 		this.dailyReportService = dailyReportService;
@@ -30,19 +35,25 @@ public class CsvController {
 	public void writeDataToCsv(String filePath)throws IOException {
 		CSVWriter writer = new CSVWriter(new FileWriter(filePath));
 		
-		String[] entries = "スタッフ名#進捗度#作業区分ID#作業日付#開始時間#終了時間#作業内容".split("#");
-		writer.writeNext(entries);
+		String[] contents =null;
+		String[] columns = "スタッフ名#進捗度#作業区分ID#作業日付#開始時間#終了時間#作業内容".split("#");
+		writer.writeNext(columns);
 		
 		List<DailyReport> list = dailyReportService.findAll();
 		
 		for(DailyReport obj:list) {
-			name    = obj.getName();
-			created = obj.getCreated();
+			name    = obj.getStuff().getName();
+			progress = obj.getDailyReportType().getProgress();
+			workDiv  = obj.getWork().getWorkDivId();
+			created  = obj.getCreated();
+			workDay = obj.getStartDate();
+			startTime = obj.getStartTime();
+			endTime = obj.getEndTime();
+			details   = obj.getDetail();
+			
+			contents = new String[]{name, progress, workDiv,created,workDay,startTime,endTime,details};
+			writer.writeNext(contents);	
 		}
-		
-		
-		String[] entries2 = {"W", "Youngstown", "OH"};
-		writer.writeNext(entries2);
 		
 		writer.close();
 		
